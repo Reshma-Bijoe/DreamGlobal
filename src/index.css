@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 99%;
+    --foreground: 220 40% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 40% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 40% 15%;
+
+    --primary: 42 78% 52%;
+    --primary-foreground: 220 40% 12%;
+
+    --secondary: 220 55% 20%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 215 25% 94%;
+    --muted-foreground: 220 15% 45%;
+
+    --accent: 220 55% 30%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 215 20% 88%;
+    --input: 215 20% 88%;
+    --ring: 42 78% 52%;
+
+    --radius: 0.5rem;
+
+    --gold: 42 78% 52%;
+    --gold-light: 42 65% 68%;
+    --gold-dark: 38 85% 40%;
+    --navy: 220 55% 20%;
+    --navy-light: 220 45% 35%;
+    --navy-mid: 220 50% 28%;
+
+    --sidebar-background: 220 55% 20%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 42 78% 52%;
+    --sidebar-primary-foreground: 220 40% 12%;
+    --sidebar-accent: 220 45% 35%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 220 40% 30%;
+    --sidebar-ring: 42 78% 52%;
+
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Inter', sans-serif;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .gold-gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(var(--gold-light)), hsl(var(--gold)), hsl(var(--gold-dark)));
+  }
+
+  .gold-gradient-bg {
+    background: linear-gradient(135deg, hsl(var(--gold)), hsl(var(--gold-dark)));
+  }
+
+  .glass-card {
+    @apply bg-card/80 backdrop-blur-md border border-border rounded-lg shadow-sm;
+  }
+
+  .section-padding {
+    @apply py-20 md:py-28 px-4 md:px-8;
+  }
+}
