@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Mail, Phone } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import DreamGlobalLogo from "@/assets/DreamGlobalLogo.jpeg";
 
@@ -27,6 +27,20 @@ const Navbar = () => {
         scrolled ? "bg-background/95 backdrop-blur-md shadow-lg shadow-background/50" : "bg-transparent"
       }`}
     >
+      {/* --- NEW TOP BAR START --- */}
+    <div className="hidden md:block bg-secondary py-2 border-b border-white/10">
+      <div className="container mx-auto flex justify-end gap-6 text-white/80 text-sm">
+        <a href="mailto:dreamglobalin@gmail.com" className="flex items-center gap-2 hover:text-gold transition-colors">
+          <Mail size={14} className="text-gold" />
+          <span>dreamglobalin@gmail.com</span>
+        </a>
+        <a href="tel:+918848674757" className="flex items-center gap-2 hover:text-gold transition-colors">
+          <Phone size={14} className="text-gold" />
+          <span>+91 88486 74757</span>
+        </a>
+      </div>
+    </div>
+    {/* --- NEW TOP BAR END --- */}
       <div className="container mx-auto flex items-center justify-between py-4">
         <a href="#hero" className="flex items-center gap-3 font-heading text-5xl font-bold tracking-wide">
           <img src={DreamGlobalLogo} alt="Dream Global Logo" className="h-12 w-12 rounded-full" />

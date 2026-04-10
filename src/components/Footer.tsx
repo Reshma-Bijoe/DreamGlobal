@@ -70,10 +70,14 @@ const Footer = () => {
               <Phone size={16} className="text-gold mt-0.5 flex-shrink-0" />
               <span>+91 8848674757</span>
             </div>
+            {/* <---line for address--->
             <div className="flex items-start gap-3">
               <MapPin size={16} className="text-gold mt-0.5 flex-shrink-0" />
               <span>BT ARCADE, Bus Stand, Hill Rd, near PRIVATE, PERUMPRAYIL, Periyar Nagar, Aluva, Kerala 683101</span>
             </div>
+            <------line for address end here---->
+            */}
+
           </div>
         </div>
       </div>
