@@ -101,6 +101,16 @@ const Navbar = () => {
                   {link.label}
                 </a>
               ))}
+              <div className="flex flex-col gap-3 pt-2 border-t border-border">
+                <a href="mailto:dreamglobalin@gmail.com" className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors">
+                <Mail size={18} className="text-gold" />
+                <span className="text-sm">dreamglobalin@gmail.com</span>
+                </a>
+                <a href="tel:+918848674757" className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors">
+                <Phone size={18} className="text-gold" />
+                <span className="text-sm">+91 88486 74757</span>
+                </a>
+              </div>
               <a
                 href="https://dreamglobal.edumilestones.com/"
                 target="_blank"
