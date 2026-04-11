@@ -24,33 +24,52 @@ const Navbar = () => {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-background/95 backdrop-blur-md shadow-lg shadow-background/50" : "bg-transparent"
+        scrolled
+          ? "bg-background/95 backdrop-blur-md shadow-lg shadow-background/50"
+          : "bg-transparent"
       }`}
     >
-      {/* --- NEW TOP BAR START --- */}
-    <div className="hidden md:block bg-secondary py-2 border-b border-white/10">
-      <div className="container mx-auto flex justify-end gap-6 text-white/80 text-sm">
-        <a href="mailto:dreamglobalin@gmail.com" className="flex items-center gap-2 hover:text-gold transition-colors">
-          <Mail size={14} className="text-gold" />
-          <span>dreamglobalin@gmail.com</span>
-        </a>
-        <a href="tel:+918848674757" className="flex items-center gap-2 hover:text-gold transition-colors">
-          <Phone size={14} className="text-gold" />
-          <span>+91 88486 74757</span>
-        </a>
+      {/* ✅ TOP BAR (NOW VISIBLE ON ALL DEVICES) */}
+      <div className="bg-secondary py-2 border-b border-white/10">
+        <div className="container mx-auto flex flex-col md:flex-row md:justify-end items-center gap-2 md:gap-6 text-white/80 text-sm">
+
+          <a
+            href="mailto:dreamglobalin@gmail.com"
+            className="flex items-center gap-2 hover:text-gold transition-colors"
+          >
+            <Mail size={14} className="text-gold" />
+            <span>dreamglobalin@gmail.com</span>
+          </a>
+
+          <a
+            href="tel:+918848674757"
+            className="flex items-center gap-2 hover:text-gold transition-colors"
+          >
+            <Phone size={14} className="text-gold" />
+            <span>+91 88486 74757</span>
+          </a>
+
+        </div>
       </div>
-    </div>
-    {/* --- NEW TOP BAR END --- */}
+
+      {/* MAIN NAVBAR */}
       <div className="container mx-auto flex items-center justify-between py-4">
-        <a href="#hero" className="flex items-center gap-3 font-heading text-5xl font-bold tracking-wide">
-          <img src={DreamGlobalLogo} alt="Dream Global Logo" className="h-12 w-12 rounded-full" />
+        <a
+          href="#hero"
+          className="flex items-center gap-3 font-heading text-2xl md:text-3xl font-bold tracking-wide"
+        >
+          <img
+            src={DreamGlobalLogo}
+            alt="Dream Global Logo"
+            className="h-10 w-10 md:h-12 md:w-12 rounded-full"
+          />
           <span>
             <span className="gold-gradient-text">Dream</span>
             <span className="gold-gradient-text">Global</span>
           </span>
         </a>
 
-        {/* Desktop */}
+        {/* DESKTOP MENU */}
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <a
@@ -71,7 +90,7 @@ const Navbar = () => {
           </a>
         </div>
 
-        {/* Mobile toggle */}
+        {/* MOBILE TOGGLE */}
         <button
           className="md:hidden text-foreground"
           onClick={() => setMobileOpen(!mobileOpen)}
@@ -81,7 +100,7 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Mobile menu */}
+      {/* MOBILE MENU */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -101,16 +120,7 @@ const Navbar = () => {
                   {link.label}
                 </a>
               ))}
-              <div className="flex flex-col gap-3 pt-2 border-t border-border">
-                <a href="mailto:dreamglobalin@gmail.com" className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors">
-                <Mail size={18} className="text-gold" />
-                <span className="text-sm">dreamglobalin@gmail.com</span>
-                </a>
-                <a href="tel:+918848674757" className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors">
-                <Phone size={18} className="text-gold" />
-                <span className="text-sm">+91 88486 74757</span>
-                </a>
-              </div>
+
               <a
                 href="https://dreamglobal.edumilestones.com/"
                 target="_blank"
