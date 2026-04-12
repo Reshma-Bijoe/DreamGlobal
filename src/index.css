@@ -93,4 +93,51 @@
   .section-padding {
     @apply py-20 md:py-28 px-4 md:px-8;
   }
+  @keyframes glowLetter {
+  0% {
+    background-position: 200% center;
+    opacity: 0.6;
+  }
+  50% {
+    background-position: 0% center;
+    opacity: 1;
+  }
+  100% {
+    background-position: -200% center;
+    opacity: 0.6;
+  }
+}
+
+.animate-glow-letter {
+  animation: glowLetter 2s linear infinite;
+}
+.dream-gradient-text {
+  background: linear-gradient(
+    90deg,
+    hsl(var(--gold-dark)) 0%,
+    hsl(var(--gold)) 35%,
+    hsl(var(--gold-light)) 55%,
+    hsl(var(--gold)) 75%,
+    hsl(var(--gold-dark)) 100%
+  );
+
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  /* subtle depth */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+@keyframes goldFlow {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
+
+.dream-gradient-text {
+  animation: goldFlow 4s linear infinite;
+}
 }

@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const HeroSection = () => {
+  const text = "International Education Experts".split("");
+
   return (
     <section
       id="hero"
@@ -12,7 +14,9 @@ const HeroSection = () => {
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${heroBg})` }}
       />
-      <div className="absolute inset-0 bg-secondary/50" />
+
+      {/* Light overlay (keeps image visible) */}
+      <div className="absolute inset-0 bg-white/20" />
 
       {/* Content */}
       <div className="relative z-10 container mx-auto text-center px-4">
@@ -21,17 +25,38 @@ const HeroSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <p className="text-gold-light font-medium tracking-[0.3em] uppercase text-sm mb-6">
-            International Education Experts
+          {/* ✨ Responsive Glow Text */}
+          <p className="font-semibold tracking-[0.18em] uppercase text-sm sm:text-base md:text-lg mb-6">
+            {text.map((char, index) => (
+              <span
+                key={index}
+                className="inline-block animate-glow-letter"
+                style={{
+                  background:
+                    "linear-gradient(90deg, hsl(var(--gold-dark)), hsl(var(--gold)), hsl(var(--gold-light)))",
+                  backgroundSize: "200% auto",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  animationDelay: `${index * 0.1}s`,
+                }}
+              >
+                {char === " " ? "\u00A0" : char}
+              </span>
+            ))}
           </p>
-           <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 text-white">
+
+          {/* Heading */}
+          <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 text-[hsl(var(--navy))]">
             Your Global Future{" "}
             <span className="gold-gradient-text">Begins Here</span>
           </h1>
-          <p className="text-white/80 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light">
+
+          {/* Subtext */}
+          <p className="text-[hsl(var(--navy))]/70 text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light">
             Empowering students to achieve international education and career success
           </p>
 
+          {/* Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="https://dreamglobal.edumilestones.com/"
@@ -41,9 +66,10 @@ const HeroSection = () => {
             >
               Start Your Journey
             </a>
+
             <a
               href="#contact"
-              className="border border-white/40 text-white px-8 py-3.5 rounded-md font-semibold text-base hover:bg-white/10 transition-all duration-200 hover:scale-105 transform"
+              className="border border-[hsl(var(--navy))]/30 text-[hsl(var(--navy))] px-8 py-3.5 rounded-md font-semibold text-base hover:bg-[hsl(var(--navy))]/10 transition-all duration-200 hover:scale-105 transform"
             >
               Contact Us
             </a>

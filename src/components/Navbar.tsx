@@ -25,13 +25,13 @@ const Navbar = () => {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-background/95 backdrop-blur-md shadow-lg shadow-background/50"
+          ? "bg-background/80 backdrop-blur-md shadow-md"
           : "bg-transparent"
       }`}
     >
-      {/* ✅ TOP BAR (NOW VISIBLE ON ALL DEVICES) */}
+      {/* TOP BAR */}
       <div className="bg-secondary py-2 border-b border-white/10">
-        <div className="container mx-auto flex flex-col md:flex-row md:justify-end items-center gap-2 md:gap-6 text-white/80 text-sm">
+        <div className="container mx-auto flex flex-col md:flex-row md:justify-end items-center gap-2 md:gap-6 text-white/80 text-xs sm:text-sm">
 
           <a
             href="mailto:dreamglobalin@gmail.com"
@@ -53,38 +53,41 @@ const Navbar = () => {
       </div>
 
       {/* MAIN NAVBAR */}
-      <div className="container mx-auto flex items-center justify-between py-4">
+      <div className="container mx-auto flex items-center justify-between py-3 sm:py-4">
         <a
           href="#hero"
-          className="flex items-center gap-3 font-heading text-2xl md:text-3xl font-bold tracking-wide"
+          className="flex items-center gap-2 sm:gap-3 md:gap-4 font-heading font-bold tracking-wide"
         >
+          {/* LOGO */}
           <img
             src={DreamGlobalLogo}
             alt="Dream Global Logo"
-            className="h-10 w-10 md:h-12 md:w-12 rounded-full"
+            className="h-9 w-9 sm:h-11 sm:w-11 md:h-13 md:w-13 lg:h-16 lg:w-16 rounded-full"
           />
-          <span>
-            <span className="gold-gradient-text">Dream</span>
-            <span className="gold-gradient-text">Global</span>
+
+          {/* TEXT */}
+          <span className="dream-gradient-text text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl">
+            DreamGlobal
           </span>
         </a>
 
         {/* DESKTOP MENU */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-6 lg:gap-8">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-lg font-medium text-muted-foreground hover:text-primary transition-colors duration-200"
+              className="text-base lg:text-lg font-medium text-muted-foreground hover:text-primary transition-colors duration-200"
             >
               {link.label}
             </a>
           ))}
+
           <a
             href="https://dreamglobal.edumilestones.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="gold-gradient-bg text-primary-foreground px-5 py-2 rounded-md text-base font-semibold hover:opacity-90 transition-opacity"
+            className="gold-gradient-bg text-primary-foreground px-4 lg:px-5 py-2 rounded-md text-sm lg:text-base font-semibold hover:opacity-90 transition-opacity"
           >
             Start Your Journey
           </a>
@@ -107,7 +110,7 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-background/98 backdrop-blur-md border-t border-border overflow-hidden"
+            className="md:hidden bg-background/95 backdrop-blur-md border-t border-border overflow-hidden"
           >
             <div className="container mx-auto py-4 flex flex-col gap-4">
               {navLinks.map((link) => (
@@ -115,7 +118,7 @@ const Navbar = () => {
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className="text-lg font-medium text-muted-foreground hover:text-primary transition-colors"
+                  className="text-base font-medium text-muted-foreground hover:text-primary transition-colors"
                 >
                   {link.label}
                 </a>
