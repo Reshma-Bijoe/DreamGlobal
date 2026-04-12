@@ -16,7 +16,7 @@ const HeroSection = () => {
       />
 
       {/* Light overlay (keeps image visible) */}
-      <div className="absolute inset-0 bg-white/20" />
+      <div className="absolute inset-0 bg-secondary/50" />
 
       {/* Content */}
       <div className="relative z-10 container mx-auto text-center px-4">
@@ -26,7 +26,7 @@ const HeroSection = () => {
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           {/* ✨ Responsive Glow Text */}
-          <p className="font-bold tracking-[0.05em] uppercase text-1xl sm:text-2xl md:text-3xl lg:text-4xl mb-4">
+          <p className="font-bold tracking-[0.03em] uppercase text-1xl sm:text-2xl md:text-3xl lg:text-4xl mb-4">
             {text.map((char, index) => (
               <span
                 key={index}
@@ -46,13 +46,13 @@ const HeroSection = () => {
           </p>
 
           {/* Heading */}
-          <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 text-[hsl(var(--navy))]">
+          <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 text-white">
             Your Global Future{" "}
             <span className="gold-gradient-text">Begins Here</span>
           </h1>
 
           {/* Subtext */}
-          <p className="text-[hsl(var(--navy))]/70 text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light">
+          <p className="text-white/80 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light">
             Empowering students to achieve international education and career success
           </p>
 
@@ -69,7 +69,7 @@ const HeroSection = () => {
 
             <a
               href="#contact"
-              className="border border-[hsl(var(--navy))]/30 text-[hsl(var(--navy))] px-8 py-3.5 rounded-md font-semibold text-base hover:bg-[hsl(var(--navy))]/10 transition-all duration-200 hover:scale-105 transform"
+              className="border border-white/40 text-white px-8 py-3.5 rounded-md font-semibold text-base hover:bg-white/10 transition-all duration-200 hover:scale-105 transform"
             >
               Contact Us
             </a>
