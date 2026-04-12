@@ -60,7 +60,6 @@ const HeroSection = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="https://dreamglobal.edumilestones.com/"
-              target="_blank"
               rel="noopener noreferrer"
               className="gold-gradient-bg text-primary-foreground px-8 py-3.5 rounded-md font-semibold text-base hover:opacity-90 transition-opacity hover:scale-105 transform duration-200"
             >

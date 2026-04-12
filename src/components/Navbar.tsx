@@ -66,7 +66,7 @@ const Navbar = () => {
           />
 
           {/* TEXT */}
-          <span className="dream-gradient-text text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
+          <span className="dream-gradient-text text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-5xl">
             DreamGlobal
           </span>
         </a>
@@ -85,7 +85,6 @@ const Navbar = () => {
 
           <a
             href="https://dreamglobal.edumilestones.com/"
-            target="_blank"
             rel="noopener noreferrer"
             className="gold-gradient-bg text-primary-foreground px-4 lg:px-5 py-2 rounded-md text-sm lg:text-base font-semibold hover:opacity-90 transition-opacity"
           >
