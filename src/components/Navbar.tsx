@@ -66,7 +66,7 @@ const Navbar = () => {
           />
 
           {/* TEXT */}
-          <span className="dream-gradient-text text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl">
+          <span className="dream-gradient-text text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
             DreamGlobal
           </span>
         </a>
