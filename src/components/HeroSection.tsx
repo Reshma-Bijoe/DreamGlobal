@@ -26,7 +26,7 @@ const HeroSection = () => {
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           {/* ✨ Responsive Glow Text */}
-          <p className="font-semibold tracking-[0.18em] uppercase text-sm sm:text-base md:text-lg mb-6">
+          <p className="font-bold tracking-[0.05em] uppercase text-1xl sm:text-2xl md:text-3xl lg:text-4xl mb-4">
             {text.map((char, index) => (
               <span
                 key={index}
