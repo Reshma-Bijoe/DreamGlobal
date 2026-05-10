@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Menu, X, Mail, Phone } from "lucide-react";
+import { Megaphone, Menu, X, Mail, Phone } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import DreamGlobalLogo from "@/assets/DreamGlobalLogo.jpeg";
 
@@ -29,6 +29,14 @@ const Navbar = () => {
           : "bg-transparent"
       }`}
     >
+      {/* ADMISSION ALERT */}
+      <div className="gold-gradient-bg text-primary-foreground">
+        <div className="container mx-auto flex items-center justify-center gap-2 px-4 py-2 text-center text-xs font-bold uppercase tracking-[0.12em] sm:text-sm">
+          <Megaphone size={16} className="flex-shrink-0" />
+          <span>Australian university admissions are open. Contact us now and hurry to secure your seat!</span>
+        </div>
+      </div>
+
       {/* TOP BAR */}
       <div className="bg-secondary py-2 border-b border-white/10">
         <div className="container mx-auto flex flex-col md:flex-row md:justify-end items-center gap-2 md:gap-6 text-white/80 text-xs sm:text-sm">

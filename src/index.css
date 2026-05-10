@@ -140,4 +140,48 @@
 .dream-gradient-text {
   animation: goldFlow 4s linear infinite;
 }
+/* 🔥 Swiper Netflix-style enhancements */
+@layer components {
+  .swiper {
+    overflow: visible !important;
+  }
+
+  .swiper-slide {
+    transition: transform 0.5s ease, opacity 0.5s ease, filter 0.5s ease;
+  }
+
+  /* 🎯 Active (center) slide */
+  .swiper-slide-active {
+    transform: scale(1);
+    opacity: 1;
+    z-index: 3;
+    filter: brightness(1);
+  }
+
+  /* ⬅️➡️ Side slides */
+  .swiper-slide-prev,
+  .swiper-slide-next {
+    transform: scale(0.85);
+    opacity: 0.5;
+    z-index: 2;
+    filter: brightness(0.7);
+  }
+
+  /* 🌑 Background slides */
+  .swiper-slide:not(.swiper-slide-active):not(.swiper-slide-prev):not(.swiper-slide-next) {
+    transform: scale(0.75);
+    opacity: 0.3;
+    filter: blur(2px);
+  }
+
+  /* ✨ Gold glow for active */
+  .swiper-slide-active::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 0.75rem;
+    box-shadow: 0 0 40px hsl(var(--gold) / 0.35);
+    pointer-events: none;
+  }
+}
 }
