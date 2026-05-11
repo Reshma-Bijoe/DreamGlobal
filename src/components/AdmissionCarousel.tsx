@@ -202,7 +202,7 @@ export default function AdmissionCarousel() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 40 }}
-              className="fixed bottom-24 right-4 z-40 w-[calc(100vw-2rem)] max-w-sm cursor-pointer rounded-xl overflow-hidden shadow-xl sm:right-6 sm:w-96"
+              className="fixed bottom-24 right-4 z-40 w-64 cursor-pointer rounded-xl overflow-hidden shadow-xl sm:right-6 sm:w-96"
               onClick={() => setSelectedUni(currentUni)}
               role="button"
               tabIndex={0}
@@ -212,7 +212,7 @@ export default function AdmissionCarousel() {
                 }
               }}
             >
-              <div className="relative h-48 sm:h-52 overflow-hidden bg-[#061226]">
+              <div className="relative h-36 overflow-hidden bg-[#061226] sm:h-52">
                 <AnimatePresence initial={false}>
                   <motion.img
                     key={currentUni.id}
@@ -255,11 +255,11 @@ export default function AdmissionCarousel() {
                 </AnimatePresence>
               </div>
 
-              <div className="bg-white px-5 py-4 flex items-center justify-between text-sm">
+              <div className="bg-white px-4 py-3 flex items-center justify-between text-xs sm:px-5 sm:py-4 sm:text-sm">
                 <span className="font-medium">Explore Now</span>
                 <button
                   onClick={() => setSelectedUni(currentUni)}
-                  className="bg-yellow-400 px-4 py-1.5 rounded font-semibold"
+                  className="bg-yellow-400 px-3 py-1 rounded font-semibold sm:px-4 sm:py-1.5"
                 >
                   Know More
                 </button>
