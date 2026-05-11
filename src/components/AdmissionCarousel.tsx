@@ -202,7 +202,7 @@ export default function AdmissionCarousel() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 40 }}
-              className="fixed bottom-24 right-4 z-40 w-64 cursor-pointer rounded-xl overflow-hidden shadow-xl sm:right-6 sm:w-96"
+              className="fixed bottom-24 right-4 z-40 w-[25vw] min-w-24 max-w-28 cursor-pointer rounded-xl overflow-hidden shadow-xl sm:right-6 sm:w-96 sm:max-w-none"
               onClick={() => setSelectedUni(currentUni)}
               role="button"
               tabIndex={0}
@@ -212,7 +212,7 @@ export default function AdmissionCarousel() {
                 }
               }}
             >
-              <div className="relative h-36 overflow-hidden bg-[#061226] sm:h-52">
+              <div className="relative h-24 overflow-hidden bg-[#061226] sm:h-52">
                 <AnimatePresence initial={false}>
                   <motion.img
                     key={currentUni.id}
@@ -244,7 +244,7 @@ export default function AdmissionCarousel() {
                 <AnimatePresence initial={false} mode="popLayout">
                   <motion.div
                     key={`${currentUni.id}-title`}
-                    className="absolute bottom-3 left-4 right-4 text-white text-sm font-semibold"
+                    className="absolute bottom-2 left-2 right-2 text-[10px] font-semibold leading-tight text-white sm:bottom-3 sm:left-4 sm:right-4 sm:text-sm"
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -6 }}
@@ -255,7 +255,7 @@ export default function AdmissionCarousel() {
                 </AnimatePresence>
               </div>
 
-              <div className="bg-white px-4 py-3 flex items-center justify-between text-xs sm:px-5 sm:py-4 sm:text-sm">
+              <div className="hidden bg-white px-5 py-4 text-sm sm:flex sm:items-center sm:justify-between">
                 <span className="font-medium">Explore Now</span>
                 <button
                   onClick={() => setSelectedUni(currentUni)}
