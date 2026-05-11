@@ -2,8 +2,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
 
-import { motion, AnimatePresence } from "framer-motion";
-import { useState, useRef } from "react";
+import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
+import { useState, useRef, useEffect } from "react";
 import { X } from "lucide-react";
 
 import { australiaUniversities as universities } from "@/data/universities/Australia";
@@ -30,216 +30,234 @@ type University = {
 
 export default function AdmissionCarousel() {
   const [selectedUni, setSelectedUni] = useState<University | null>(null);
+  const [visible, setVisible] = useState(true);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   const swiperRef = useRef<any>(null);
 
   const safeUniversities: University[] = universities || [];
 
+  /* 🔥 AUTO POPUP ROTATION */
+  useEffect(() => {
+    if (!visible || safeUniversities.length === 0) return;
+
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % safeUniversities.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [visible, safeUniversities.length]);
+
+  const currentUni = safeUniversities[currentIndex];
+
   return (
-    <div className="relative overflow-hidden bg-[#061226] px-3 pb-10 pt-20 md:px-6">
-      
-      {/* 🔥 MAX WIDTH CONTAINER */}
-      <div className="max-w-[1600px] mx-auto relative">
-        <div className="mb-8 text-center px-4">
-          <p className="text-yellow-400 text-xs sm:text-sm font-semibold uppercase tracking-[0.25em] mb-2">
-            Australian Universities
-          </p>
-          <h2 className="text-white text-2xl sm:text-3xl md:text-5xl font-bold font-serif">
-            Admissions Open Now
-          </h2>
-          <p className="text-white/70 text-sm sm:text-base mt-3 max-w-2xl mx-auto">
-            Explore top university options and click any image to view admission details.
-          </p>
-        </div>
+    <LayoutGroup>
+      <div className="relative overflow-hidden bg-[#061226] px-3 pb-10 pt-1 md:px-6 md:pt-2">
 
-        {/* 🔥 NAV BUTTONS */}
-        <button
-          onClick={() => swiperRef.current?.slidePrev()}
-          className="hidden md:flex absolute left-2 lg:left-4 top-1/2 -translate-y-1/2 z-10 bg-black/50 hover:bg-black/70 text-white w-10 h-10 rounded-full items-center justify-center"
-        >
-          ‹
-        </button>
+        {/* 🔥 HEADER */}
+        <div className="max-w-[1600px] mx-auto relative">
+          <div className="mb-5 text-center px-4">
+            <p className="text-yellow-400 text-xs sm:text-sm font-semibold uppercase tracking-[0.25em] mb-2">
+              Australian Universities
+            </p>
+            <h2 className="text-white text-2xl sm:text-3xl md:text-5xl font-bold font-serif">
+              Admissions Open Now
+            </h2>
+          </div>
 
-        <button
-          onClick={() => swiperRef.current?.slideNext()}
-          className="hidden md:flex absolute right-2 lg:right-4 top-1/2 -translate-y-1/2 z-10 bg-black/50 hover:bg-black/70 text-white w-10 h-10 rounded-full items-center justify-center"
-        >
-          ›
-        </button>
+          {/* 🔥 NAV BUTTONS */}
+          <button
+            onClick={() => swiperRef.current?.slidePrev()}
+            className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-black/50 text-white w-10 h-10 rounded-full items-center justify-center"
+          >
+            ‹
+          </button>
 
-        {/* 🔥 CAROUSEL */}
-        <Swiper
-          modules={[Autoplay]}
-          onSwiper={(swiper) => (swiperRef.current = swiper)}
-          centeredSlides
-          loop
-          autoplay={{ delay: 2500, disableOnInteraction: false }}
-          spaceBetween={16}
-          slidesPerView={1.1}
-          breakpoints={{
-            320: { slidesPerView: 1.1 },
-            480: { slidesPerView: 1.2 },
-            640: { slidesPerView: 1.4 },
-            768: { slidesPerView: 1.8 },
-            1024: { slidesPerView: 2.2 },
-            1280: { slidesPerView: 2.5 },
-            1536: { slidesPerView: 3 },
-          }}
-        >
-          {safeUniversities.map((uni) => (
-            <SwiperSlide key={uni.id}>
-              {({ isActive }) => (
-                <motion.div
-                  animate={{
-                    scale: isActive ? 1 : 0.88,
-                    opacity: isActive ? 1 : 0.6,
-                  }}
-                  transition={{ duration: 0.4 }}
-                  className="relative h-[45vw] min-h-[220px] max-h-[420px] md:h-[380px] cursor-pointer"
-                  onClick={() => setSelectedUni(uni)}
-                >
-                  <img
-                    src={uni.image}
-                    className="w-full h-full object-cover rounded-xl"
-                    alt={uni.name}
-                  />
+          <button
+            onClick={() => swiperRef.current?.slideNext()}
+            className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-black/50 text-white w-10 h-10 rounded-full items-center justify-center"
+          >
+            ›
+          </button>
 
-                  {isActive && (
-                    <>
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent rounded-xl"
-                      />
+          {/* 🔥 CAROUSEL */}
+          <Swiper
+            modules={[Autoplay]}
+            onSwiper={(swiper) => (swiperRef.current = swiper)}
+            centeredSlides
+            loop
+            autoplay={{ delay: 2500, disableOnInteraction: false }}
+            spaceBetween={16}
+            slidesPerView={1.1}
+            breakpoints={{
+              640: { slidesPerView: 1.4 },
+              768: { slidesPerView: 1.8 },
+              1024: { slidesPerView: 2.2 },
+            }}
+          >
+            {safeUniversities.map((uni) => (
+              <SwiperSlide key={uni.id}>
+                {({ isActive }) => (
+                  <motion.div
+                    layoutId={`card-${uni.id}`}
+                    animate={{
+                      scale: isActive ? 1 : 0.85,
+                      opacity: isActive ? 1 : 0.6,
+                    }}
+                    className="relative h-[250px] md:h-[380px] cursor-pointer"
+                    onClick={() => setSelectedUni(uni)}
+                  >
+                    <motion.img
+                      layoutId={`img-${uni.id}`}
+                      src={uni.image}
+                      className="w-full h-full object-cover rounded-xl"
+                    />
 
-                      <motion.div
-                        initial={{ y: 20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        className="absolute bottom-4 left-4 text-white"
-                      >
-                        <h2 className="text-[12px] sm:text-sm md:text-base lg:text-lg font-semibold">
+                    {isActive && (
+                      <div className="absolute bottom-4 left-4 text-white">
+                        <h2 className="text-sm md:text-lg font-semibold">
                           {uni.name}
                         </h2>
-                        <div className="w-8 h-[2px] bg-yellow-400 mt-1 rounded"></div>
-                      </motion.div>
-                    </>
-                  )}
-                </motion.div>
-              )}
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
+                      </div>
+                    )}
+                  </motion.div>
+                )}
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
 
-      {/* 🔥 MODAL */}
-      <AnimatePresence>
-        {selectedUni && (
-          <motion.div
-            className="fixed inset-0 bg-black/70 flex items-end md:items-center justify-center z-50"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelectedUni(null)}
-          >
+        {/* 🔥 MODAL */}
+        <AnimatePresence>
+          {selectedUni && (
             <motion.div
-              initial={{ y: "100%", scale: 0.95 }}
-              animate={{ y: 0, scale: 1 }}
-              exit={{ y: "100%" }}
-              transition={{ duration: 0.3 }}
-              className="bg-white w-full md:max-w-xl lg:max-w-2xl rounded-t-2xl md:rounded-2xl overflow-hidden relative"
-              onClick={(e) => e.stopPropagation()}
+              className="fixed inset-0 bg-black/70 flex items-center justify-center z-50"
+              onClick={() => setSelectedUni(null)}
             >
-              {/* ❌ CLOSE BUTTON */}
-              <button
-                onClick={() => setSelectedUni(null)}
-                className="absolute top-3 right-3 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full z-10"
+              <motion.div
+                layoutId={`card-${selectedUni.id}`}
+                className="relative bg-white w-full max-w-lg rounded-xl overflow-hidden"
+                onClick={(e) => e.stopPropagation()}
               >
-                <X size={18} />
-              </button>
+                <button
+                  onClick={() => setSelectedUni(null)}
+                  className="absolute top-3 right-3 z-10 bg-black/50 text-white p-2 rounded-full"
+                  aria-label="Close details"
+                >
+                  <X size={16} />
+                </button>
 
-              {/* 🖼 IMAGE */}
-              <img
-                src={selectedUni.image}
-                className="w-full h-44 sm:h-52 object-cover"
-                alt={selectedUni.name}
-              />
+                <motion.img
+                  layoutId={`img-${selectedUni.id}`}
+                  src={selectedUni.image}
+                  className="w-full h-48 object-cover"
+                />
 
-              {/* 📄 CONTENT */}
-              <div className="p-4 sm:p-5 space-y-4 text-xs sm:text-sm text-gray-700 max-h-[70vh] overflow-y-auto">
-                <h2 className="text-base sm:text-lg font-bold">
-                  {selectedUni.name}
-                </h2>
+                <div className="p-4 space-y-2 text-sm">
+                  <h2 className="font-bold text-lg">{selectedUni.name}</h2>
 
-                {/* 🔥 DYNAMIC SECTIONS */}
-                {selectedUni.sections?.length ? (
-                  selectedUni.sections.map((section, i) => {
-                    if (!section || !section.value) return null;
-
+                  {selectedUni.sections.map((section, i) => {
                     if (section.type === "text") {
                       return (
                         <p key={i}>
-                          <b className="text-gray-900">{section.title}:</b>{" "}
-                          {section.value}
+                          <b>{section.title}:</b> {section.value}
                         </p>
                       );
                     }
 
                     if (section.type === "list") {
-                      if (!section.value.length) return null;
-
                       return (
-                        <div key={i}>
-                          <p className="font-semibold text-gray-900 mb-1">
-                            {section.title}
-                          </p>
-                          <ul className="space-y-1">
-                            {section.value.map((item, idx) => (
-                              <li key={idx} className="flex items-start gap-2">
-                                <span className="text-yellow-500">•</span>
-                                {item}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
+                        <ul key={i} className="list-disc pl-5">
+                          {section.value.map((item, idx) => (
+                            <li key={idx}>{item}</li>
+                          ))}
+                        </ul>
                       );
                     }
 
                     if (section.type === "regions") {
-                      if (!section.value.length) return null;
-
                       return (
                         <div key={i}>
-                          <p className="font-semibold text-gray-900 mb-1">
-                            {section.title}
-                          </p>
-                          <div className="space-y-1">
-                            {section.value.map((r, idx) => (
-                              <p key={idx}>
-                                <b>{r.states}:</b> {r.requirement}
-                              </p>
-                            ))}
-                          </div>
+                          {section.value.map((r, idx) => (
+                            <p key={idx}>
+                              <b>{r.states}:</b> {r.requirement}
+                            </p>
+                          ))}
                         </div>
                       );
                     }
 
                     return null;
-                  })
-                ) : (
-                  <p className="text-gray-500">No details available</p>
-                )}
+                  })}
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-                {/*
-                <button className="mt-4 w-full bg-yellow-400 py-2 rounded-lg font-semibold text-sm sm:text-base hover:bg-yellow-500 transition">
-                  Apply Now
+        {/* 🔥 POPUP */}
+        <AnimatePresence>
+          {visible && currentUni && (
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 40 }}
+              className="fixed bottom-24 right-4 z-40 w-[calc(100vw-2rem)] max-w-sm rounded-xl overflow-hidden shadow-xl sm:right-6 sm:w-96"
+            >
+              <div className="relative h-48 sm:h-52 overflow-hidden bg-[#061226]">
+                <AnimatePresence initial={false}>
+                  <motion.img
+                    key={currentUni.id}
+                    src={currentUni.image}
+                    className="absolute inset-0 w-full h-full object-cover"
+                    initial={{ opacity: 0, scale: 1.035 }}
+                    animate={{ opacity: 1, scale: 1.08 }}
+                    exit={{ opacity: 0 }}
+                    transition={{
+                      opacity: { duration: 0.9, ease: "easeInOut" },
+                      scale: { duration: 3.2, ease: [0.22, 1, 0.36, 1] },
+                    }}
+                  />
+                </AnimatePresence>
+
+                <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
+
+                <button
+                  onClick={() => setVisible(false)}
+                  className="absolute top-2 right-2 bg-black/60 text-white p-1 rounded-full"
+                  aria-label="Close admissions popup"
+                >
+                  <X size={14} />
                 </button>
-                */}
+
+                <AnimatePresence initial={false} mode="popLayout">
+                  <motion.div
+                    key={`${currentUni.id}-title`}
+                    className="absolute bottom-3 left-4 right-4 text-white text-sm font-semibold"
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    {currentUni.name}
+                  </motion.div>
+                </AnimatePresence>
               </div>
 
+              <div className="bg-white px-5 py-4 flex items-center justify-between text-sm">
+                <span className="font-medium">Explore Now</span>
+                <button
+                  onClick={() => setSelectedUni(currentUni)}
+                  className="bg-yellow-400 px-4 py-1.5 rounded font-semibold"
+                >
+                  Know More
+                </button>
+              </div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>
 
-    </div>
+      </div>
+    </LayoutGroup>
   );
 }

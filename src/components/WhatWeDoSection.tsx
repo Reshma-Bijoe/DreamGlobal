@@ -43,6 +43,11 @@ const WhatWeDoSection = () => {
             postgraduate, diploma, or pathway programs abroad, we simplify every step with
             clarity and confidence.
           </p>
+          <p>
+            Every student’s success matters deeply to us. We provide personalized counselling,
+            mentoring and dedicated end-to-end support with individual attention at every step. 
+            Our focus is on successful outcomes, not volume-driven business.
+          </p>
         </motion.div>
 
         {/* Decorative divider */}
