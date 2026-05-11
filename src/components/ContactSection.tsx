@@ -1,18 +1,69 @@
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
-import { Mail, Phone, MapPin, MessageCircle } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 
 const ContactSection = () => {
   const ref = useRef(null);
+  const quoteRef = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
-  const [showTooltip, setShowTooltip] = useState(true);
+  const [quoteOnLight, setQuoteOnLight] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowTooltip(false);
-    }, 4000); // Hide after 4 seconds
+    const getBrightness = (color: string) => {
+      const match = color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);
+      if (!match) return null;
 
-    return () => clearTimeout(timer);
+      const [, r, g, b, a] = match;
+      if (a !== undefined && Number(a) < 0.35) return null;
+
+      return (Number(r) * 299 + Number(g) * 587 + Number(b) * 114) / 1000;
+    };
+
+    const updateQuoteContrast = () => {
+      const quote = quoteRef.current;
+      if (!quote) return;
+
+      if (window.scrollY < window.innerHeight * 0.75) {
+        setQuoteOnLight(false);
+        return;
+      }
+
+      const rect = quote.getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height / 2;
+      const previousPointerEvents = quote.style.pointerEvents;
+
+      quote.style.pointerEvents = "none";
+      const elements = document.elementsFromPoint(x, y);
+      quote.style.pointerEvents = previousPointerEvents;
+
+      for (const element of elements) {
+        if (quote.contains(element)) continue;
+
+        let current: Element | null = element;
+        while (current && current !== document.documentElement) {
+          const brightness = getBrightness(
+            window.getComputedStyle(current).backgroundColor
+          );
+
+          if (brightness !== null) {
+            setQuoteOnLight(brightness > 180);
+            return;
+          }
+
+          current = current.parentElement;
+        }
+      }
+    };
+
+    updateQuoteContrast();
+    window.addEventListener("scroll", updateQuoteContrast, { passive: true });
+    window.addEventListener("resize", updateQuoteContrast);
+
+    return () => {
+      window.removeEventListener("scroll", updateQuoteContrast);
+      window.removeEventListener("resize", updateQuoteContrast);
+    };
   }, []);
 
   return (
@@ -110,31 +161,7 @@ const ContactSection = () => {
         </div>
       </div>
 
-      {/* WhatsApp FAB */}
-      <div className="fixed bottom-6 right-6 z-50">
-        <AnimatePresence>
-          {showTooltip && (
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 20 }}
-              className="absolute bottom-full right-0 mb-2 px-3 py-2 bg-gray-800 text-white text-sm rounded-lg shadow-lg whitespace-nowrap"
-            >
-              Chat with us
-              <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-800"></div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-        <a
-          href="https://wa.me/918848674757"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-14 h-14 rounded-full bg-green-500 hover:bg-green-600 flex items-center justify-center shadow-lg shadow-green-500/30 transition-all hover:scale-110"
-          aria-label="Chat on WhatsApp"
-        >
-          <MessageCircle size={26} className="text-white" />
-        </a>
-      </div>
+     
     </section>
   );
 };

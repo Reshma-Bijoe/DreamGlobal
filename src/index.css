@@ -183,5 +183,29 @@
     box-shadow: 0 0 40px hsl(var(--gold) / 0.35);
     pointer-events: none;
   }
+
+  .swiper-pagination {
+    bottom: -1.2rem;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    position: absolute;
+  }
+
+  .swiper-pagination-bullet {
+    width: 0.6rem;
+    height: 0.6rem;
+    background: rgba(255, 255, 255, 0.45);
+    opacity: 1;
+    border-radius: 9999px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+
+  .swiper-pagination-bullet-active {
+    background: white;
+    transform: scale(1.2);
+  }
 }
 }

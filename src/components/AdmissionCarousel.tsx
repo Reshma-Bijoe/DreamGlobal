@@ -1,6 +1,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper/modules";
+import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
+import "swiper/css/pagination";
 
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 import { useState, useRef, useEffect } from "react";
@@ -82,7 +83,8 @@ export default function AdmissionCarousel() {
 
           {/* 🔥 CAROUSEL */}
           <Swiper
-            modules={[Autoplay]}
+            modules={[Autoplay, Pagination]}
+            pagination={{ clickable: true }}
             onSwiper={(swiper) => (swiperRef.current = swiper)}
             centeredSlides
             loop
@@ -202,7 +204,7 @@ export default function AdmissionCarousel() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 40 }}
-              className="fixed bottom-24 right-4 z-40 w-[25vw] min-w-24 max-w-28 cursor-pointer rounded-xl overflow-hidden shadow-xl sm:right-6 sm:w-96 sm:max-w-none"
+              className="fixed bottom-6 right-4 z-40 w-[25vw] min-w-24 max-w-28 cursor-pointer rounded-xl overflow-hidden shadow-xl sm:right-6 sm:w-96 sm:max-w-none"
               onClick={() => setSelectedUni(currentUni)}
               role="button"
               tabIndex={0}

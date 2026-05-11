@@ -1,8 +1,70 @@
 import { motion } from "framer-motion";
 import heroBg from "@/assets/hero-bg.jpg";
+import { useRef, useState, useEffect } from 'react';
+
 
 const HeroSection = () => {
   const text = "International Education Experts".split("");
+  const quoteRef = useRef<HTMLDivElement>(null);
+  const [quoteOnLight, setQuoteOnLight] = useState(false);
+
+  useEffect(() => {
+    const getBrightness = (color: string) => {
+      const match = color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);
+      if (!match) return null;
+
+      const [, r, g, b, a] = match;
+      if (a !== undefined && Number(a) < 0.35) return null;
+
+      return (Number(r) * 299 + Number(g) * 587 + Number(b) * 114) / 1000;
+    };
+
+    const updateQuoteContrast = () => {
+      const quote = quoteRef.current;
+      if (!quote) return;
+
+      if (window.scrollY < window.innerHeight * 0.75) {
+        setQuoteOnLight(false);
+        return;
+      }
+
+      const rect = quote.getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height / 2;
+      const previousPointerEvents = quote.style.pointerEvents;
+
+      quote.style.pointerEvents = "none";
+      const elements = document.elementsFromPoint(x, y);
+      quote.style.pointerEvents = previousPointerEvents;
+
+      for (const element of elements) {
+        if (quote.contains(element)) continue;
+
+        let current: Element | null = element;
+        while (current && current !== document.documentElement) {
+          const brightness = getBrightness(
+            window.getComputedStyle(current).backgroundColor
+          );
+
+          if (brightness !== null) {
+            setQuoteOnLight(brightness > 180);
+            return;
+          }
+
+          current = current.parentElement;
+        }
+      }
+    };
+
+    updateQuoteContrast();
+    window.addEventListener("scroll", updateQuoteContrast, { passive: true });
+    window.addEventListener("resize", updateQuoteContrast);
+
+    return () => {
+      window.removeEventListener("scroll", updateQuoteContrast);
+      window.removeEventListener("resize", updateQuoteContrast);
+    };
+  }, []);
 
   return (
     <section
@@ -46,7 +108,7 @@ const HeroSection = () => {
           </p>
 
           {/* Heading */}
-          <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 text-white">
+          <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-white">
             Your Global Future{" "}
             <span className="gold-gradient-text">Begins Here</span>
           </h1>
@@ -78,6 +140,38 @@ const HeroSection = () => {
 
       {/* Bottom fade */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#061226] to-transparent" />
+       {/* Quote box */}
+      <div
+        ref={quoteRef}
+        className={`absolute bottom-6 left-4 z-30 max-w-[58vw] rounded-lg border px-5 py-4 text-[10px] font-medium leading-snug shadow-sm transition-colors duration-300 sm:left-8 sm:max-w-sm sm:px-7 sm:py-5 sm:text-sm ${
+          quoteOnLight
+            ? "border-gray-900/25 text-gray-950"
+            : "border-white/30 text-white"
+        }`}
+      >
+        <span
+          className={`absolute left-2 top-2 text-2xl leading-none sm:left-3 sm:top-3 sm:text-3xl ${
+            quoteOnLight ? "text-gold-dark" : "text-yellow-300"
+          }`}
+        >
+          &ldquo;
+        </span>
+        <p className="m-0 text-center drop-shadow-lg">
+          <strong>We Prioritize Individual Success Over Volume Business !!</strong>
+          <br />
+          Every student&rsquo;s success matters deeply to us. We provide personalized
+          counselling, mentoring, and dedicated end-to-end support with
+          individual attention at every step. Our focus is on successful
+          outcomes, not volume-driven business.
+        </p>
+        <span
+          className={`absolute bottom-2 right-2 text-2xl leading-none sm:bottom-3 sm:right-3 sm:text-3xl ${
+            quoteOnLight ? "text-gold-dark" : "text-yellow-300"
+          }`}
+        >
+          &rdquo;
+        </span>
+      </div>
     </section>
   );
 };
