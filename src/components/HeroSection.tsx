@@ -108,7 +108,7 @@ const HeroSection = () => {
           </p>
 
           {/* Heading */}
-          <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-white">
+          <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-5xl :text-6xl font-bold leading-tight mb-6 text-white">
             Your Global Future{" "}
             <span className="gold-gradient-text">Begins Here</span>
           </h1>
@@ -143,34 +143,26 @@ const HeroSection = () => {
        {/* Quote box */}
       <div
         ref={quoteRef}
-        className={`absolute bottom-6 left-4 z-30 max-w-[58vw] rounded-lg border px-5 py-4 text-[10px] font-medium leading-snug shadow-sm transition-colors duration-300 sm:left-8 sm:max-w-sm sm:px-7 sm:py-5 sm:text-sm ${
+        className={`absolute bottom-6 left-4 right-4 z-30 rounded-lg border px-5 py-4 text-[10px] font-medium leading-snug shadow-sm transition-colors duration-300 sm:left-8 sm:right-auto sm:w-[32rem] sm:px-7 sm:py-5 sm:text-sm md:w-[28rem] ${
           quoteOnLight
             ? "border-gray-900/25 text-gray-950"
             : "border-white/30 text-white"
         }`}
       >
-        <span
-          className={`absolute left-2 top-2 text-2xl leading-none sm:left-3 sm:top-3 sm:text-3xl ${
-            quoteOnLight ? "text-gold-dark" : "text-yellow-300"
-          }`}
-        >
-          &ldquo;
-        </span>
         <p className="m-0 text-center drop-shadow-lg">
-          <strong>We Prioritize Individual Success Over Volume Business !!</strong>
+          <strong className="gold-gradient-text">
+            <u>
+              We Prioritize Individual Success Over Volume Business !!
+            </u>
+          </strong>
           <br />
-          Every student&rsquo;s success matters deeply to us. We provide personalized
-          counselling, mentoring, and dedicated end-to-end support with
-          individual attention at every step. Our focus is on successful
-          outcomes, not volume-driven business.
+          <em>
+            Every student&rsquo;s success matters deeply to us. We provide personalized
+            counselling, intricate mentoring, and dedicated end-to-end support with
+            individual attention at every step. Our focus is on successful
+            outcomes, not volume-driven business.
+          </em>
         </p>
-        <span
-          className={`absolute bottom-2 right-2 text-2xl leading-none sm:bottom-3 sm:right-3 sm:text-3xl ${
-            quoteOnLight ? "text-gold-dark" : "text-yellow-300"
-          }`}
-        >
-          &rdquo;
-        </span>
       </div>
     </section>
   );
