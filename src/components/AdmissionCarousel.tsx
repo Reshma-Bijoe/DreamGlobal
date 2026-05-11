@@ -61,7 +61,7 @@ export default function AdmissionCarousel() {
               Australian Universities
             </p>
             <h2 className="text-white text-2xl sm:text-3xl md:text-5xl font-bold font-serif">
-              Admissions Open Now
+              Admissions Intakes Open Now
             </h2>
           </div>
 
@@ -202,7 +202,15 @@ export default function AdmissionCarousel() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 40 }}
-              className="fixed bottom-24 right-4 z-40 w-[calc(100vw-2rem)] max-w-sm rounded-xl overflow-hidden shadow-xl sm:right-6 sm:w-96"
+              className="fixed bottom-24 right-4 z-40 w-[calc(100vw-2rem)] max-w-sm cursor-pointer rounded-xl overflow-hidden shadow-xl sm:right-6 sm:w-96"
+              onClick={() => setSelectedUni(currentUni)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  setSelectedUni(currentUni);
+                }
+              }}
             >
               <div className="relative h-48 sm:h-52 overflow-hidden bg-[#061226]">
                 <AnimatePresence initial={false}>
@@ -223,7 +231,10 @@ export default function AdmissionCarousel() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
 
                 <button
-                  onClick={() => setVisible(false)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setVisible(false);
+                  }}
                   className="absolute top-2 right-2 bg-black/60 text-white p-1 rounded-full"
                   aria-label="Close admissions popup"
                 >
