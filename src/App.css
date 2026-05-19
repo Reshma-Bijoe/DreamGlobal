@@ -40,3 +40,8 @@
 .read-the-docs {
   color: #888;
 }
+
+/* Move swiper pagination dots down */
+.swiper-pagination {
+  bottom: -50px !important;
+}

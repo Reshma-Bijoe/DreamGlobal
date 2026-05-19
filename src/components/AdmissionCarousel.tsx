@@ -35,7 +35,6 @@ export default function AdmissionCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const swiperRef = useRef<any>(null);
-
   const safeUniversities: University[] = universities || [];
 
   /* 🔥 AUTO POPUP ROTATION */
@@ -53,20 +52,20 @@ export default function AdmissionCarousel() {
 
   return (
     <LayoutGroup>
-      <div className="relative overflow-hidden bg-[#061226] px-3 pb-10 pt-1 md:px-6 md:pt-2">
+      <div className="relative overflow-hidden bg-[#061226] px-3 pb-16 pt-2 md:px-6">
 
-        {/* 🔥 HEADER */}
-        <div className="max-w-[1600px] mx-auto relative">
-          <div className="mb-5 text-center px-4">
-            <p className="text-yellow-400 text-xs sm:text-sm font-semibold uppercase tracking-[0.25em] mb-2">
+        {/* HEADER */}
+        <div className="max-w-[1600px] mx-auto">
+          <div className="mb-6 text-center">
+            <p className="text-yellow-400 text-xs sm:text-sm font-semibold uppercase tracking-widest mb-2">
               Australian Universities
             </p>
-            <h2 className="text-white text-2xl sm:text-3xl md:text-5xl font-bold font-serif">
-              Admissions Intakes Open Now
+            <h2 className="text-white text-2xl sm:text-3xl md:text-5xl font-bold">
+              Admission Intakes Open Now
             </h2>
           </div>
 
-          {/* 🔥 NAV BUTTONS */}
+          {/* NAV BUTTONS */}
           <button
             onClick={() => swiperRef.current?.slidePrev()}
             className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-black/50 text-white w-10 h-10 rounded-full items-center justify-center"
@@ -81,55 +80,70 @@ export default function AdmissionCarousel() {
             ›
           </button>
 
-          {/* 🔥 CAROUSEL */}
-          <Swiper
-            modules={[Autoplay, Pagination]}
-            pagination={{ clickable: true }}
-            onSwiper={(swiper) => (swiperRef.current = swiper)}
-            centeredSlides
-            loop
-            autoplay={{ delay: 2500, disableOnInteraction: false }}
-            spaceBetween={16}
-            slidesPerView={1.1}
-            breakpoints={{
-              640: { slidesPerView: 1.4 },
-              768: { slidesPerView: 1.8 },
-              1024: { slidesPerView: 2.2 },
-            }}
-          >
-            {safeUniversities.map((uni) => (
-              <SwiperSlide key={uni.id}>
-                {({ isActive }) => (
-                  <motion.div
-                    layoutId={`card-${uni.id}`}
-                    animate={{
-                      scale: isActive ? 1 : 0.85,
-                      opacity: isActive ? 1 : 0.6,
-                    }}
-                    className="relative h-[250px] md:h-[380px] cursor-pointer"
-                    onClick={() => setSelectedUni(uni)}
-                  >
-                    <motion.img
-                      layoutId={`img-${uni.id}`}
-                      src={uni.image}
-                      className="w-full h-full object-cover rounded-xl"
-                    />
+          {/* 🔥 SWIPER + CUSTOM PAGINATION WRAPPER */}
+          <div className="relative pb-10"> {/* space for dots */}
 
-                    {isActive && (
-                      <div className="absolute bottom-4 left-4 text-white">
-                        <h2 className="text-sm md:text-lg font-semibold">
-                          {uni.name}
-                        </h2>
-                      </div>
-                    )}
-                  </motion.div>
-                )}
-              </SwiperSlide>
-            ))}
-          </Swiper>
+            <Swiper
+              modules={[Autoplay, Pagination]}
+              onSwiper={(swiper) => (swiperRef.current = swiper)}
+              centeredSlides
+              loop
+              autoplay={{ delay: 2500 }}
+              spaceBetween={16}
+              slidesPerView={1.1}
+              pagination={{
+                el: ".custom-pagination",
+                clickable: true,
+              }}
+              breakpoints={{
+                640: { slidesPerView: 1.4 },
+                768: { slidesPerView: 1.8 },
+                1024: { slidesPerView: 2.2 },
+              }}
+            >
+              {safeUniversities.map((uni) => (
+                <SwiperSlide key={uni.id}>
+                  {({ isActive }) => (
+                    <motion.div
+                      layoutId={`card-${uni.id}`}
+                      animate={{
+                        scale: isActive ? 1 : 0.85,
+                        opacity: isActive ? 1 : 0.6,
+                      }}
+                      className="relative h-[250px] md:h-[380px] cursor-pointer"
+                      onClick={() => setSelectedUni(uni)}
+                    >
+                      <motion.img
+                        layoutId={`img-${uni.id}`}
+                        src={uni.image}
+                        className="w-full h-full object-cover rounded-xl"
+                        alt={uni.name}
+                      />
+
+                      {isActive && (
+                        <>
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent rounded-xl" />
+
+                          <div className="absolute bottom-4 left-4 text-white">
+                            <h2 className="text-sm md:text-lg font-semibold">
+                              {uni.name}
+                            </h2>
+                            <div className="w-8 h-[2px] bg-yellow-400 mt-1" />
+                          </div>
+                        </>
+                      )}
+                    </motion.div>
+                  )}
+                </SwiperSlide>
+              ))}
+            </Swiper>
+
+            {/* ✅ CUSTOM PAGINATION BELOW */}
+            <div className="custom-pagination mt-6 flex justify-center gap-2"></div>
+          </div>
         </div>
 
-        {/* 🔥 MODAL */}
+        {/* MODAL */}
         <AnimatePresence>
           {selectedUni && (
             <motion.div
@@ -138,13 +152,12 @@ export default function AdmissionCarousel() {
             >
               <motion.div
                 layoutId={`card-${selectedUni.id}`}
-                className="relative bg-white w-full max-w-lg rounded-xl overflow-hidden"
+                className="bg-white w-full max-w-lg rounded-xl overflow-hidden"
                 onClick={(e) => e.stopPropagation()}
               >
                 <button
                   onClick={() => setSelectedUni(null)}
-                  className="absolute top-3 right-3 z-10 bg-black/50 text-white p-2 rounded-full"
-                  aria-label="Close details"
+                  className="absolute top-3 right-3 bg-black/50 text-white p-2 rounded-full"
                 >
                   <X size={16} />
                 </button>
@@ -197,40 +210,24 @@ export default function AdmissionCarousel() {
           )}
         </AnimatePresence>
 
-        {/* 🔥 POPUP */}
+        {/* POPUP */}
         <AnimatePresence>
           {visible && currentUni && (
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 40 }}
-              className="fixed bottom-6 right-4 z-40 w-[25vw] min-w-24 max-w-28 cursor-pointer rounded-xl overflow-hidden shadow-xl sm:right-6 sm:w-96 sm:max-w-none"
+              className="fixed bottom-6 right-6 z-40 w-72 rounded-xl overflow-hidden shadow-xl cursor-pointer"
               onClick={() => setSelectedUni(currentUni)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  setSelectedUni(currentUni);
-                }
-              }}
             >
-              <div className="relative h-24 overflow-hidden bg-[#061226] sm:h-52">
-                <AnimatePresence initial={false}>
-                  <motion.img
-                    key={currentUni.id}
-                    src={currentUni.image}
-                    className="absolute inset-0 w-full h-full object-cover"
-                    initial={{ opacity: 0, scale: 1.035 }}
-                    animate={{ opacity: 1, scale: 1.08 }}
-                    exit={{ opacity: 0 }}
-                    transition={{
-                      opacity: { duration: 0.9, ease: "easeInOut" },
-                      scale: { duration: 3.2, ease: [0.22, 1, 0.36, 1] },
-                    }}
-                  />
-                </AnimatePresence>
+              <div className="relative h-40">
+                <motion.img
+                  key={currentUni.id}
+                  src={currentUni.image}
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
 
-                <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
 
                 <button
                   onClick={(e) => {
@@ -238,31 +235,18 @@ export default function AdmissionCarousel() {
                     setVisible(false);
                   }}
                   className="absolute top-2 right-2 bg-black/60 text-white p-1 rounded-full"
-                  aria-label="Close admissions popup"
                 >
                   <X size={14} />
                 </button>
 
-                <AnimatePresence initial={false} mode="popLayout">
-                  <motion.div
-                    key={`${currentUni.id}-title`}
-                    className="absolute bottom-2 left-2 right-2 text-[10px] font-semibold leading-tight text-white sm:bottom-3 sm:left-4 sm:right-4 sm:text-sm"
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -6 }}
-                    transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-                  >
-                    {currentUni.name}
-                  </motion.div>
-                </AnimatePresence>
+                <div className="absolute bottom-3 left-3 text-white text-sm font-semibold">
+                  {currentUni.name}
+                </div>
               </div>
 
-              <div className="hidden bg-white px-5 py-4 text-sm sm:flex sm:items-center sm:justify-between">
-                <span className="font-medium">Explore Now</span>
-                <button
-                  onClick={() => setSelectedUni(currentUni)}
-                  className="bg-yellow-400 px-3 py-1 rounded font-semibold sm:px-4 sm:py-1.5"
-                >
+              <div className="bg-white px-4 py-3 flex justify-between items-center">
+                <span>Explore Now</span>
+                <button className="bg-yellow-400 px-3 py-1 rounded font-semibold">
                   Know More
                 </button>
               </div>

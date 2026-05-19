@@ -40,8 +40,8 @@ const Navbar = () => {
         <div className="container mx-auto flex items-center justify-center gap-2 px-4 py-2 text-center text-xs font-bold uppercase tracking-[0.12em] sm:text-sm">
           <Megaphone size={16} />
           <span>
-            Australian university admissions are open. Contact us now and hurry
-            to secure your seat!
+            Multiple university admission intakes are open. Contact us now and hurry
+            to secure your seat ! Free IELTs coaching !!
           </span>
         </div>
       </div>

@@ -143,20 +143,19 @@ const HeroSection = () => {
        {/* Quote box */}
       <div
         ref={quoteRef}
-        className={`absolute bottom-6 left-4 right-4 z-30 rounded-lg border px-5 py-4 text-[10px] font-medium leading-snug shadow-sm transition-colors duration-300 sm:left-8 sm:right-auto sm:w-[32rem] sm:px-7 sm:py-5 sm:text-sm md:w-[28rem] ${
+        className={`absolute bottom-6 left-4 right-4 z-30 rounded-lg border px-5 py-4 text-[10px] font-medium leading-snug shadow-sm transition-colors duration-300 sm:left-8 sm:right-auto sm:w-[44rem] sm:px-7 sm:py-5 sm:text-sm md:w-[35rem] ${
           quoteOnLight
             ? "border-gray-900/25 text-gray-950"
             : "border-white/30 text-white"
         }`}
       >
         <p className="m-0 text-center drop-shadow-lg">
-          <strong className="gold-gradient-text">
+          <strong className="gold-gradient-text block text-base sm:text-lg lg:1 font-semibold leading-tight">
             <u>
               We Prioritize Individual Success Over Volume Business !!
             </u>
           </strong>
-          <br />
-          <em>
+          <em className="block mt-1 text-[10px] sm:text-sm leading-snug">
             Every student&rsquo;s success matters deeply to us. We provide personalized
             counselling, intricate mentoring, and dedicated end-to-end support with
             individual attention at every step. Our focus is on successful
