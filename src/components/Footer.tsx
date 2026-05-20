@@ -1,4 +1,5 @@
 import { Globe, Mail, Phone, MapPin, MessageCircle } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 
 const quickLinks = [
   { label: "Home", href: "#hero" },
@@ -9,15 +10,19 @@ const quickLinks = [
 ];
 
 const Footer = () => {
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
+  const sectionHref = (href: string) => (isHomePage ? href : `/${href}`);
+
   return (
     <footer className="bg-secondary text-white py-16 px-4">
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-[1fr_0.8fr_0.8fr] gap-12">
         {/* Brand */}
         <div>
-          <a href="#hero" className="font-heading text-2xl font-bold tracking-wide">
+          <Link to="/" className="font-heading text-2xl font-bold tracking-wide">
             <span className="gold-gradient-text">Dream</span>
             <span className="text-white">Global</span>
-          </a>
+          </Link>
           <p className="text-white/70 text-sm mt-4 leading-relaxed">
             Empowering students worldwide to achieve their international education and career dreams.
           </p>
@@ -50,11 +55,16 @@ const Footer = () => {
           <ul className="space-y-2.5">
             {quickLinks.map((link) => (
               <li key={link.href}>
-                <a href={link.href} className="text-sm text-white/70 hover:text-gold transition-colors">
+                <a href={sectionHref(link.href)} className="text-sm text-white/70 hover:text-gold transition-colors">
                   {link.label}
                 </a>
               </li>
             ))}
+            <li>
+              <Link to="/privacy-policy" className="text-sm text-white/70 hover:text-gold transition-colors">
+                Privacy Policy
+              </Link>
+            </li>
           </ul>
         </div>
 

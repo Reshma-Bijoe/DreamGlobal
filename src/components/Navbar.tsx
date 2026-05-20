@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { Megaphone, Menu, X, Mail, Phone, MessageCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import DreamGlobalLogo from "@/assets/DreamGlobalLogo.jpeg";
@@ -15,6 +16,9 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [showChatTip, setShowChatTip] = useState(true);
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
+  const sectionHref = (href: string) => (isHomePage ? href : `/${href}`);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -70,8 +74,8 @@ const Navbar = () => {
       {/* MAIN NAVBAR */}
       <div className="container relative mx-auto flex items-center justify-between py-3 sm:py-4 ">
         {/* LOGO */}
-        <a
-          href="#hero"
+        <Link
+          to="/"
           className="flex items-center gap-3 font-bold tracking-wide"
         >
           <img
@@ -82,19 +86,26 @@ const Navbar = () => {
           <span className="dream-gradient-text text-3xl sm:text-4xl font-bold">
             DreamGlobal
           </span>
-        </a>
+        </Link>
 
         {/* DESKTOP MENU */}
         <div className="hidden md:flex items-center gap-6 lg:gap-8">
           {navLinks.map((link) => (
             <a
               key={link.href}
-              href={link.href}
+              href={sectionHref(link.href)}
               className="text-base lg:text-lg text-muted-foreground hover:text-primary transition"
             >
               {link.label}
             </a>
           ))}
+
+          <Link
+            to="/privacy-policy"
+            className="text-base lg:text-lg text-muted-foreground hover:text-primary transition"
+          >
+            Privacy Policy
+          </Link>
 
           <div className="flex items-center gap-4">
             <a
@@ -158,10 +169,22 @@ const Navbar = () => {
           >
             <div className="container mx-auto py-4 flex flex-col gap-4">
               {navLinks.map((link) => (
-                <a key={link.href} href={link.href}>
+                <a
+                  key={link.href}
+                  href={sectionHref(link.href)}
+                  onClick={() => setMobileOpen(false)}
+                >
                   {link.label}
                 </a>
               ))}
+
+              <Link
+                to="/privacy-policy"
+                onClick={() => setMobileOpen(false)}
+                className="text-foreground"
+              >
+                Privacy Policy
+              </Link>
 
               <a
                 href="https://dreamglobal.edumilestones.com/"
