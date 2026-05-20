@@ -1,11 +1,13 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import { Mail, Phone } from "lucide-react";
+import useSectionReplay from "@/hooks/use-section-replay";
 
 const ContactSection = () => {
   const ref = useRef(null);
   const quoteRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const inView = useInView(ref, { margin: "-80px" });
+  const replayKey = useSectionReplay("#contact");
   const [quoteOnLight, setQuoteOnLight] = useState(false);
 
   useEffect(() => {
@@ -70,8 +72,9 @@ const ContactSection = () => {
     <section id="contact" className="section-padding bg-muted/50" ref={ref}>
       <div className="container mx-auto max-w-5xl">
         <motion.div
+          key={`contact-heading-${replayKey}`}
           initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6 }}
           className="text-center mb-14"
         >
@@ -86,8 +89,9 @@ const ContactSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Contact Info Cards */}
           <motion.div
+            key={`contact-cards-${replayKey}`}
             initial={{ opacity: 0, x: -30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
+            animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
             transition={{ duration: 0.6, delay: 0.15 }}
             className="space-y-6"
           >

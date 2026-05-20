@@ -13,6 +13,11 @@ const Footer = () => {
   const location = useLocation();
   const isHomePage = location.pathname === "/";
   const sectionHref = (href: string) => (isHomePage ? href : `/${href}`);
+  const replaySection = (hash: string) => {
+    window.dispatchEvent(
+      new CustomEvent("dreamglobal:section-replay", { detail: { hash } })
+    );
+  };
 
   return (
     <footer className="bg-secondary text-white py-16 px-4">
@@ -55,13 +60,20 @@ const Footer = () => {
           <ul className="space-y-2.5">
             {quickLinks.map((link) => (
               <li key={link.href}>
-                <a href={sectionHref(link.href)} className="text-sm text-white/70 hover:text-gold transition-colors">
+                <a
+                  href={sectionHref(link.href)}
+                  onClick={() => replaySection(link.href)}
+                  className="text-sm text-white/70 hover:text-gold transition-colors"
+                >
                   {link.label}
                 </a>
               </li>
             ))}
             <li>
-              <Link to="/privacy-policy" className="text-sm text-white/70 hover:text-gold transition-colors">
+              <Link
+                to="/privacy-policy"
+                className="text-sm text-white/70 hover:text-gold transition-colors"
+              >
                 Privacy Policy
               </Link>
             </li>

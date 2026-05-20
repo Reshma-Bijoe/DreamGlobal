@@ -1,6 +1,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Shield, Users, Award, Clock } from "lucide-react";
+import useSectionReplay from "@/hooks/use-section-replay";
 
 const features = [
   { icon: Shield, title: "Trusted Expertise", desc: "Decade-long track record of successful admissions worldwide." },
@@ -11,7 +12,8 @@ const features = [
 
 const FeatureHighlight = () => {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const inView = useInView(ref, { margin: "-80px" });
+  const replayKey = useSectionReplay("#features");
 
   return (
     <section id="features" className="section-padding relative overflow-hidden" ref={ref}>
@@ -22,8 +24,9 @@ const FeatureHighlight = () => {
 
       <div className="container mx-auto relative z-10">
         <motion.div
+          key={`features-heading-${replayKey}`}
           initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
@@ -38,9 +41,13 @@ const FeatureHighlight = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {features.map((f, i) => (
             <motion.div
-              key={f.title}
+              key={`${f.title}-${replayKey}`}
               initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
-              animate={inView ? { opacity: 1, x: 0 } : {}}
+              animate={
+                inView
+                  ? { opacity: 1, x: 0 }
+                  : { opacity: 0, x: i % 2 === 0 ? -30 : 30 }
+              }
               transition={{ duration: 0.6, delay: i * 0.15 }}
               className="flex gap-5 p-6 rounded-lg border border-primary/20 bg-card/40 hover:border-primary/50 transition-all duration-300"
             >

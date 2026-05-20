@@ -1,17 +1,20 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
+import useSectionReplay from "@/hooks/use-section-replay";
 
 const WhatWeDoSection = () => {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
+  const inView = useInView(ref, { margin: "-100px" });
+  const replayKey = useSectionReplay("#about");
 
   return (
     <section id="about" className="section-padding" ref={ref}>
       <div className="container mx-auto max-w-4xl">
         <motion.div
+          key={`about-heading-${replayKey}`}
           initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6 }}
           className="text-center"
         >
@@ -27,8 +30,9 @@ const WhatWeDoSection = () => {
         </motion.div>
 
         <motion.div
+          key={`about-content-${replayKey}`}
           initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           className="space-y-6 text-muted-foreground text-base md:text-lg leading-relaxed text-center"
         >

@@ -1,5 +1,6 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import { motion } from "framer-motion";
 
 const PrivacyPolicy = () => {
   const directInformation = [
@@ -59,19 +60,35 @@ const PrivacyPolicy = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
 
-      <main className="px-4 pb-20 pt-52 sm:pt-48">
+      <motion.main
+        initial={{ opacity: 0, y: 28 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.65, ease: "easeOut" }}
+        className="px-4 pb-20 pt-52 sm:pt-48"
+      >
         <div className="container mx-auto max-w-4xl">
-          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-primary">
-            Privacy Policy
-          </p>
-          <h1 className="font-heading text-4xl font-bold text-foreground md:text-5xl">
-            DreamGlobal Privacy Policy.
-          </h1>
-          <p className="mt-4 text-sm text-muted-foreground">
-            Last updated: 19-May-2026
-          </p>
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.1, ease: "easeOut" }}
+          >
+            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-primary">
+              Privacy Policy
+            </p>
+            <h1 className="font-heading text-4xl font-bold text-foreground md:text-5xl">
+              DreamGlobal Privacy Policy.
+            </h1>
+            <p className="mt-4 text-sm text-muted-foreground">
+              Last updated: 19-May-2026
+            </p>
+          </motion.div>
 
-          <div className="mt-10 space-y-8 text-muted-foreground">
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.22, ease: "easeOut" }}
+            className="mt-10 space-y-8 text-muted-foreground"
+          >
             <section>
               <p className="leading-7">
                 This Privacy Policy describes how DreamGlobal (the "Site", "we",
@@ -359,9 +376,9 @@ const PrivacyPolicy = () => {
                 communicate sensitive or confidential information to us.
               </p>
             </section>
-          </div>
+          </motion.div>
         </div>
-      </main>
+      </motion.main>
 
       <Footer />
     </div>

@@ -52,7 +52,7 @@ export default function AdmissionCarousel() {
 
   return (
     <LayoutGroup>
-      <div className="relative overflow-hidden bg-[#061226] px-3 pb-16 pt-2 md:px-6">
+      <div className="relative overflow-hidden bg-[#061226] px-3 pb-16 pt-16 md:px-6 md:pt-20">
 
         {/* HEADER */}
         <div className="max-w-[1600px] mx-auto">

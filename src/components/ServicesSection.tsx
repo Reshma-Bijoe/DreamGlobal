@@ -1,5 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import useSectionReplay from "@/hooks/use-section-replay";
 import {
   Globe,
   BookOpen,
@@ -26,14 +27,16 @@ const services = [
 
 const ServicesSection = () => {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const inView = useInView(ref, { margin: "-80px" });
+  const replayKey = useSectionReplay("#services");
 
   return (
     <section id="services" className="section-padding" ref={ref}>
       <div className="container mx-auto">
         <motion.div
+          key={`services-heading-${replayKey}`}
           initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
@@ -48,9 +51,9 @@ const ServicesSection = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, i) => (
             <motion.div
-              key={service.title}
+              key={`${service.title}-${replayKey}`}
               initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
+              animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
               className="glass-card p-6 group hover:border-primary/40 transition-all duration-300 hover:-translate-y-1"
             >

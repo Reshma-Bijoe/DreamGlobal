@@ -19,6 +19,11 @@ const Navbar = () => {
   const location = useLocation();
   const isHomePage = location.pathname === "/";
   const sectionHref = (href: string) => (isHomePage ? href : `/${href}`);
+  const replaySection = (hash: string) => {
+    window.dispatchEvent(
+      new CustomEvent("dreamglobal:section-replay", { detail: { hash } })
+    );
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -45,7 +50,7 @@ const Navbar = () => {
           <Megaphone size={16} />
           <span>
             Multiple university admission intakes are open. Contact us now and hurry
-            to secure your seat ! Free IELTs coaching !!
+            to secure your seat ! Free Counselling !!
           </span>
         </div>
       </div>
@@ -94,6 +99,7 @@ const Navbar = () => {
             <a
               key={link.href}
               href={sectionHref(link.href)}
+              onClick={() => replaySection(link.href)}
               className="text-base lg:text-lg text-muted-foreground hover:text-primary transition"
             >
               {link.label}
@@ -107,7 +113,7 @@ const Navbar = () => {
             Privacy Policy
           </Link>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
             <a
               href="https://dreamglobal.edumilestones.com/"
               className="gold-gradient-bg text-primary-foreground px-4 py-2 rounded-md text-sm font-semibold hover:opacity-90"
@@ -172,7 +178,10 @@ const Navbar = () => {
                 <a
                   key={link.href}
                   href={sectionHref(link.href)}
-                  onClick={() => setMobileOpen(false)}
+                  onClick={() => {
+                    replaySection(link.href);
+                    setMobileOpen(false);
+                  }}
                 >
                   {link.label}
                 </a>
