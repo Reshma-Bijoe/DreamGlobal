@@ -1,13 +1,21 @@
 import { FormEvent, useState } from "react";
 import { CalendarClock, Mail, Phone, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
+import { supabase } from "../../supabaseClient";
 
 type ActiveTab = "call" | "callback" | "email" | null;
+type FormErrors = {
+  name?: string;
+  phone?: string;
+  email?: string;
+};
 
 const phoneNumber = "+91 88486 74757";
 const phoneHref = "tel:+918848674757";
 const email = "dreamglobalin@gmail.com";
 const emailComposeHref = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`;
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const phonePattern = /^[0-9\s-]+$/;
 
 const tabs = [
   {
@@ -83,21 +91,68 @@ const FloatingContactTabs = () => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [callbackEmail, setCallbackEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState("");
+  const [formErrors, setFormErrors] = useState<FormErrors>({});
   const activeTabIndex = tabs.findIndex((tab) => tab.id === activeTab);
   const connectorOffset = activeTabIndex >= 0 ? activeTabIndex - 1 : 0;
 
-  const submitCallback = (event: FormEvent<HTMLFormElement>) => {
+  const validateForm = () => {
+    const nextErrors: FormErrors = {};
+    const fullName = name.trim();
+    const phoneNumber = phone.trim();
+    const emailAddress = callbackEmail.trim();
+
+    if (!fullName) {
+      nextErrors.name = "Please enter your full name.";
+    }
+
+    if (!phoneNumber) {
+      nextErrors.phone = "Please enter your phone number.";
+    } else if (!phonePattern.test(phoneNumber)) {
+      nextErrors.phone = "Please enter a valid phone number.";
+    } else if (phoneNumber.replace(/\D/g, "").length !== 10) {
+      nextErrors.phone = "Phone number must be 10 digits.";
+    }
+
+    if (!emailAddress) {
+      nextErrors.email = "Please enter your email address.";
+    } else if (!emailPattern.test(emailAddress)) {
+      nextErrors.email = "Please enter a valid email address.";
+    }
+
+    setFormErrors(nextErrors);
+    return Object.keys(nextErrors).length === 0;
+  };
+
+  const submitCallback = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setSubmitMessage("");
 
-    const subject = encodeURIComponent("Callback request from website");
-    const body = encodeURIComponent(
-      `Name: ${name || "Not provided"}\nPhone: ${
-        phone || "Not provided"
-      }\nEmail: ${callbackEmail || "Not provided"}\n\nPlease call me back.`
-    );
+    if (!validateForm()) {
+      return;
+    }
 
-    window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
-    setActiveTab(null);
+    setIsSubmitting(true);
+
+    const { error } = await supabase.from("leads").insert({
+      name: name.trim(),
+      phone: phone.trim(),
+      email: callbackEmail.trim(),
+    });
+
+    setIsSubmitting(false);
+
+    if (error) {
+      setSubmitMessage("Sorry, we could not send this right now.");
+      console.error("Callback request failed:", error);
+      return;
+    }
+
+    setName("");
+    setPhone("");
+    setCallbackEmail("");
+    setSubmitMessage("Request sent. We will call you soon.");
   };
 
   return (
@@ -174,32 +229,74 @@ const FloatingContactTabs = () => {
                 className="space-y-3"
               >
                 <input
+                  id="callback-full-name"
+                  name="name"
                   value={name}
-                  onChange={(event) => setName(event.target.value)}
+                  onChange={(event) => {
+                    setName(event.target.value);
+                    setFormErrors((current) => ({ ...current, name: undefined }));
+                  }}
                   className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none transition focus:border-primary"
-                  placeholder="Your name"
+                  placeholder="Full name"
                   type="text"
+                  autoComplete="name"
+                  aria-invalid={Boolean(formErrors.name)}
                 />
+                {formErrors.name && (
+                  <p className="text-xs leading-4 text-destructive">
+                    {formErrors.name}
+                  </p>
+                )}
                 <input
+                  id="callback-phone"
+                  name="phone"
                   value={phone}
-                  onChange={(event) => setPhone(event.target.value)}
+                  onChange={(event) => {
+                    setPhone(event.target.value);
+                    setFormErrors((current) => ({ ...current, phone: undefined }));
+                  }}
                   className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none transition focus:border-primary"
                   placeholder="Phone number"
                   type="tel"
+                  autoComplete="tel"
+                  aria-invalid={Boolean(formErrors.phone)}
                 />
+                {formErrors.phone && (
+                  <p className="text-xs leading-4 text-destructive">
+                    {formErrors.phone}
+                  </p>
+                )}
                 <input
+                  id="callback-email"
+                  name="email"
                   value={callbackEmail}
-                  onChange={(event) => setCallbackEmail(event.target.value)}
+                  onChange={(event) => {
+                    setCallbackEmail(event.target.value);
+                    setFormErrors((current) => ({ ...current, email: undefined }));
+                  }}
                   className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none transition focus:border-primary"
                   placeholder="Email address"
                   type="email"
+                  autoComplete="email"
+                  aria-invalid={Boolean(formErrors.email)}
                 />
+                {formErrors.email && (
+                  <p className="text-xs leading-4 text-destructive">
+                    {formErrors.email}
+                  </p>
+                )}
                 <button
                   type="submit"
+                  disabled={isSubmitting}
                   className="w-full rounded-md gold-gradient-bg px-4 py-3 text-sm font-semibold text-primary-foreground transition hover:opacity-90"
                 >
-                  Send Request
+                  {isSubmitting ? "Sending..." : "Send Request"}
                 </button>
+                {submitMessage && (
+                  <p className="text-sm leading-5 text-muted-foreground">
+                    {submitMessage}
+                  </p>
+                )}
               </motion.form>
             )}
 
