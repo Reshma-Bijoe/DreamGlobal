@@ -1,8 +1,17 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Megaphone, Menu, X, Mail, Phone, MessageCircle } from "lucide-react";
+import {
+  ChevronDown,
+  Mail,
+  Megaphone,
+  Menu,
+  MessageCircle,
+  Phone,
+  X,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import DreamGlobalLogo from "@/assets/DreamGlobalLogo.jpeg";
+import { countryDestinations } from "@/data/countryDestinations";
 
 const navLinks = [
   { label: "Home", href: "#hero" },
@@ -15,6 +24,7 @@ const navLinks = [
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [countriesOpen, setCountriesOpen] = useState(false);
   const [showChatTip, setShowChatTip] = useState(true);
   const location = useLocation();
   const isHomePage = location.pathname === "/";
@@ -77,11 +87,11 @@ const Navbar = () => {
       </div>
 
       {/* MAIN NAVBAR */}
-      <div className="container relative mx-auto flex items-center justify-between py-3 sm:py-4 ">
+      <div className="container relative mx-auto flex items-center justify-between px-4 py-3 sm:py-4">
         {/* LOGO */}
         <Link
           to="/"
-          className="flex items-center gap-3 font-bold tracking-wide"
+          className="flex shrink-0 items-center gap-3 font-bold tracking-wide"
         >
           <img
             src={DreamGlobalLogo}
@@ -94,21 +104,65 @@ const Navbar = () => {
         </Link>
 
         {/* DESKTOP MENU */}
-        <div className="hidden md:flex items-center gap-6 lg:gap-8">
+        <div className="ml-auto hidden items-center justify-end gap-5 xl:flex 2xl:gap-7">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={sectionHref(link.href)}
               onClick={() => replaySection(link.href)}
-              className="text-base lg:text-lg text-muted-foreground hover:text-primary transition"
+              className="whitespace-nowrap text-sm text-muted-foreground transition hover:text-primary 2xl:text-base"
             >
               {link.label}
             </a>
           ))}
 
+          <div
+            className="relative"
+            onMouseEnter={() => setCountriesOpen(true)}
+            onMouseLeave={() => setCountriesOpen(false)}
+          >
+            <button
+              type="button"
+              onClick={() => setCountriesOpen((current) => !current)}
+              className="flex items-center gap-1 whitespace-nowrap text-sm text-muted-foreground transition hover:text-primary 2xl:text-base"
+              aria-expanded={countriesOpen}
+            >
+              Countries
+              <ChevronDown
+                size={16}
+                className={`transition ${countriesOpen ? "rotate-180" : ""}`}
+              />
+            </button>
+
+            <AnimatePresence>
+              {countriesOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 8 }}
+                  className="absolute left-1/2 top-full z-50 mt-3 w-56 -translate-x-1/2 overflow-hidden rounded-lg border border-slate-200 bg-white py-2 shadow-xl"
+                >
+                  <p className="px-4 pb-2 pt-1 text-xs font-bold uppercase tracking-widest text-yellow-600">
+                    Countries
+                  </p>
+                  {countryDestinations.map((country) => (
+                    <Link
+                      key={country.id}
+                      to={country.route}
+                      onClick={() => setCountriesOpen(false)}
+                      className="block px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-yellow-50 hover:text-slate-950"
+                    >
+                      {country.name}
+                    </Link>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
           <Link
             to="/privacy-policy"
-            className="text-base lg:text-lg text-muted-foreground hover:text-primary transition"
+            className="whitespace-nowrap text-sm text-muted-foreground transition hover:text-primary 2xl:text-base"
           >
             Privacy Policy
           </Link>
@@ -116,12 +170,12 @@ const Navbar = () => {
           <div className="flex items-center gap-2">
             <a
               href="https://dreamglobal.edumilestones.com/"
-              className="gold-gradient-bg text-primary-foreground px-4 py-2 rounded-md text-sm font-semibold hover:opacity-90"
+              className="gold-gradient-bg whitespace-nowrap rounded-md px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90"
             >
               Start Your Journey
             </a>
 
-            <div className="relative flex items-center justify-center translate-x-6 ml-3">
+            <div className="relative ml-2 flex items-center justify-center">
               <AnimatePresence>
                 {showChatTip && (
                   <motion.div
@@ -156,7 +210,7 @@ const Navbar = () => {
 
         {/* MOBILE BUTTON */}
         <button
-          className="md:hidden"
+          className="xl:hidden"
           onClick={() => setMobileOpen(!mobileOpen)}
         >
           {mobileOpen ? <X size={24} /> : <Menu size={24} />}
@@ -171,7 +225,7 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-background/95 backdrop-blur-md border-t"
+            className="xl:hidden bg-background/95 backdrop-blur-md border-t"
           >
             <div className="container mx-auto py-4 flex flex-col gap-4">
               {navLinks.map((link) => (
@@ -186,6 +240,24 @@ const Navbar = () => {
                   {link.label}
                 </a>
               ))}
+
+              <div>
+                <p className="mb-2 text-xs font-bold uppercase tracking-widest text-yellow-600">
+                  Countries
+                </p>
+                <div className="grid gap-2">
+                  {countryDestinations.map((country) => (
+                    <Link
+                      key={country.id}
+                      to={country.route}
+                      onClick={() => setMobileOpen(false)}
+                      className="text-foreground"
+                    >
+                      {country.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
 
               <Link
                 to="/privacy-policy"
