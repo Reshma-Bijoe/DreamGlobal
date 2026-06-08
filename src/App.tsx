@@ -6,7 +6,11 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import FloatingContactTabs from "./components/FloatingContactTabs.tsx";
 import ScrollManager from "./components/ScrollManager.tsx";
 import Admin from "./pages/Admin.tsx";
+import BlogPost from "./pages/BlogPost.tsx";
+import Blogs from "./pages/Blogs.tsx";
+import Countries from "./pages/Countries.tsx";
 import CountryPage from "./pages/CountryPage.tsx";
+import FAQs from "./pages/FAQs.tsx";
 import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import PrivacyPolicy from "./pages/PrivacyPolicy.tsx";
@@ -26,7 +30,11 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/blogs" element={<Blogs />} />
+          <Route path="/blogs/:slug" element={<BlogPost />} />
+          <Route path="/countries" element={<Countries />} />
           <Route path="/countries/:countryId" element={<CountryPage />} />
+          <Route path="/faqs" element={<FAQs />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

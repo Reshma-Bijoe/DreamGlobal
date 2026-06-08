@@ -17,8 +17,12 @@ const navLinks = [
   { label: "Home", href: "#hero" },
   { label: "About", href: "#about" },
   { label: "Services", href: "#services" },
-  { label: "Why Us", href: "#features" },
   { label: "Contact", href: "#contact" },
+];
+
+const pageLinks = [
+  { label: "FAQs", to: "/faqs" },
+  { label: "Blogs", to: "/blogs" },
 ];
 
 const Navbar = () => {
@@ -67,7 +71,7 @@ const Navbar = () => {
 
       {/* TOP BAR */}
       <div className="bg-secondary py-2 border-b border-white/10">
-        <div className="container mx-auto flex flex-col md:flex-row md:justify-end items-center gap-2 md:gap-6 text-white/80 text-xs sm:text-sm">
+        <div className="container mx-auto flex flex-col items-center gap-2 px-4 text-xs text-white/80 sm:text-sm md:flex-row md:justify-end md:gap-6">
           <a
             href="mailto:dreamglobalin@gmail.com"
             className="flex items-center gap-2 hover:text-gold transition-colors"
@@ -98,7 +102,7 @@ const Navbar = () => {
             alt="Dream Global Logo"
             className="h-10 w-10 sm:h-12 sm:w-12 lg:h-14 lg:w-14 rounded-full"
           />
-          <span className="dream-gradient-text text-3xl sm:text-4xl font-bold">
+          <span className="dream-gradient-text text-2xl font-bold sm:text-4xl">
             DreamGlobal
           </span>
         </Link>
@@ -114,6 +118,16 @@ const Navbar = () => {
             >
               {link.label}
             </a>
+          ))}
+
+          {pageLinks.map((link) => (
+            <Link
+              key={link.to}
+              to={link.to}
+              className="whitespace-nowrap text-sm text-muted-foreground transition hover:text-primary 2xl:text-base"
+            >
+              {link.label}
+            </Link>
           ))}
 
           <div
@@ -145,6 +159,13 @@ const Navbar = () => {
                   <p className="px-4 pb-2 pt-1 text-xs font-bold uppercase tracking-widest text-yellow-600">
                     Countries
                   </p>
+                  <Link
+                    to="/countries"
+                    onClick={() => setCountriesOpen(false)}
+                    className="block border-b border-slate-100 px-4 py-2 text-sm font-bold text-slate-900 transition hover:bg-yellow-50"
+                  >
+                    All countries
+                  </Link>
                   {countryDestinations.map((country) => (
                     <Link
                       key={country.id}
@@ -210,8 +231,10 @@ const Navbar = () => {
 
         {/* MOBILE BUTTON */}
         <button
-          className="xl:hidden"
+          type="button"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-border bg-background/80 text-foreground xl:hidden"
           onClick={() => setMobileOpen(!mobileOpen)}
+          aria-label={mobileOpen ? "Close menu" : "Open menu"}
         >
           {mobileOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -225,9 +248,9 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="xl:hidden bg-background/95 backdrop-blur-md border-t"
+            className="max-h-[calc(100vh-8rem)] overflow-y-auto border-t bg-background/95 backdrop-blur-md xl:hidden"
           >
-            <div className="container mx-auto py-4 flex flex-col gap-4">
+            <div className="container mx-auto flex flex-col gap-4 px-4 py-4">
               {navLinks.map((link) => (
                 <a
                   key={link.href}
@@ -241,11 +264,29 @@ const Navbar = () => {
                 </a>
               ))}
 
+              {pageLinks.map((link) => (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  onClick={() => setMobileOpen(false)}
+                  className="text-foreground"
+                >
+                  {link.label}
+                </Link>
+              ))}
+
               <div>
                 <p className="mb-2 text-xs font-bold uppercase tracking-widest text-yellow-600">
                   Countries
                 </p>
                 <div className="grid gap-2">
+                  <Link
+                    to="/countries"
+                    onClick={() => setMobileOpen(false)}
+                    className="font-semibold text-foreground"
+                  >
+                    All countries
+                  </Link>
                   {countryDestinations.map((country) => (
                     <Link
                       key={country.id}

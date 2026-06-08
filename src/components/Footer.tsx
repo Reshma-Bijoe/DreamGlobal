@@ -1,4 +1,4 @@
-import { Globe, Mail, Phone, MapPin, MessageCircle } from "lucide-react";
+import { Globe, Mail, Phone, MessageCircle } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
 const quickLinks = [
@@ -7,6 +7,13 @@ const quickLinks = [
   { label: "Services", href: "#services" },
   { label: "Why Us", href: "#features" },
   { label: "Contact", href: "#contact" },
+];
+
+const pageLinks = [
+  { label: "Countries", to: "/countries" },
+  { label: "FAQs", to: "/faqs" },
+  { label: "Blogs", to: "/blogs" },
+  { label: "Privacy Policy", to: "/privacy-policy" },
 ];
 
 const Footer = () => {
@@ -21,7 +28,7 @@ const Footer = () => {
 
   return (
     <footer className="bg-secondary text-white py-16 px-4">
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-[1fr_0.8fr_0.8fr] gap-12">
+      <div className="container mx-auto grid grid-cols-1 gap-12 md:grid-cols-[1fr_0.75fr_0.75fr_0.85fr]">
         {/* Brand */}
         <div>
           <Link to="/" className="font-heading text-2xl font-bold tracking-wide">
@@ -70,13 +77,31 @@ const Footer = () => {
               </li>
             ))}
             <li>
-              <Link
-                to="/privacy-policy"
-                className="text-sm text-white/70 hover:text-gold transition-colors"
+              <a
+                href="https://dreamglobal.edumilestones.com/"
+                className="text-sm text-white/70 transition-colors hover:text-gold"
               >
-                Privacy Policy
-              </Link>
+                Start Your Journey
+              </a>
             </li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 className="mb-4 font-heading text-lg font-semibold text-white">
+            Resources
+          </h4>
+          <ul className="space-y-2.5">
+            {pageLinks.map((link) => (
+              <li key={link.to}>
+                <Link
+                  to={link.to}
+                  className="text-sm text-white/70 transition-colors hover:text-gold"
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
 

@@ -1,8 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
 import { Link, useParams } from "react-router-dom";
-import { ArrowLeft, Loader2, Mail, Phone, X } from "lucide-react";
+import {
+  ArrowLeft,
+  CheckCircle2,
+  GraduationCap,
+  Loader2,
+  Mail,
+  Phone,
+  X,
+} from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 
+import FaqAccordion from "@/components/FaqAccordion";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import {
@@ -19,13 +29,108 @@ type CallbackForm = {
 
 type CallbackErrors = Partial<CallbackForm>;
 
+type EligibilityForm = {
+  name: string;
+  phone: string;
+  email: string;
+  preferredCountry: string;
+  preferredIntake: string;
+  highestQualification: string;
+  academicScore: string;
+  passportStatus: string;
+  englishTestStatus: string;
+  expectedBudget: number;
+  studySeriousness: string;
+};
+
+type EligibilityErrors = Partial<Record<keyof EligibilityForm, string>>;
+type EligibilityMessage = "" | "review" | "thanks";
+
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const phonePattern = /^[0-9\s-]+$/;
+const minBudget = 500000;
+const maxBudget = 5000000;
+
+const intakeOptions = ["September 2026", "January 2027"];
+const qualificationOptions = [
+  "Class 10 / Secondary School Certificate (SSLC/SSC)",
+  "Class 12 / Higher Secondary Certificate (HSC/Plus Two)",
+  "Final-year undergraduate student",
+  "Bachelor's degree",
+  "Final-year postgraduate student",
+  "Master's degree",
+  "Working professional",
+];
+const passportOptions = ["Yes", "Applied", "No"];
+const englishTestOptions = ["Completed", "Preparing", "Need guidance"];
+const seriousnessOptions = [
+  "Very serious",
+  "Shortlisting options",
+  "Exploring options",
+  "Need counselling first",
+];
+
+const initialEligibilityForm: EligibilityForm = {
+  name: "",
+  phone: "",
+  email: "",
+  preferredCountry: "",
+  preferredIntake: "September 2026",
+  highestQualification: "",
+  academicScore: "",
+  passportStatus: "",
+  englishTestStatus: "",
+  expectedBudget: 1500000,
+  studySeriousness: "",
+};
+
+const modalVariants = {
+  hidden: {
+    opacity: 0,
+    y: 28,
+    scale: 0.95,
+    filter: "blur(8px)",
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    filter: "blur(0px)",
+    transition: {
+      type: "spring",
+      stiffness: 360,
+      damping: 28,
+      mass: 0.9,
+    },
+  },
+  exit: {
+    opacity: 0,
+    y: 20,
+    scale: 0.96,
+    filter: "blur(6px)",
+    transition: { duration: 0.18, ease: [0.4, 0, 1, 1] },
+  },
+};
+
+const formatBudget = (value: number) =>
+  new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    maximumFractionDigits: 0,
+  }).format(value);
+
+const countryAdmissionBanners: Record<string, string> = {
+  "united-kingdom":
+    "UK admissions are currently open. Secure your preferred intake before seats close.",
+  italy:
+    "Italy admissions and scholarship opportunities are available now. Apply early to improve your options.",
+};
 
 const CountryPage = () => {
   const { countryId } = useParams();
   const country = getCountryDestination(countryId);
   const [contactOpen, setContactOpen] = useState(false);
+  const [eligibilityOpen, setEligibilityOpen] = useState(false);
   const [callbackForm, setCallbackForm] = useState<CallbackForm>({
     name: "",
     phone: "",
@@ -34,11 +139,46 @@ const CountryPage = () => {
   const [callbackErrors, setCallbackErrors] = useState<CallbackErrors>({});
   const [callbackSubmitting, setCallbackSubmitting] = useState(false);
   const [callbackMessage, setCallbackMessage] = useState("");
+  const [eligibilityForm, setEligibilityForm] = useState<EligibilityForm>(
+    initialEligibilityForm
+  );
+  const [eligibilityErrors, setEligibilityErrors] =
+    useState<EligibilityErrors>({});
+  const [eligibilitySubmitting, setEligibilitySubmitting] = useState(false);
+  const [eligibilityMessage, setEligibilityMessage] =
+    useState<EligibilityMessage>("");
+
+  useEffect(() => {
+    if (!country) return;
+    setEligibilityForm((current) => ({
+      ...current,
+      preferredCountry: country.name,
+    }));
+  }, [country]);
+
+  useEffect(() => {
+    if (eligibilityMessage !== "review") return;
+
+    const timer = window.setTimeout(() => {
+      setEligibilityMessage("thanks");
+    }, 3500);
+
+    return () => window.clearTimeout(timer);
+  }, [eligibilityMessage]);
 
   const updateCallbackField = (field: keyof CallbackForm, value: string) => {
     setCallbackForm((current) => ({ ...current, [field]: value }));
     setCallbackErrors((current) => ({ ...current, [field]: undefined }));
     setCallbackMessage("");
+  };
+
+  const updateEligibilityField = <Key extends keyof EligibilityForm>(
+    field: Key,
+    value: EligibilityForm[Key]
+  ) => {
+    setEligibilityForm((current) => ({ ...current, [field]: value }));
+    setEligibilityErrors((current) => ({ ...current, [field]: undefined }));
+    setEligibilityMessage("");
   };
 
   const validateCallbackForm = () => {
@@ -69,6 +209,55 @@ const CountryPage = () => {
     return Object.keys(nextErrors).length === 0;
   };
 
+  const validateEligibilityForm = () => {
+    const nextErrors: EligibilityErrors = {};
+    const name = eligibilityForm.name.trim();
+    const phone = eligibilityForm.phone.trim();
+    const email = eligibilityForm.email.trim();
+    const academicScore = eligibilityForm.academicScore.trim();
+
+    if (!name) nextErrors.name = "Please enter your full name.";
+
+    if (!phone) {
+      nextErrors.phone = "Please enter your mobile number.";
+    } else if (!phonePattern.test(phone)) {
+      nextErrors.phone = "Please enter a valid mobile number.";
+    } else if (phone.replace(/\D/g, "").length !== 10) {
+      nextErrors.phone = "Mobile number must be 10 digits.";
+    }
+
+    if (!email) {
+      nextErrors.email = "Please enter your email.";
+    } else if (!emailPattern.test(email)) {
+      nextErrors.email = "Please enter a valid email address.";
+    }
+
+    if (!eligibilityForm.preferredCountry) {
+      nextErrors.preferredCountry = "Please choose a country.";
+    }
+    if (!eligibilityForm.preferredIntake) {
+      nextErrors.preferredIntake = "Please choose an intake.";
+    }
+    if (!eligibilityForm.highestQualification) {
+      nextErrors.highestQualification = "Please choose your qualification.";
+    }
+    if (!academicScore) {
+      nextErrors.academicScore = "Please enter your percentage or CGPA.";
+    }
+    if (!eligibilityForm.passportStatus) {
+      nextErrors.passportStatus = "Please choose your passport status.";
+    }
+    if (!eligibilityForm.englishTestStatus) {
+      nextErrors.englishTestStatus = "Please choose your IELTS/PTE status.";
+    }
+    if (!eligibilityForm.studySeriousness) {
+      nextErrors.studySeriousness = "Please choose one option.";
+    }
+
+    setEligibilityErrors(nextErrors);
+    return Object.keys(nextErrors).length === 0;
+  };
+
   const submitCallback = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setCallbackMessage("");
@@ -93,6 +282,52 @@ const CountryPage = () => {
 
     setCallbackForm({ name: "", phone: "", email: "" });
     setCallbackMessage("Request sent. We will call you soon.");
+  };
+
+  const submitEligibility = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setEligibilityMessage("");
+
+    if (!validateEligibilityForm()) return;
+
+    setEligibilitySubmitting(true);
+
+    const { error } = await supabase.from("eligibility").insert({
+      name: eligibilityForm.name.trim(),
+      number: eligibilityForm.phone.trim(),
+      email: eligibilityForm.email.trim(),
+      country: eligibilityForm.preferredCountry,
+      intake: eligibilityForm.preferredIntake,
+      cgpa: eligibilityForm.academicScore.trim(),
+      passport: eligibilityForm.passportStatus,
+      qualification: eligibilityForm.highestQualification,
+      serious: eligibilityForm.studySeriousness,
+      ielts: eligibilityForm.englishTestStatus,
+      budget: eligibilityForm.expectedBudget,
+    });
+
+    setEligibilitySubmitting(false);
+
+    if (error) {
+      console.error("Eligibility request failed:", error);
+      setEligibilityErrors({
+        studySeriousness: "Sorry, we could not submit this right now.",
+      });
+      return;
+    }
+
+    setEligibilityForm({
+      ...initialEligibilityForm,
+      preferredCountry: country?.name || "",
+    });
+    setEligibilityErrors({});
+    setEligibilityMessage("review");
+  };
+
+  const closeEligibility = () => {
+    setEligibilityOpen(false);
+    setEligibilityErrors({});
+    setEligibilityMessage("");
   };
 
   if (!country) {
@@ -147,9 +382,25 @@ const CountryPage = () => {
               <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/85 sm:text-lg">
                 {country.tagline}
               </p>
+              <button
+                type="button"
+                onClick={() => setEligibilityOpen(true)}
+                className="gold-gradient-bg mt-8 inline-flex items-center justify-center gap-2 rounded-md px-5 py-3 font-semibold text-primary-foreground transition hover:opacity-90"
+              >
+                <GraduationCap size={18} />
+                Check My Eligibility
+              </button>
             </div>
           </div>
         </section>
+
+        {countryAdmissionBanners[country.id] && (
+          <section className="gold-gradient-bg px-4 py-3 text-primary-foreground">
+            <div className="container mx-auto text-center text-sm font-bold uppercase tracking-[0.12em] sm:text-base">
+              {countryAdmissionBanners[country.id]}
+            </div>
+          </section>
+        )}
 
         <section className="bg-white py-16">
           <div className="container mx-auto grid gap-10 px-4 lg:grid-cols-[1.25fr_0.75fr]">
@@ -283,7 +534,40 @@ const CountryPage = () => {
               >
                 Contact Us
               </button>
+
+              <button
+                type="button"
+                onClick={() => setEligibilityOpen(true)}
+                className="flex w-full items-center justify-center gap-2 rounded-md bg-secondary px-5 py-3 font-semibold text-white transition hover:bg-accent"
+              >
+                <GraduationCap size={18} />
+                Check My Eligibility
+              </button>
             </div>
+          </div>
+        </section>
+
+        <section className="bg-slate-50 py-16">
+          <div className="container mx-auto px-4">
+            <div className="max-w-3xl">
+              <p className="text-sm font-bold uppercase tracking-widest text-yellow-600">
+                {country.name} FAQs
+              </p>
+              <h2 className="mt-3 text-3xl font-bold text-slate-950">
+                Common questions about studying in {country.name}
+              </h2>
+            </div>
+
+            <div className="mt-8">
+              <FaqAccordion items={country.faqs} variant="country" />
+            </div>
+
+            <Link
+              to="/faqs"
+              className="mt-8 inline-flex rounded-md border border-yellow-300 bg-yellow-50 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-yellow-100"
+            >
+              View general FAQs
+            </Link>
           </div>
         </section>
 
@@ -355,6 +639,366 @@ const CountryPage = () => {
           </div>
         </div>
       )}
+
+      <AnimatePresence>
+        {eligibilityOpen && (
+          <motion.div
+            className="fixed inset-0 z-[80] flex items-center justify-center overflow-y-auto bg-black/70 px-4 py-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closeEligibility}
+          >
+            <motion.div
+              variants={modalVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="relative w-full max-w-3xl rounded-lg border border-white/60 bg-white p-5 text-slate-950 shadow-2xl shadow-secondary/25 sm:p-6"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <button
+                type="button"
+                onClick={closeEligibility}
+                className="absolute right-3 top-3 rounded-full bg-slate-100 p-2 text-slate-700 transition hover:bg-slate-200"
+                aria-label="Close eligibility form"
+              >
+                <X size={16} />
+              </button>
+
+              {eligibilityMessage ? (
+                <div className="flex min-h-[320px] flex-col items-center justify-center px-2 text-center">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-yellow-100 text-yellow-700">
+                    <CheckCircle2 size={32} />
+                  </div>
+                  <p className="mt-5 text-sm font-bold uppercase tracking-widest text-yellow-600">
+                    Profile submitted
+                  </p>
+                  <h2 className="mt-2 text-3xl font-bold text-slate-950">
+                    {eligibilityMessage === "review"
+                      ? "Our team will review your profile and contact you shortly."
+                      : "Thank you."}
+                  </h2>
+                  <p className="mt-3 max-w-md text-sm leading-6 text-slate-600">
+                    {eligibilityMessage === "review"
+                      ? "Please keep your phone nearby so our counselling team can reach you."
+                      : "Your eligibility details are safely with DreamGlobal."}
+                  </p>
+                  {eligibilityMessage === "thanks" && (
+                    <button
+                      type="button"
+                      onClick={closeEligibility}
+                      className="mt-6 rounded-md bg-secondary px-5 py-3 text-sm font-semibold text-white transition hover:bg-accent"
+                    >
+                      Done
+                    </button>
+                  )}
+                </div>
+              ) : (
+                <>
+                  <p className="text-sm font-bold uppercase tracking-widest text-yellow-600">
+                    Study abroad profile
+                  </p>
+                  <h2 className="mt-2 pr-8 text-2xl font-bold text-slate-950 sm:text-3xl">
+                    Check My Eligibility
+                  </h2>
+
+                  <form onSubmit={submitEligibility} className="mt-6 space-y-5">
+                    <div className="grid gap-4 sm:grid-cols-2">
+                      <label className="block">
+                        <span className="mb-2 block text-sm font-semibold">
+                          Full name
+                        </span>
+                        <input
+                          value={eligibilityForm.name}
+                          onChange={(event) =>
+                            updateEligibilityField("name", event.target.value)
+                          }
+                          className="w-full rounded-md border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-yellow-400 focus:bg-white"
+                          placeholder="Your full name"
+                          autoComplete="name"
+                        />
+                        {eligibilityErrors.name && (
+                          <span className="mt-1 block text-xs text-red-600">
+                            {eligibilityErrors.name}
+                          </span>
+                        )}
+                      </label>
+
+                      <label className="block">
+                        <span className="mb-2 block text-sm font-semibold">
+                          Mobile number
+                        </span>
+                        <input
+                          value={eligibilityForm.phone}
+                          onChange={(event) =>
+                            updateEligibilityField("phone", event.target.value)
+                          }
+                          className="w-full rounded-md border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-yellow-400 focus:bg-white"
+                          placeholder="10 digit mobile number"
+                          autoComplete="tel"
+                          type="tel"
+                        />
+                        {eligibilityErrors.phone && (
+                          <span className="mt-1 block text-xs text-red-600">
+                            {eligibilityErrors.phone}
+                          </span>
+                        )}
+                      </label>
+
+                      <label className="block">
+                        <span className="mb-2 block text-sm font-semibold">
+                          Email
+                        </span>
+                        <input
+                          value={eligibilityForm.email}
+                          onChange={(event) =>
+                            updateEligibilityField("email", event.target.value)
+                          }
+                          className="w-full rounded-md border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-yellow-400 focus:bg-white"
+                          placeholder="you@example.com"
+                          autoComplete="email"
+                          type="email"
+                        />
+                        {eligibilityErrors.email && (
+                          <span className="mt-1 block text-xs text-red-600">
+                            {eligibilityErrors.email}
+                          </span>
+                        )}
+                      </label>
+
+                      <label className="block">
+                        <span className="mb-2 block text-sm font-semibold">
+                          Preferred country
+                        </span>
+                        <select
+                          value={eligibilityForm.preferredCountry}
+                          onChange={(event) =>
+                            updateEligibilityField(
+                              "preferredCountry",
+                              event.target.value
+                            )
+                          }
+                          className="w-full rounded-md border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-yellow-400 focus:bg-white"
+                        >
+                          {countryDestinations.map((destination) => (
+                            <option
+                              key={destination.id}
+                              value={destination.name}
+                            >
+                              {destination.name}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+
+                      <label className="block">
+                        <span className="mb-2 block text-sm font-semibold">
+                          Preferred intake
+                        </span>
+                        <select
+                          value={eligibilityForm.preferredIntake}
+                          onChange={(event) =>
+                            updateEligibilityField(
+                              "preferredIntake",
+                              event.target.value
+                            )
+                          }
+                          className="w-full rounded-md border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-yellow-400 focus:bg-white"
+                        >
+                          {intakeOptions.map((option) => (
+                            <option key={option}>{option}</option>
+                          ))}
+                        </select>
+                      </label>
+
+                      <label className="block">
+                        <span className="mb-2 block text-sm font-semibold">
+                          Highest qualification
+                        </span>
+                        <select
+                          value={eligibilityForm.highestQualification}
+                          onChange={(event) =>
+                            updateEligibilityField(
+                              "highestQualification",
+                              event.target.value
+                            )
+                          }
+                          className="w-full rounded-md border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-yellow-400 focus:bg-white"
+                        >
+                          <option value="">Select qualification</option>
+                          {qualificationOptions.map((option) => (
+                            <option key={option}>{option}</option>
+                          ))}
+                        </select>
+                        {eligibilityErrors.highestQualification && (
+                          <span className="mt-1 block text-xs text-red-600">
+                            {eligibilityErrors.highestQualification}
+                          </span>
+                        )}
+                      </label>
+
+                      <label className="block">
+                        <span className="mb-2 block text-sm font-semibold">
+                          Academic percentage/CGPA
+                        </span>
+                        <input
+                          value={eligibilityForm.academicScore}
+                          onChange={(event) =>
+                            updateEligibilityField(
+                              "academicScore",
+                              event.target.value
+                            )
+                          }
+                          className="w-full rounded-md border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-yellow-400 focus:bg-white"
+                          placeholder="Example: 78% or 8.1 CGPA"
+                        />
+                        {eligibilityErrors.academicScore && (
+                          <span className="mt-1 block text-xs text-red-600">
+                            {eligibilityErrors.academicScore}
+                          </span>
+                        )}
+                      </label>
+
+                      <label className="block">
+                        <span className="mb-2 block text-sm font-semibold">
+                          Passport status
+                        </span>
+                        <select
+                          value={eligibilityForm.passportStatus}
+                          onChange={(event) =>
+                            updateEligibilityField(
+                              "passportStatus",
+                              event.target.value
+                            )
+                          }
+                          className="w-full rounded-md border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-yellow-400 focus:bg-white"
+                        >
+                          <option value="">Select status</option>
+                          {passportOptions.map((option) => (
+                            <option key={option}>{option}</option>
+                          ))}
+                        </select>
+                        {eligibilityErrors.passportStatus && (
+                          <span className="mt-1 block text-xs text-red-600">
+                            {eligibilityErrors.passportStatus}
+                          </span>
+                        )}
+                      </label>
+
+                      <label className="block">
+                        <span className="mb-2 block text-sm font-semibold">
+                          IELTS/PTE status
+                        </span>
+                        <select
+                          value={eligibilityForm.englishTestStatus}
+                          onChange={(event) =>
+                            updateEligibilityField(
+                              "englishTestStatus",
+                              event.target.value
+                            )
+                          }
+                          className="w-full rounded-md border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-yellow-400 focus:bg-white"
+                        >
+                          <option value="">Select status</option>
+                          {englishTestOptions.map((option) => (
+                            <option key={option}>{option}</option>
+                          ))}
+                        </select>
+                        {eligibilityErrors.englishTestStatus && (
+                          <span className="mt-1 block text-xs text-red-600">
+                            {eligibilityErrors.englishTestStatus}
+                          </span>
+                        )}
+                      </label>
+
+                      <label className="block">
+                        <span className="mb-2 block text-sm font-semibold">
+                          How serious are you?
+                        </span>
+                        <select
+                          value={eligibilityForm.studySeriousness}
+                          onChange={(event) =>
+                            updateEligibilityField(
+                              "studySeriousness",
+                              event.target.value
+                            )
+                          }
+                          className="w-full rounded-md border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-yellow-400 focus:bg-white"
+                        >
+                          <option value="">Select one</option>
+                          {seriousnessOptions.map((option) => (
+                            <option key={option}>{option}</option>
+                          ))}
+                        </select>
+                        {eligibilityErrors.studySeriousness && (
+                          <span className="mt-1 block text-xs text-red-600">
+                            {eligibilityErrors.studySeriousness}
+                          </span>
+                        )}
+                      </label>
+                    </div>
+
+                    <label className="block rounded-lg border border-slate-200 bg-slate-50 p-4">
+                      <span className="flex items-center justify-between gap-3 text-sm font-semibold">
+                        <span>Expected budget</span>
+                        <span className="text-yellow-700">
+                          {formatBudget(eligibilityForm.expectedBudget)}
+                        </span>
+                      </span>
+                      <div className="mt-4 grid gap-3 sm:grid-cols-[1fr_180px] sm:items-center">
+                        <input
+                          type="range"
+                          min={minBudget}
+                          max={maxBudget}
+                          step={50000}
+                          value={eligibilityForm.expectedBudget}
+                          onChange={(event) =>
+                            updateEligibilityField(
+                              "expectedBudget",
+                              Number(event.target.value)
+                            )
+                          }
+                          className="accent-yellow-500"
+                        />
+                        <input
+                          type="number"
+                          min={minBudget}
+                          max={maxBudget}
+                          step={50000}
+                          value={eligibilityForm.expectedBudget}
+                          onChange={(event) =>
+                            updateEligibilityField(
+                              "expectedBudget",
+                              Number(event.target.value)
+                            )
+                          }
+                          className="rounded-md border border-slate-200 bg-white px-3 py-2 text-sm outline-none transition focus:border-yellow-400"
+                        />
+                      </div>
+                    </label>
+
+                    <button
+                      type="submit"
+                      disabled={eligibilitySubmitting}
+                      className="gold-gradient-bg flex w-full items-center justify-center gap-2 rounded-md px-5 py-3 font-semibold text-primary-foreground transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-70"
+                    >
+                      {eligibilitySubmitting ? (
+                        <Loader2 size={16} className="animate-spin" />
+                      ) : (
+                        <GraduationCap size={18} />
+                      )}
+                      {eligibilitySubmitting
+                        ? "Submitting..."
+                        : "Submit Eligibility Profile"}
+                    </button>
+                  </form>
+                </>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <Footer />
     </div>
