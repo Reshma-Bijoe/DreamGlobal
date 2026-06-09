@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { FormEvent } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
@@ -33,7 +33,7 @@ type EligibilityForm = {
   name: string;
   phone: string;
   email: string;
-  preferredCountry: string;
+  interestedCountries: string[];
   preferredIntake: string;
   highestQualification: string;
   academicScore: string;
@@ -74,7 +74,7 @@ const initialEligibilityForm: EligibilityForm = {
   name: "",
   phone: "",
   email: "",
-  preferredCountry: "",
+  interestedCountries: [],
   preferredIntake: "September 2026",
   highestQualification: "",
   academicScore: "",
@@ -129,6 +129,7 @@ const countryAdmissionBanners: Record<string, string> = {
 const CountryPage = () => {
   const { countryId } = useParams();
   const country = getCountryDestination(countryId);
+  const callbackSectionRef = useRef<HTMLDivElement | null>(null);
   const [contactOpen, setContactOpen] = useState(false);
   const [eligibilityOpen, setEligibilityOpen] = useState(false);
   const [callbackForm, setCallbackForm] = useState<CallbackForm>({
@@ -152,7 +153,9 @@ const CountryPage = () => {
     if (!country) return;
     setEligibilityForm((current) => ({
       ...current,
-      preferredCountry: country.name,
+      interestedCountries: current.interestedCountries.length
+        ? current.interestedCountries
+        : [country.name],
     }));
   }, [country]);
 
@@ -178,6 +181,23 @@ const CountryPage = () => {
   ) => {
     setEligibilityForm((current) => ({ ...current, [field]: value }));
     setEligibilityErrors((current) => ({ ...current, [field]: undefined }));
+    setEligibilityMessage("");
+  };
+
+  const toggleInterestedCountry = (countryName: string) => {
+    setEligibilityForm((current) => {
+      const isSelected = current.interestedCountries.includes(countryName);
+      return {
+        ...current,
+        interestedCountries: isSelected
+          ? current.interestedCountries.filter((name) => name !== countryName)
+          : [...current.interestedCountries, countryName],
+      };
+    });
+    setEligibilityErrors((current) => ({
+      ...current,
+      interestedCountries: undefined,
+    }));
     setEligibilityMessage("");
   };
 
@@ -232,8 +252,8 @@ const CountryPage = () => {
       nextErrors.email = "Please enter a valid email address.";
     }
 
-    if (!eligibilityForm.preferredCountry) {
-      nextErrors.preferredCountry = "Please choose a country.";
+    if (!eligibilityForm.interestedCountries.length) {
+      nextErrors.interestedCountries = "Please choose at least one country.";
     }
     if (!eligibilityForm.preferredIntake) {
       nextErrors.preferredIntake = "Please choose an intake.";
@@ -270,6 +290,7 @@ const CountryPage = () => {
       name: callbackForm.name.trim(),
       phone: callbackForm.phone.trim(),
       email: callbackForm.email.trim(),
+      interest: `Study in ${country?.name || "a selected country"}`,
     });
 
     setCallbackSubmitting(false);
@@ -296,7 +317,8 @@ const CountryPage = () => {
       name: eligibilityForm.name.trim(),
       number: eligibilityForm.phone.trim(),
       email: eligibilityForm.email.trim(),
-      country: eligibilityForm.preferredCountry,
+      country: eligibilityForm.interestedCountries[0] || country?.name || "",
+      interest: eligibilityForm.interestedCountries.join(", "),
       intake: eligibilityForm.preferredIntake,
       cgpa: eligibilityForm.academicScore.trim(),
       passport: eligibilityForm.passportStatus,
@@ -318,7 +340,7 @@ const CountryPage = () => {
 
     setEligibilityForm({
       ...initialEligibilityForm,
-      preferredCountry: country?.name || "",
+      interestedCountries: country?.name ? [country.name] : [],
     });
     setEligibilityErrors({});
     setEligibilityMessage("review");
@@ -382,14 +404,16 @@ const CountryPage = () => {
               <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/85 sm:text-lg">
                 {country.tagline}
               </p>
-              <button
-                type="button"
-                onClick={() => setEligibilityOpen(true)}
-                className="gold-gradient-bg mt-8 inline-flex items-center justify-center gap-2 rounded-md px-5 py-3 font-semibold text-primary-foreground transition hover:opacity-90"
-              >
-                <GraduationCap size={18} />
-                Check My Eligibility
-              </button>
+              <div className="mt-8 flex flex-col gap-3 sm:inline-flex sm:flex-row">
+                <button
+                  type="button"
+                  onClick={() => setEligibilityOpen(true)}
+                  className="gold-gradient-bg inline-flex items-center justify-center gap-2 rounded-md px-5 py-3 font-semibold text-primary-foreground transition hover:opacity-90"
+                >
+                  <GraduationCap size={18} />
+                  Check My Eligibility
+                </button>
+              </div>
             </div>
           </div>
         </section>
@@ -435,7 +459,10 @@ const CountryPage = () => {
               </div>
             </div>
 
-            <div className="space-y-6 lg:sticky lg:top-32 lg:self-start">
+            <div
+              ref={callbackSectionRef}
+              className="scroll-mt-28 space-y-6 lg:sticky lg:top-32 lg:self-start"
+            >
               <form
                 className="rounded-lg border border-slate-200 bg-white p-6 text-slate-950 shadow-lg"
                 onSubmit={submitCallback}
@@ -643,7 +670,7 @@ const CountryPage = () => {
       <AnimatePresence>
         {eligibilityOpen && (
           <motion.div
-            className="fixed inset-0 z-[80] flex items-center justify-center overflow-y-auto bg-black/70 px-4 py-8"
+            className="fixed inset-0 z-[80] flex items-start justify-center overflow-y-auto bg-black/70 px-4 py-4 sm:items-center sm:py-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -767,30 +794,48 @@ const CountryPage = () => {
                         )}
                       </label>
 
-                      <label className="block">
+                      <div className="block">
                         <span className="mb-2 block text-sm font-semibold">
-                          Preferred country
+                          Countries of interest
                         </span>
-                        <select
-                          value={eligibilityForm.preferredCountry}
-                          onChange={(event) =>
-                            updateEligibilityField(
-                              "preferredCountry",
-                              event.target.value
-                            )
-                          }
-                          className="w-full rounded-md border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-yellow-400 focus:bg-white"
-                        >
-                          {countryDestinations.map((destination) => (
-                            <option
-                              key={destination.id}
-                              value={destination.name}
-                            >
-                              {destination.name}
-                            </option>
-                          ))}
-                        </select>
-                      </label>
+                        <details className="group relative">
+                          <summary className="flex min-h-[46px] cursor-pointer list-none items-center justify-between gap-3 rounded-md border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-yellow-400 group-open:border-yellow-400 group-open:bg-white">
+                            <span className="truncate">
+                              {eligibilityForm.interestedCountries.length
+                                ? eligibilityForm.interestedCountries.join(", ")
+                                : "Select countries"}
+                            </span>
+                            <span className="text-xs font-semibold uppercase tracking-[0.12em] text-yellow-700">
+                              Choose
+                            </span>
+                          </summary>
+                          <div className="absolute z-20 mt-2 max-h-56 w-full overflow-y-auto rounded-md border border-slate-200 bg-white p-2 shadow-xl">
+                            {countryDestinations.map((destination) => (
+                              <label
+                                key={destination.id}
+                                className="flex cursor-pointer items-center gap-3 rounded-md px-3 py-2 text-sm transition hover:bg-yellow-50"
+                              >
+                                <input
+                                  type="checkbox"
+                                  checked={eligibilityForm.interestedCountries.includes(
+                                    destination.name
+                                  )}
+                                  onChange={() =>
+                                    toggleInterestedCountry(destination.name)
+                                  }
+                                  className="h-4 w-4 rounded border-slate-300 accent-yellow-500"
+                                />
+                                <span>{destination.name}</span>
+                              </label>
+                            ))}
+                          </div>
+                        </details>
+                        {eligibilityErrors.interestedCountries && (
+                          <span className="mt-1 block text-xs text-red-600">
+                            {eligibilityErrors.interestedCountries}
+                          </span>
+                        )}
+                      </div>
 
                       <label className="block">
                         <span className="mb-2 block text-sm font-semibold">

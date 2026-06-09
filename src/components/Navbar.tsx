@@ -28,6 +28,7 @@ const pageLinks = [
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [studyOptionsOpen, setStudyOptionsOpen] = useState(false);
   const [countriesOpen, setCountriesOpen] = useState(false);
   const [showChatTip, setShowChatTip] = useState(true);
   const location = useLocation();
@@ -132,50 +133,100 @@ const Navbar = () => {
 
           <div
             className="relative"
-            onMouseEnter={() => setCountriesOpen(true)}
-            onMouseLeave={() => setCountriesOpen(false)}
+            onMouseEnter={() => setStudyOptionsOpen(true)}
+            onMouseLeave={() => {
+              setStudyOptionsOpen(false);
+              setCountriesOpen(false);
+            }}
           >
             <button
               type="button"
-              onClick={() => setCountriesOpen((current) => !current)}
+              onClick={() => setStudyOptionsOpen((current) => !current)}
               className="flex items-center gap-1 whitespace-nowrap text-sm text-muted-foreground transition hover:text-primary 2xl:text-base"
-              aria-expanded={countriesOpen}
+              aria-expanded={studyOptionsOpen}
             >
-              Countries
+              Study Options
               <ChevronDown
                 size={16}
-                className={`transition ${countriesOpen ? "rotate-180" : ""}`}
+                className={`transition ${
+                  studyOptionsOpen ? "rotate-180" : ""
+                }`}
               />
             </button>
 
             <AnimatePresence>
-              {countriesOpen && (
+              {studyOptionsOpen && (
                 <motion.div
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 8 }}
-                  className="absolute left-1/2 top-full z-50 mt-3 w-56 -translate-x-1/2 overflow-hidden rounded-lg border border-slate-200 bg-white py-2 shadow-xl"
+                  className="absolute left-1/2 top-full z-50 mt-3 w-60 -translate-x-1/2 rounded-lg border border-slate-200 bg-white py-2 shadow-xl"
                 >
                   <p className="px-4 pb-2 pt-1 text-xs font-bold uppercase tracking-widest text-yellow-600">
-                    Countries
+                    Study Options
                   </p>
                   <Link
-                    to="/countries"
-                    onClick={() => setCountriesOpen(false)}
+                    to="/mbbs"
+                    onClick={() => {
+                      setStudyOptionsOpen(false);
+                      setCountriesOpen(false);
+                    }}
                     className="block border-b border-slate-100 px-4 py-2 text-sm font-bold text-slate-900 transition hover:bg-yellow-50"
                   >
-                    All countries
+                    MBBS
                   </Link>
-                  {countryDestinations.map((country) => (
-                    <Link
-                      key={country.id}
-                      to={country.route}
-                      onClick={() => setCountriesOpen(false)}
-                      className="block px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-yellow-50 hover:text-slate-950"
+
+                  <div
+                    className="relative"
+                    onMouseEnter={() => setCountriesOpen(true)}
+                    onMouseLeave={() => setCountriesOpen(false)}
+                  >
+                    <button
+                      type="button"
+                      className="flex w-full items-center justify-between px-4 py-2 text-left text-sm font-bold text-slate-900 transition hover:bg-yellow-50"
                     >
-                      {country.name}
-                    </Link>
-                  ))}
+                      Countries
+                      <ChevronDown
+                        size={15}
+                        className="-rotate-90 text-yellow-700"
+                      />
+                    </button>
+
+                    <AnimatePresence>
+                      {countriesOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, x: 8 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={{ opacity: 0, x: 8 }}
+                          className="absolute left-full top-0 z-50 ml-2 w-56 overflow-hidden rounded-lg border border-slate-200 bg-white py-2 shadow-xl"
+                        >
+                          <Link
+                            to="/countries"
+                            onClick={() => {
+                              setStudyOptionsOpen(false);
+                              setCountriesOpen(false);
+                            }}
+                            className="block border-b border-slate-100 px-4 py-2 text-sm font-bold text-slate-900 transition hover:bg-yellow-50"
+                          >
+                            All countries
+                          </Link>
+                          {countryDestinations.map((country) => (
+                            <Link
+                              key={country.id}
+                              to={country.route}
+                              onClick={() => {
+                                setStudyOptionsOpen(false);
+                                setCountriesOpen(false);
+                              }}
+                              className="block px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-yellow-50 hover:text-slate-950"
+                            >
+                              {country.name}
+                            </Link>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -229,15 +280,31 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* MOBILE BUTTON */}
-        <button
-          type="button"
-          className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-border bg-background/80 text-foreground xl:hidden"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label={mobileOpen ? "Close menu" : "Open menu"}
-        >
-          {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        {/* MOBILE ACTIONS */}
+        <div className="flex items-center gap-2 xl:hidden">
+          <motion.a
+            href="https://wa.me/918848674757"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="relative inline-flex h-10 w-10 items-center justify-center rounded-full bg-green-500 text-white shadow-lg shadow-green-900/20"
+            animate={{ scale: [1, 1.05, 1] }}
+            transition={{ duration: 2.5, repeat: Infinity }}
+            whileTap={{ scale: 0.94 }}
+            aria-label="Chat on WhatsApp"
+          >
+            <span className="absolute h-10 w-10 rounded-full bg-green-400 opacity-25 animate-ping" />
+            <MessageCircle size={21} className="relative" />
+          </motion.a>
+
+          <button
+            type="button"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-border bg-background/80 text-foreground"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+          >
+            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
 
       </div>
 
@@ -277,9 +344,16 @@ const Navbar = () => {
 
               <div>
                 <p className="mb-2 text-xs font-bold uppercase tracking-widest text-yellow-600">
-                  Countries
+                  Study Options
                 </p>
                 <div className="grid gap-2">
+                  <Link
+                    to="/mbbs"
+                    onClick={() => setMobileOpen(false)}
+                    className="font-semibold text-foreground"
+                  >
+                    MBBS 
+                  </Link>
                   <Link
                     to="/countries"
                     onClick={() => setMobileOpen(false)}

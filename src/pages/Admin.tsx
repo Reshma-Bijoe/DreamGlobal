@@ -47,7 +47,9 @@ type Lead = {
   phone?: string | null;
   status?: RequestStatus | string | null;
   remarks?: string | null;
+  interest?: string | null;
   preferred_country?: string | null;
+  country_interest?: string | null;
   preferred_intake?: string | null;
   highest_qualification?: string | null;
   academic_score?: string | null;
@@ -65,6 +67,7 @@ type EligibilityRow = {
   number?: string | null;
   email?: string | null;
   country?: string | null;
+  interest?: string | null;
   intake?: string | null;
   cgpa?: string | null;
   passport?: string | null;
@@ -86,6 +89,7 @@ const mapEligibilityRow = (row: EligibilityRow): Lead => ({
   status: row.status || "Pending",
   remarks: row.remarks,
   preferred_country: row.country,
+  country_interest: row.interest,
   preferred_intake: row.intake,
   highest_qualification: row.qualification,
   academic_score: row.cgpa,
@@ -130,7 +134,9 @@ const formatDate = (value?: string | null) => {
 
 const getEligibilityDetails = (lead: Lead) =>
   [
+    ["Interest", lead.interest],
     ["Country", lead.preferred_country],
+    ["Interest", lead.country_interest],
     ["Intake", lead.preferred_intake],
     ["Qualification", lead.highest_qualification],
     ["Score", lead.academic_score],
@@ -249,6 +255,7 @@ export default function AdminDashboard() {
         });
       }
 
+      setNotificationMessage(`${title} received. Refreshing the dashboard.`);
       fetchLeads();
     };
 
@@ -264,7 +271,17 @@ export default function AdminDashboard() {
         { event: "INSERT", schema: "public", table: "eligibility" },
         () => notifyIncomingRequest("eligibility")
       )
-      .subscribe();
+      .subscribe((status) => {
+        if (status === "SUBSCRIBED") {
+          setNotificationMessage("Incoming browser notifications turned on.");
+        }
+
+        if (status === "CHANNEL_ERROR" || status === "TIMED_OUT") {
+          setNotificationMessage(
+            "Realtime notifications could not connect. Check Supabase realtime settings for leads and eligibility."
+          );
+        }
+      });
 
     return () => {
       supabase.removeChannel(channel);
@@ -513,7 +530,9 @@ export default function AdminDashboard() {
       "Phone",
       "Status",
       "Remarks",
+      "Interest",
       "Country",
+      "Interest",
       "Intake",
       "Qualification",
       "CGPA/Score",
@@ -531,7 +550,9 @@ export default function AdminDashboard() {
       lead.phone,
       getLeadStatus(lead.status),
       lead.remarks,
+      lead.interest,
       lead.preferred_country,
+      lead.country_interest,
       lead.preferred_intake,
       lead.highest_qualification,
       lead.academic_score,

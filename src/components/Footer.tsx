@@ -10,6 +10,7 @@ const quickLinks = [
 ];
 
 const pageLinks = [
+  { label: "MBBS Abroad", to: "/mbbs" },
   { label: "Countries", to: "/countries" },
   { label: "FAQs", to: "/faqs" },
   { label: "Blogs", to: "/blogs" },
@@ -76,6 +77,14 @@ const Footer = () => {
                 </a>
               </li>
             ))}
+            <li>
+              <Link
+                to="/mbbs"
+                className="text-sm text-white/70 transition-colors hover:text-gold"
+              >
+                MBBS Abroad
+              </Link>
+            </li>
             <li>
               <a
                 href="https://dreamglobal.edumilestones.com/"

@@ -139,6 +139,7 @@ const FloatingContactTabs = () => {
       name: name.trim(),
       phone: phone.trim(),
       email: callbackEmail.trim(),
+      interest: "General counselling callback",
     });
 
     setIsSubmitting(false);
@@ -156,20 +157,21 @@ const FloatingContactTabs = () => {
   };
 
   return (
-    <div className="fixed right-0 top-1/2 z-50 -translate-y-1/2">
-      <AnimatePresence>
-        {activeTab && (
-          <motion.div
-            key={activeTab}
-            variants={panelVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            style={{
-              transformOrigin: "right center",
-              transformPerspective: 900,
-            }}
-            className="absolute right-full top-1/2 mr-3 w-[calc(100vw-5rem)] max-w-72 rounded-lg border border-white/60 bg-card/95 p-5 text-card-foreground shadow-2xl shadow-secondary/20 backdrop-blur-md"
+    <>
+      <div className="fixed right-0 top-[58%] z-50 -translate-y-1/2 sm:top-1/2">
+        <AnimatePresence>
+          {activeTab && (
+            <motion.div
+              key={activeTab}
+              variants={panelVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              style={{
+                transformOrigin: "right center",
+                transformPerspective: 900,
+              }}
+              className="absolute right-full top-1/2 mr-3 w-[calc(100vw-4.5rem)] max-w-72 rounded-lg border border-white/60 bg-card/95 p-4 text-card-foreground shadow-2xl shadow-secondary/20 backdrop-blur-md sm:p-5"
           >
             <motion.span
               initial={{ scale: 0, opacity: 0 }}
@@ -316,51 +318,54 @@ const FloatingContactTabs = () => {
                 </a>
               </motion.div>
             )}
-          </motion.div>
-        )}
-      </AnimatePresence>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-      <div className="flex flex-col overflow-hidden rounded-l-lg shadow-xl shadow-secondary/20">
-        {tabs.map((tab) => {
-          const Icon = tab.icon;
+        <div className="flex flex-col overflow-hidden rounded-l-lg shadow-xl shadow-secondary/20">
+          {tabs.map((tab) => {
+            const Icon = tab.icon;
 
-          return (
-            <motion.button
-              key={tab.id}
-              type="button"
-              onClick={() =>
-                setActiveTab((current) => (current === tab.id ? null : tab.id))
-              }
-              className={`flex h-12 w-11 items-center justify-center transition hover:brightness-105 sm:h-14 sm:w-12 ${
-                activeTab === tab.id ? "brightness-110" : ""
-              } ${tab.className}`}
-              aria-label={tab.label}
-              title={tab.label}
-              whileHover={{ x: -4 }}
-              whileTap={{ scale: 0.92 }}
-              animate={{
-                x: activeTab === tab.id ? -6 : 0,
-              }}
-              transition={{ type: "spring", stiffness: 420, damping: 24 }}
-            >
-              <motion.span
+            return (
+              <motion.button
+                key={tab.id}
+                type="button"
+                onClick={() =>
+                  setActiveTab((current) =>
+                    current === tab.id ? null : tab.id
+                  )
+                }
+                className={`flex h-12 w-10 items-center justify-center transition hover:brightness-105 sm:h-14 sm:w-12 ${
+                  activeTab === tab.id ? "brightness-110" : ""
+                } ${tab.className}`}
+                aria-label={tab.label}
+                title={tab.label}
+                whileHover={{ x: -4 }}
+                whileTap={{ scale: 0.92 }}
                 animate={{
-                  scale: activeTab === tab.id ? 1.18 : 1,
-                  rotate: activeTab === tab.id ? [0, -8, 8, 0] : 0,
+                  x: activeTab === tab.id ? -6 : 0,
                 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 420,
-                  damping: 18,
-                }}
+                transition={{ type: "spring", stiffness: 420, damping: 24 }}
               >
-                <Icon size={20} aria-hidden="true" />
-              </motion.span>
-            </motion.button>
-          );
-        })}
+                <motion.span
+                  animate={{
+                    scale: activeTab === tab.id ? 1.18 : 1,
+                    rotate: activeTab === tab.id ? [0, -8, 8, 0] : 0,
+                  }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 420,
+                    damping: 18,
+                  }}
+                >
+                  <Icon size={20} aria-hidden="true" />
+                </motion.span>
+              </motion.button>
+            );
+          })}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
