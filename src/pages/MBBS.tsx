@@ -13,7 +13,7 @@ import {
 import FaqAccordion from "@/components/FaqAccordion";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import heroImage from "@/assets/hero-bg.jpg";
+import heroImage from "@/assets/mbbs3.png";
 import { supabase } from "../../supabaseClient";
 
 type CallbackForm = {
