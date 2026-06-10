@@ -1,8 +1,8 @@
 export type CallbackProfile = {
   eyebrow: string;
   title: string;
-  intro: string;
-  urgency: string;
+  intro: string | string[];
+  urgency: string | string[];
   reasons: string[];
 };
 

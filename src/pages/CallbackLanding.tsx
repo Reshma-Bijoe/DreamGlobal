@@ -371,14 +371,44 @@ const CallbackLanding = () => {
               <h1 className="mt-5 text-4xl font-bold leading-tight sm:text-5xl md:text-6xl">
                 {pageTitle}
               </h1>
-              <p className="mt-5 max-w-2xl text-base leading-8 text-white/85 sm:text-lg">
-                {pageProfile?.intro ||
-                  `Want to explore ${destinationText} in more detail? Share your details and our counsellors will help you understand courses, admission chances, intake timing, documents, and the next step before you lose a good opening.`}
-              </p>
-              <p className="mt-4 max-w-2xl rounded-lg border border-yellow-300/50 bg-yellow-300/15 px-4 py-4 text-sm font-bold leading-7 text-yellow-50 shadow-lg shadow-black/20 backdrop-blur sm:text-base">
-                {pageProfile?.urgency ||
-                  "The right intake, course, and document timeline can change quickly. A focused callback now can help you avoid a rushed decision later."}
-              </p>
+              {Array.isArray(pageProfile?.intro) ? (
+                <ul className="mt-5 max-w-2xl space-y-3 text-base leading-7 text-white/90 sm:text-lg">
+                  {pageProfile.intro.map((item) => (
+                    <li key={item} className="flex gap-3">
+                      <CheckCircle2
+                        size={19}
+                        className="mt-1 shrink-0 text-yellow-300"
+                      />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="mt-5 max-w-2xl text-base leading-8 text-white/85 sm:text-lg">
+                  {pageProfile?.intro ||
+                    `Want to explore ${destinationText} in more detail? Share your details and our counsellors will help you understand courses, admission chances, intake timing, documents, and the next step before you lose a good opening.`}
+                </p>
+              )}
+              <div className="mt-4 max-w-2xl rounded-lg border border-yellow-300/70 bg-yellow-300/20 px-4 py-4 text-yellow-50 shadow-xl shadow-black/25 ring-1 ring-yellow-200/20 backdrop-blur sm:px-5">
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-yellow-200">
+                  Why this timing matters
+                </p>
+                {Array.isArray(pageProfile?.urgency) ? (
+                  <ul className="mt-3 space-y-2.5 text-sm font-semibold leading-6 sm:text-base">
+                    {pageProfile.urgency.map((item) => (
+                      <li key={item} className="flex gap-3">
+                        <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-yellow-300 shadow-[0_0_12px_rgba(253,224,71,0.8)]" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="mt-3 text-sm font-bold leading-7 sm:text-base">
+                    {pageProfile?.urgency ||
+                      "The right intake, course, and document timeline can change quickly. A focused callback now can help you avoid a rushed decision later."}
+                  </p>
+                )}
+              </div>
               <button
                 type="button"
                 onClick={() => setMobileCallbackOpen(true)}

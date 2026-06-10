@@ -3,13 +3,19 @@ import type { CallbackProfile } from "./types";
 export const newZealandCallbackProfile: CallbackProfile = {
   eyebrow: "New Zealand pathway call",
   title: "New Zealand is best approached with clarity and timing",
-  intro:
-    "New Zealand suits students looking for supportive campuses, safe cities, practical learning, and strong options in business, IT, healthcare, hospitality, agriculture, and applied sciences.",
-  urgency:
-    "If you miss the right preparation window, you may lose suitable course starts or the breathing room needed for documents and decisions. For many students, the right New Zealand route is too valuable to leave late.",
+  intro: [
+    "Safe, supportive study environments with practical programs and focused career outcomes.",
+    "Profile-led shortlisting for business, IT, healthcare, hospitality, agriculture, and applied sciences.",
+    "Clear planning around intake timing, budget, documents, lifestyle fit, and long-term direction.",
+  ],
+  urgency: [
+    "New Zealand has focused intake options, so suitable course starts should be protected early.",
+    "Budget, lifestyle fit, and document planning need family-level clarity before applying.",
+    "Early guidance gives you space to choose confidently instead of rushing a smaller set of options.",
+  ],
   reasons: [
-    "February and July intakes need thoughtful preparation.",
-    "Smaller destination choices can make early shortlisting more important.",
-    "Counselling helps match lifestyle, budget, academics, and career direction.",
+    "Safe study cities",
+    "Lifestyle and budget fit",
+    "Focused intake planning",
   ],
 };

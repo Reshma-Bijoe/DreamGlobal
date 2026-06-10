@@ -3,13 +3,19 @@ import type { CallbackProfile } from "./types";
 export const franceCallbackProfile: CallbackProfile = {
   eyebrow: "France admissions window",
   title: "France rewards students who prepare early",
-  intro:
-    "France is not only about choosing a university. It is about matching your course, institution type, scholarship possibility, language comfort, and visa documents before the strongest options move ahead.",
-  urgency:
-    "If you wait until deadlines are close, you may still apply, but you can lose the time needed to compare programs properly, prepare a stronger file, and secure the intake that genuinely fits your future.",
+  intro: [
+    "Scholarship-led planning for public universities, grande ecoles, and high-value private institutions.",
+    "Career-focused shortlisting across business, fashion, hospitality, engineering, arts, and technology.",
+    "Visa-ready documentation strategy with language comfort, intake timing, and Campus France steps aligned early.",
+  ],
+  urgency: [
+    "Scholarship and public university routes become stronger when your profile is positioned early.",
+    "Campus France steps, documents, and visa timing need calm preparation, not last-week pressure.",
+    "Early counselling helps you choose a course with intention instead of settling for whatever remains open.",
+  ],
   reasons: [
-    "English-taught programs and scholarship routes need careful shortlisting.",
-    "Business, fashion, hospitality, engineering, and arts options fill differently by intake.",
-    "Early counselling helps you prepare documents before pressure begins.",
+    "Scholarship strategy",
+    "English-taught programs",
+    "Campus France readiness",
   ],
 };

@@ -28,13 +28,19 @@ export const mbbsInterestOptions: CallbackOption[] = [
 export const mbbsCallbackProfile: CallbackProfile = {
   eyebrow: "MBBS counselling priority",
   title: "MBBS decisions should never be made in a panic",
-  intro:
-    "MBBS in India or abroad is one of the most consequential choices a student can make. You need to compare NEET status, budget, recognition, country rules, university credibility, and long-term practice plans before you commit.",
-  urgency:
-    "If you wait until seats, documents, or deadlines are already under pressure, you may lose the chance to choose wisely. For a medical career, missing the right guidance at the right time can become a lifetime regret.",
+  intro: [
+    "India and abroad options compared through NEET status, budget, seat reality, and family priorities.",
+    "Recognition, university credibility, clinical exposure, safety, and long-term practice plans checked early.",
+    "A calmer medical admission strategy before documents, payments, and deadlines start creating pressure.",
+  ],
+  urgency: [
+    "MBBS choices affect recognition, clinical exposure, safety, budget, and long-term practice plans.",
+    "Seats, documents, and payment timelines become stressful when families wait too long.",
+    "Early counselling helps you compare India and abroad with evidence before committing under pressure.",
+  ],
   reasons: [
-    "India and abroad options need a realistic comparison, not guesswork.",
-    "Recognition, eligibility, and documentation must be checked before applying.",
-    "Early counselling protects students from rushed choices and weak-fit universities.",
+    "NEET route clarity",
+    "Recognition checks",
+    "University credibility",
   ],
 };

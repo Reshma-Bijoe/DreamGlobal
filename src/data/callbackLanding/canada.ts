@@ -3,13 +3,19 @@ import type { CallbackProfile } from "./types";
 export const canadaCallbackProfile: CallbackProfile = {
   eyebrow: "Canada counselling priority",
   title: "Canada needs a clear plan, not a rushed application",
-  intro:
-    "Canada remains attractive for career-oriented diplomas, degrees, postgraduate programs, co-op learning, and multicultural student cities, but the right route depends on your academics, budget, and long-term goals.",
-  urgency:
-    "If you delay, you may lose better program availability, enough time for financial planning, or the chance to compare colleges and universities properly. A life-changing move deserves more than a last-minute decision.",
+  intro: [
+    "Career-oriented diplomas, degrees, postgraduate programs, and co-op options matched to your profile.",
+    "Budget, academic fit, and long-term goals reviewed before choosing a college or university route.",
+    "Application and document planning built around realistic program availability and financial readiness.",
+  ],
+  urgency: [
+    "Program availability, college fit, and financial planning need time to be compared properly.",
+    "A rushed file can limit your options before the counselling conversation even becomes useful.",
+    "Early review helps align academics, budget, documents, and realistic Canada pathways.",
+  ],
   reasons: [
-    "Diploma, degree, and postgraduate pathways must be chosen carefully.",
-    "Co-op and practical learning options differ by institution and course.",
-    "Early profile review helps align intake, budget, documents, and eligibility.",
+    "Co-op pathways",
+    "Budget alignment",
+    "Program availability",
   ],
 };

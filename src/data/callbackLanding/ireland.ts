@@ -3,13 +3,19 @@ import type { CallbackProfile } from "./types";
 export const irelandCallbackProfile: CallbackProfile = {
   eyebrow: "Ireland opportunity call",
   title: "Ireland is a serious route for career-focused students",
-  intro:
-    "Ireland works especially well for students looking at technology, business, data, healthcare, engineering, and research in an English-speaking European environment connected to global employers.",
-  urgency:
-    "A delayed enquiry can narrow your course choices and reduce the time available for a complete application. When the destination fits your career plan, missing the right intake can feel like losing a once-in-a-lifetime opening.",
+  intro: [
+    "High-demand pathways in technology, data, business, healthcare, engineering, and research.",
+    "English-speaking European study options connected to global employers and practical career goals.",
+    "Intake, course, and document planning that helps your profile look intentional from the first application.",
+  ],
+  urgency: [
+    "Tech, data, business, and healthcare programs can close or shift before students expect it.",
+    "Early document planning gives your application a cleaner, more confident first impression.",
+    "When Ireland fits your career plan, the right intake should be protected before pressure begins.",
+  ],
   reasons: [
-    "Tech, finance, life sciences, and business routes need focused shortlisting.",
-    "September is competitive, and January options are course-specific.",
-    "Early counselling helps connect your academics with realistic program choices.",
+    "Tech and data careers",
+    "European career access",
+    "Course-fit review",
   ],
 };
