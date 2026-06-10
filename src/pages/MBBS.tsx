@@ -16,13 +16,18 @@ import Navbar from "@/components/Navbar";
 import heroImage from "@/assets/mbbs3.png";
 import { supabase } from "../../supabaseClient";
 
-type CallbackForm = {
+type ContactForm = {
   name: string;
   phone: string;
   email: string;
 };
 
-type EligibilityForm = CallbackForm & {
+type CallbackForm = ContactForm & {
+  preferredCountries: string[];
+  otherCountry: string;
+};
+
+type EligibilityForm = ContactForm & {
   neetStatus: string;
   academicScore: string;
   preferredCountries: string[];
@@ -164,6 +169,20 @@ const premiumPathways = [
   },
 ];
 
+const mbbsCallbackCountries = Array.from(
+  new Set([...mbbsCountries, ...premiumPathways.map((item) => item.country)])
+);
+
+const uniqueCountries = (countries: string[]) => {
+  const seen = new Set<string>();
+  return countries.filter((country) => {
+    const key = country.trim().toLowerCase();
+    if (!key || seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+};
+
 const mbbsFaqs = [
   {
     question: "Who can apply for MBBS counselling?",
@@ -206,6 +225,8 @@ const initialCallbackForm: CallbackForm = {
   name: "",
   phone: "",
   email: "",
+  preferredCountries: ["India"],
+  otherCountry: "",
 };
 
 const initialEligibilityForm: EligibilityForm = {
@@ -226,8 +247,8 @@ const formatBudget = (value: number) =>
 const formatMbbsInterest = (value: string) =>
   `mbbs-${value.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}`;
 
-const validateContact = (form: CallbackForm) => {
-  const errors: Partial<Record<keyof CallbackForm, string>> = {};
+const validateContact = (form: ContactForm) => {
+  const errors: Partial<Record<keyof ContactForm, string>> = {};
   const name = form.name.trim();
   const phone = form.phone.trim();
   const email = form.email.trim();
@@ -262,9 +283,29 @@ const MBBS = () => {
   const [eligibilitySubmitting, setEligibilitySubmitting] = useState(false);
   const [eligibilityMessage, setEligibilityMessage] = useState("");
 
-  const updateCallbackField = (field: keyof CallbackForm, value: string) => {
+  const updateCallbackField = <Key extends keyof CallbackForm>(
+    field: Key,
+    value: CallbackForm[Key]
+  ) => {
     setCallbackForm((current) => ({ ...current, [field]: value }));
     setCallbackErrors((current) => ({ ...current, [field]: undefined }));
+    setCallbackMessage("");
+  };
+
+  const toggleCallbackCountry = (country: string) => {
+    setCallbackForm((current) => {
+      const selected = current.preferredCountries.includes(country);
+      return {
+        ...current,
+        preferredCountries: selected
+          ? current.preferredCountries.filter((item) => item !== country)
+          : [...current.preferredCountries, country],
+      };
+    });
+    setCallbackErrors((current) => ({
+      ...current,
+      preferredCountries: undefined,
+    }));
     setCallbackMessage("");
   };
 
@@ -304,16 +345,28 @@ const MBBS = () => {
     event.preventDefault();
     setCallbackMessage("");
 
-    const errors = validateContact(callbackForm);
+    const errors: Partial<Record<keyof CallbackForm, string>> =
+      validateContact(callbackForm);
+    const selectedCountries = uniqueCountries([
+      ...callbackForm.preferredCountries,
+      callbackForm.otherCountry.trim(),
+    ]);
+
+    if (!selectedCountries.length) {
+      errors.preferredCountries = "Please choose or type at least one country.";
+    }
+
     setCallbackErrors(errors);
     if (Object.keys(errors).length) return;
 
     setCallbackSubmitting(true);
+    const selectedInterests = selectedCountries.map(formatMbbsInterest);
+
     const { error } = await supabase.from("leads").insert({
       name: callbackForm.name.trim(),
       phone: callbackForm.phone.trim(),
       email: callbackForm.email.trim(),
-      interest: "mbbs-callback",
+      interest: selectedInterests.join(", "),
     });
     setCallbackSubmitting(false);
 
@@ -501,6 +554,48 @@ const MBBS = () => {
                       )}
                     </label>
                   ))}
+
+                  <div className="rounded-md border border-slate-200 bg-slate-50 p-4">
+                    <span className="block text-xs font-bold uppercase tracking-wider text-slate-500">
+                      MBBS country preference
+                    </span>
+                    <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                      {mbbsCallbackCountries.map((country) => (
+                        <label
+                          key={country}
+                          className="flex cursor-pointer items-center gap-2 rounded-md bg-white px-3 py-2 text-sm font-semibold text-slate-800 transition hover:bg-yellow-50"
+                        >
+                          <input
+                            type="checkbox"
+                            checked={callbackForm.preferredCountries.includes(
+                              country
+                            )}
+                            onChange={() => toggleCallbackCountry(country)}
+                            className="h-4 w-4 rounded border-slate-300 accent-yellow-500"
+                          />
+                          {country}
+                        </label>
+                      ))}
+                    </div>
+                    <label className="mt-3 block">
+                      <input
+                        value={callbackForm.otherCountry}
+                        onChange={(event) =>
+                          updateCallbackField(
+                            "otherCountry",
+                            event.target.value
+                          )
+                        }
+                        className="w-full rounded-md border border-slate-200 bg-white px-4 py-3 text-sm text-slate-950 outline-none transition focus:border-yellow-400"
+                        placeholder="Other country"
+                      />
+                    </label>
+                    {callbackErrors.preferredCountries && (
+                      <span className="mt-2 block text-xs text-red-600">
+                        {callbackErrors.preferredCountries}
+                      </span>
+                    )}
+                  </div>
                 </div>
 
                 <button

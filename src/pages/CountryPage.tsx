@@ -25,9 +25,10 @@ type CallbackForm = {
   name: string;
   phone: string;
   email: string;
+  interestedCountries: string[];
 };
 
-type CallbackErrors = Partial<CallbackForm>;
+type CallbackErrors = Partial<Record<keyof CallbackForm, string>>;
 
 type EligibilityForm = {
   name: string;
@@ -136,6 +137,7 @@ const CountryPage = () => {
     name: "",
     phone: "",
     email: "",
+    interestedCountries: country?.name ? [country.name] : [],
   });
   const [callbackErrors, setCallbackErrors] = useState<CallbackErrors>({});
   const [callbackSubmitting, setCallbackSubmitting] = useState(false);
@@ -151,6 +153,12 @@ const CountryPage = () => {
 
   useEffect(() => {
     if (!country) return;
+    setCallbackForm((current) => ({
+      ...current,
+      interestedCountries: current.interestedCountries.includes(country.name)
+        ? current.interestedCountries
+        : [country.name, ...current.interestedCountries],
+    }));
     setEligibilityForm((current) => ({
       ...current,
       interestedCountries: current.interestedCountries.length
@@ -172,6 +180,23 @@ const CountryPage = () => {
   const updateCallbackField = (field: keyof CallbackForm, value: string) => {
     setCallbackForm((current) => ({ ...current, [field]: value }));
     setCallbackErrors((current) => ({ ...current, [field]: undefined }));
+    setCallbackMessage("");
+  };
+
+  const toggleCallbackCountry = (countryName: string) => {
+    setCallbackForm((current) => {
+      const isSelected = current.interestedCountries.includes(countryName);
+      return {
+        ...current,
+        interestedCountries: isSelected
+          ? current.interestedCountries.filter((name) => name !== countryName)
+          : [...current.interestedCountries, countryName],
+      };
+    });
+    setCallbackErrors((current) => ({
+      ...current,
+      interestedCountries: undefined,
+    }));
     setCallbackMessage("");
   };
 
@@ -223,6 +248,10 @@ const CountryPage = () => {
       nextErrors.email = "Please enter your email.";
     } else if (!emailPattern.test(email)) {
       nextErrors.email = "Please enter a valid email address.";
+    }
+
+    if (!callbackForm.interestedCountries.length) {
+      nextErrors.interestedCountries = "Please choose at least one country.";
     }
 
     setCallbackErrors(nextErrors);
@@ -290,7 +319,7 @@ const CountryPage = () => {
       name: callbackForm.name.trim(),
       phone: callbackForm.phone.trim(),
       email: callbackForm.email.trim(),
-      interest: `Study in ${country?.name || "a selected country"}`,
+      interest: callbackForm.interestedCountries.join(", "),
     });
 
     setCallbackSubmitting(false);
@@ -301,7 +330,12 @@ const CountryPage = () => {
       return;
     }
 
-    setCallbackForm({ name: "", phone: "", email: "" });
+    setCallbackForm({
+      name: "",
+      phone: "",
+      email: "",
+      interestedCountries: country?.name ? [country.name] : [],
+    });
     setCallbackMessage("Request sent. We will call you soon.");
   };
 
@@ -534,6 +568,49 @@ const CountryPage = () => {
                       </span>
                     )}
                   </label>
+
+                  <div className="block">
+                    <span className="mb-1 block text-xs font-bold uppercase tracking-wider text-slate-500">
+                      Countries of interest
+                    </span>
+                    <details className="group relative">
+                      <summary className="flex min-h-[46px] cursor-pointer list-none items-center justify-between gap-3 rounded-md border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-yellow-400 group-open:border-yellow-400 group-open:bg-white">
+                        <span className="truncate">
+                          {callbackForm.interestedCountries.length
+                            ? callbackForm.interestedCountries.join(", ")
+                            : "Select countries"}
+                        </span>
+                        <span className="text-xs font-semibold uppercase tracking-[0.12em] text-yellow-700">
+                          Choose
+                        </span>
+                      </summary>
+                      <div className="absolute z-20 mt-2 max-h-56 w-full overflow-y-auto rounded-md border border-slate-200 bg-white p-2 shadow-xl">
+                        {countryDestinations.map((destination) => (
+                          <label
+                            key={destination.id}
+                            className="flex cursor-pointer items-center gap-3 rounded-md px-3 py-2 text-sm transition hover:bg-yellow-50"
+                          >
+                            <input
+                              type="checkbox"
+                              checked={callbackForm.interestedCountries.includes(
+                                destination.name
+                              )}
+                              onChange={() =>
+                                toggleCallbackCountry(destination.name)
+                              }
+                              className="h-4 w-4 rounded border-slate-300 accent-yellow-500"
+                            />
+                            <span>{destination.name}</span>
+                          </label>
+                        ))}
+                      </div>
+                    </details>
+                    {callbackErrors.interestedCountries && (
+                      <span className="mt-1 block text-xs text-red-600">
+                        {callbackErrors.interestedCountries}
+                      </span>
+                    )}
+                  </div>
                 </div>
 
                 <button
