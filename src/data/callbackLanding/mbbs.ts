@@ -27,7 +27,7 @@ export const mbbsInterestOptions: CallbackOption[] = [
 
 export const mbbsCallbackProfile: CallbackProfile = {
   eyebrow: "MBBS counselling priority",
-  title: "MBBS decisions should never be made in a panic",
+  title: "What If Your NEET Score Doesn't Get You the Seat You Deserve?",
   intro: [
     "Whether your goal is to study in India or abroad, DreamGlobal will help you identify the most suitable and cost-effective pathway to achieve your dream of becoming a doctor.",
     "India and abroad options compared through NEET status, budget, seat reality, and family priorities.",

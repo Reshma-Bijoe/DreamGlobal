@@ -927,7 +927,7 @@ const MBBS = () => {
 
               <label className="block rounded-md border border-yellow-200 bg-white p-4">
                 <span className="flex items-center justify-between gap-3 text-sm font-semibold">
-                  <span>Expected family budget</span>
+                  <span>Expected budget</span>
                   <span className="text-yellow-700">
                     {formatBudget(eligibilityForm.budget)}
                   </span>
