@@ -29,6 +29,7 @@ export const mbbsCallbackProfile: CallbackProfile = {
   eyebrow: "MBBS counselling priority",
   title: "MBBS decisions should never be made in a panic",
   intro: [
+    "Whether your goal is to study in India or abroad, DreamGlobal will help you identify the most suitable and cost-effective pathway to achieve your dream of becoming a doctor.",
     "India and abroad options compared through NEET status, budget, seat reality, and family priorities.",
     "Recognition, university credibility, clinical exposure, safety, and long-term practice plans checked early.",
     "A calmer medical admission strategy before documents, payments, and deadlines start creating pressure.",

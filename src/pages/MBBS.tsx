@@ -54,10 +54,15 @@ const mbbsCountries = [
 
 const highlights = [
   "Options for MBBS in India and abroad, based on budget and seat availability",
+  "Affordable MBBS Programs Starting from ₹20Lakhs* for the Complete Course (Tuition + Living Expenses)",
+  "Globally Recognized Medical Universities",
+  "Modern Infrastructure & International Exposure",
+  "End-to-End Support: Counselling, Admission, Documentation, Visa, Travel & Accommodation",
+  "Management & NRI Quota Admissions in Indian Medical Colleges",
   "NEET, NMC recognition, language, safety, and clinical exposure checked before shortlisting",
   "Country and university comparison without confusing students with unnecessary details",
-  "Admission, documentation, visa, and pre-departure guidance from one counselling team",
-];
+  "No IELTS Required",
+  ];
 
 const destinationTeasers = [
   {

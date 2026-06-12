@@ -217,13 +217,26 @@ const CallbackLanding = () => {
       <h2 className="mt-2 pr-8 text-2xl font-bold">
         Claim your free counselling call
       </h2>
-      <p className="mt-3 text-sm leading-6 text-slate-600">
-        {isMbbsPage
-          ? "Choose whether you want to discuss MBBS in India or abroad, then share your details for a focused counselling call."
-          : isDirectInterestPage
-            ? `${destinationText} is already selected for this callback. Share your details and we will call you with the next sensible step.`
-            : "Tell us where you want to go. We will call you, then take you straight to the destination page so you can keep exploring."}
-      </p>
+      <div className="mt-3 text-sm leading-6 text-slate-600">
+        {isMbbsPage ? (
+          <ul className="list-disc pl-5 space-y-2 text-slate-600">
+            <li>
+              <span className="font-semibold text-red-800">
+                Only for students and parents planning MBBS admissions in India or Abroad within the next 6–12 months.
+              </span>
+            </li>
+            <li>
+              <span className="font-semibold text-red-800">
+                For those exploring options after NEET and wanting expert guidance to secure an MBBS seat.
+              </span>
+            </li>
+          </ul>
+        ) : isDirectInterestPage ? (
+          <p>{`${destinationText} is already selected for this callback. Share your details and we will call you with the next sensible step.`}</p>
+        ) : (
+          <p>Tell us where you want to go. We will call you, then take you straight to the destination page so you can keep exploring.</p>
+        )}
+      </div>
 
       <div className="mt-5 space-y-3">
         <label className="block">
