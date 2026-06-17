@@ -1,8 +1,10 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
+import { Link } from "react-router-dom";
 import {
   ArrowRight,
   BadgeCheck,
+  DollarSign,
   GraduationCap,
   Loader2,
   Phone,
@@ -212,7 +214,7 @@ const mbbsFaqs = [
   {
     question: "What is the MBBS admission processing like?",
     answer:
-      "The usual flow is profile review, country and university shortlisting, document checking, application submission, offer letter, fee and admission formalities, visa processing, travel planning, and pre-departure guidance.",
+      "The usual flow is profile review, country and university shortlisting, document checking, application submission, offer letter, fee and admission formalities, visa processing, travel planning, and pre-departure guidance and post-landing guidance.",
   },
   {
     question: "Do you support students after admission?",
@@ -517,6 +519,24 @@ const MBBS = () => {
                   </div>
                 ))}
               </div>
+
+              <div className="mt-6 flex gap-3 sm:gap-4">
+                <Link
+                  to="/mbbs/guide"
+                  className="gold-gradient-bg flex-1 flex items-center justify-center gap-2 rounded-md px-4 py-3 font-semibold text-primary-foreground transition hover:opacity-90"
+                >
+                  <DollarSign size={18} />
+                  Country-wise Price Details
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => setEligibilityOpen(true)}
+                  className="flex-1 flex items-center justify-center gap-2 rounded-md bg-secondary px-4 py-3 font-semibold text-white transition hover:bg-accent"
+                >
+                  <GraduationCap size={18} />
+                  Check My Eligibility
+                </button>
+              </div>
             </div>
 
             <div className="scroll-mt-28 space-y-6 lg:sticky lg:top-32 lg:self-start">
@@ -629,19 +649,20 @@ const MBBS = () => {
                 Contact Us
               </a>
 
-              <button
+              {/* Check My Eligibility button moved to above the highlights section */}
+              {/* <button
                 type="button"
                 onClick={() => setEligibilityOpen(true)}
                 className="flex w-full items-center justify-center gap-2 rounded-md bg-secondary px-5 py-3 font-semibold text-white transition hover:bg-accent"
               >
                 <GraduationCap size={18} />
                 Check My Eligibility
-              </button>
+              </button> */}
             </div>
           </div>
         </section>
 
-        <section className="bg-slate-50 py-16">
+        <section className="bg-slate-50 py-12">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl">
               <p className="text-sm font-bold uppercase tracking-widest text-yellow-600">

@@ -114,6 +114,40 @@ const CallbackLanding = () => {
     ? mbbsHeroImage
     : matchedCountry?.image || heroImage;
 
+  const highlightIntroText = (text: string) => {
+    const highlightedPhrases = [
+      { phrase: "cost-effective", className: "font-semibold text-amber-200" },
+      { phrase: "Very budget friendly", className: "font-semibold text-amber-200" },
+      { phrase: "Trustworthy expert guidance", className: "font-semibold text-amber-200" },
+      { phrase: "optimal seats", className: "font-semibold text-amber-200" },
+      { phrase: "Management Quota NRI seats", className: "font-semibold text-amber-200" },
+      { phrase: "NRI seats", className: "font-semibold text-amber-200" },
+    ];
+
+    return highlightedPhrases.reduce<Array<string | JSX.Element>>((parts, { phrase, className }, phraseIndex) => {
+      return parts.flatMap((part, partIndex) => {
+        if (typeof part !== "string" || !part.includes(phrase)) {
+          return [part];
+        }
+
+        const splitParts = part.split(phrase);
+        return splitParts.flatMap((chunk, chunkIndex) => [
+          chunk,
+          ...(chunkIndex < splitParts.length - 1
+            ? [
+                <span
+                  key={`highlight-${phraseIndex}-${partIndex}-${chunkIndex}`}
+                  className={className}
+                >
+                  {phrase}
+                </span>,
+              ]
+            : []),
+        ]);
+      });
+    }, [text]);
+  };
+
   useEffect(() => {
     setForm((current) => ({
       ...current,
@@ -379,9 +413,9 @@ const CallbackLanding = () => {
             <div className="max-w-3xl">
               <p className="inline-flex items-center gap-2 rounded-full border border-yellow-300/40 bg-white/10 px-4 py-2 text-xs font-bold uppercase tracking-widest text-yellow-300 backdrop-blur">
                 <Sparkles size={15} />
-                Admissions guidance is open
+                Admissions Open
               </p>
-              <h1 className="mt-5 text-4xl font-bold leading-tight sm:text-5xl md:text-6xl">
+              <h1 className="mt-5 text-2xl font-bold leading-tight sm:text-3xl md:text-4xl">
                 {pageTitle}
               </h1>
               {Array.isArray(pageProfile?.intro) ? (
@@ -392,7 +426,7 @@ const CallbackLanding = () => {
                         size={19}
                         className="mt-1 shrink-0 text-yellow-300"
                       />
-                      <span>{item}</span>
+                      <span>{highlightIntroText(item)}</span>
                     </li>
                   ))}
                 </ul>

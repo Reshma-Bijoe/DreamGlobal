@@ -30,13 +30,14 @@ export const mbbsCallbackProfile: CallbackProfile = {
   title: "What If Your NEET Score Doesn't Get You the Seat You Deserve?",
   intro: [
     "Whether your goal is to study in India or abroad, DreamGlobal will help you identify the most suitable and cost-effective pathway to achieve your dream of becoming a doctor.",
-    "India and abroad options compared through NEET status, budget, seat reality, and family priorities.",
-    "Recognition, university credibility, clinical exposure, safety, and long-term practice plans checked early.",
-    "A calmer medical admission strategy before documents, payments, and deadlines start creating pressure.",
+    "Very budget friendly abroad options starting from Rs.20 Lakhs (Living + Tuition fees for 6 yrs).",
+    "Trustworthy expert guidance for identifying the most optimal seats in india and abroad.",
+    "Management Quota and NRI seats available for Indian admissions. ",
   ],
   urgency: [
-    "MBBS choices affect recognition, clinical exposure, safety, budget, and long-term practice plans.",
-    "Seats, documents, and payment timelines become stressful when families wait too long.",
+    "NEET exam is around the corner and early planning gives a magical breakthrough.",
+    "Very limited seats in india and abroad given the huge demand.",
+    "Seats, documents, and payment timelines become stressful when families wait for last minute.",
     "Early counselling helps you compare India and abroad with evidence before committing under pressure.",
   ],
   reasons: [
