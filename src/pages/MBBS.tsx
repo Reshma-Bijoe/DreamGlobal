@@ -478,7 +478,7 @@ const MBBS = () => {
                   to="/success-letters"
                   className="inline-flex w-full items-center justify-center gap-2 rounded-md border border-yellow-300/70 bg-yellow-300/15 px-5 py-3 font-semibold text-yellow-100 transition hover:bg-yellow-300/25"
                 >
-                  View MBBS Admission Letters
+                  View MBBS Testimonials
                   <ArrowRight size={18} />
                 </Link>
               </div>
