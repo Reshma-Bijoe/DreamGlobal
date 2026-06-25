@@ -12,6 +12,7 @@ const quickLinks = [
 const pageLinks = [
   { label: "MBBS Abroad", to: "/mbbs" },
   { label: "Countries", to: "/countries" },
+  { label: "Success Letters", to: "/success-letters" },
   { label: "FAQs", to: "/faqs" },
   { label: "Blogs", to: "/blogs" },
   { label: "Privacy Policy", to: "/privacy-policy" },

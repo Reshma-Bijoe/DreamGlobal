@@ -15,14 +15,16 @@ import { countryDestinations } from "@/data/countryDestinations";
 
 const navLinks = [
   { label: "Home", href: "#hero" },
-  { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
   { label: "Contact", href: "#contact" },
 ];
 
-const pageLinks = [
+const pageLinks: { label: string; to: string }[] = [];
+
+const moreLinks = [
+  { label: "About", href: "#about" },
   { label: "FAQs", to: "/faqs" },
   { label: "Blogs", to: "/blogs" },
+  { label: "Privacy Policy", to: "/privacy-policy" },
 ];
 
 const Navbar = () => {
@@ -30,10 +32,14 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [studyOptionsOpen, setStudyOptionsOpen] = useState(false);
   const [countriesOpen, setCountriesOpen] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
   const [showChatTip, setShowChatTip] = useState(true);
   const location = useLocation();
   const isHomePage = location.pathname === "/";
   const sectionHref = (href: string) => (isHomePage ? href : `/${href}`);
+  const desktopNavTextClass = scrolled
+    ? "text-muted-foreground hover:text-primary"
+    : "text-white drop-shadow-sm hover:text-gold";
   const replaySection = (hash: string) => {
     window.dispatchEvent(
       new CustomEvent("dreamglobal:section-replay", { detail: { hash } })
@@ -41,10 +47,23 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const getHeroScrollLimit = () => {
+      const firstSection = document.querySelector("main section");
+
+      if (!(firstSection instanceof HTMLElement)) return 40;
+
+      return firstSection.offsetTop + firstSection.offsetHeight - 120;
+    };
+
+    const onScroll = () => setScrolled(window.scrollY > getHeroScrollLimit());
+    onScroll();
     window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [location.pathname]);
 
   useEffect(() => {
     const timer = setTimeout(() => setShowChatTip(false), 3000);
@@ -115,7 +134,7 @@ const Navbar = () => {
               key={link.href}
               href={sectionHref(link.href)}
               onClick={() => replaySection(link.href)}
-              className="whitespace-nowrap text-sm text-muted-foreground transition hover:text-primary 2xl:text-base"
+              className={`whitespace-nowrap text-sm transition 2xl:text-base ${desktopNavTextClass}`}
             >
               {link.label}
             </a>
@@ -125,11 +144,69 @@ const Navbar = () => {
             <Link
               key={link.to}
               to={link.to}
-              className="whitespace-nowrap text-sm text-muted-foreground transition hover:text-primary 2xl:text-base"
+              className={`whitespace-nowrap text-sm transition 2xl:text-base ${desktopNavTextClass}`}
             >
               {link.label}
             </Link>
           ))}
+
+          <div
+            className="relative"
+            onMouseEnter={() => setMoreOpen(true)}
+            onMouseLeave={() => setMoreOpen(false)}
+          >
+            <button
+              type="button"
+              onClick={() => setMoreOpen((current) => !current)}
+              className={`flex items-center gap-1 whitespace-nowrap text-sm transition 2xl:text-base ${desktopNavTextClass}`}
+              aria-expanded={moreOpen}
+            >
+              More
+              <ChevronDown
+                size={16}
+                className={`transition ${moreOpen ? "rotate-180" : ""}`}
+              />
+            </button>
+
+            <AnimatePresence>
+              {moreOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 8 }}
+                  className="absolute left-1/2 top-full z-50 mt-3 w-52 -translate-x-1/2 overflow-hidden rounded-lg border border-slate-200 bg-white py-2 shadow-xl"
+                >
+                  <p className="px-4 pb-2 pt-1 text-xs font-bold uppercase tracking-widest text-yellow-600">
+                    Explore
+                  </p>
+                  {moreLinks.map((link) =>
+                    "href" in link ? (
+                      <a
+                        key={link.href}
+                        href={sectionHref(link.href)}
+                        onClick={() => {
+                          replaySection(link.href);
+                          setMoreOpen(false);
+                        }}
+                        className="block px-4 py-2 text-sm font-bold text-slate-900 transition hover:bg-yellow-50"
+                      >
+                        {link.label}
+                      </a>
+                    ) : (
+                      <Link
+                        key={link.to}
+                        to={link.to}
+                        onClick={() => setMoreOpen(false)}
+                        className="block px-4 py-2 text-sm font-bold text-slate-900 transition hover:bg-yellow-50"
+                      >
+                        {link.label}
+                      </Link>
+                    )
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
 
           <div
             className="relative"
@@ -142,7 +219,7 @@ const Navbar = () => {
             <button
               type="button"
               onClick={() => setStudyOptionsOpen((current) => !current)}
-              className="flex items-center gap-1 whitespace-nowrap text-sm text-muted-foreground transition hover:text-primary 2xl:text-base"
+              className={`flex items-center gap-1 whitespace-nowrap text-sm transition 2xl:text-base ${desktopNavTextClass}`}
               aria-expanded={studyOptionsOpen}
             >
               Study Options
@@ -231,13 +308,6 @@ const Navbar = () => {
               )}
             </AnimatePresence>
           </div>
-
-          <Link
-            to="/privacy-policy"
-            className="whitespace-nowrap text-sm text-muted-foreground transition hover:text-primary 2xl:text-base"
-          >
-            Privacy Policy
-          </Link>
 
           <div className="flex items-center gap-2">
             <a
@@ -344,6 +414,38 @@ const Navbar = () => {
 
               <div>
                 <p className="mb-2 text-xs font-bold uppercase tracking-widest text-yellow-600">
+                  Explore
+                </p>
+                <div className="grid gap-2">
+                  {moreLinks.map((link) =>
+                    "href" in link ? (
+                      <a
+                        key={link.href}
+                        href={sectionHref(link.href)}
+                        onClick={() => {
+                          replaySection(link.href);
+                          setMobileOpen(false);
+                        }}
+                        className="text-foreground"
+                      >
+                        {link.label}
+                      </a>
+                    ) : (
+                      <Link
+                        key={link.to}
+                        to={link.to}
+                        onClick={() => setMobileOpen(false)}
+                        className="text-foreground"
+                      >
+                        {link.label}
+                      </Link>
+                    )
+                  )}
+                </div>
+              </div>
+
+              <div>
+                <p className="mb-2 text-xs font-bold uppercase tracking-widest text-yellow-600">
                   Study Options
                 </p>
                 <div className="grid gap-2">
@@ -373,14 +475,6 @@ const Navbar = () => {
                   ))}
                 </div>
               </div>
-
-              <Link
-                to="/privacy-policy"
-                onClick={() => setMobileOpen(false)}
-                className="text-foreground"
-              >
-                Privacy Policy
-              </Link>
 
               <a
                 href="https://dreamglobal.edumilestones.com/"

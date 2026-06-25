@@ -17,6 +17,7 @@ import MBBS from "./pages/MBBS.tsx";
 import MBBSGuide from "./pages/MBBSGuide.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import PrivacyPolicy from "./pages/PrivacyPolicy.tsx";
+import SuccessLetters from "./pages/SuccessLetters.tsx";
 
 const queryClient = new QueryClient();
 
@@ -43,6 +44,7 @@ const App = () => (
           <Route path="/mbbs" element={<MBBS />} />
           <Route path="/mbbs/guide" element={<MBBSGuide />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/success-letters" element={<SuccessLetters />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -465,15 +465,22 @@ const MBBS = () => {
                 requirements, and shortlist the route that fits your marks,
                 budget, and long-term plan.
               </p>
-              <div className="mt-8 flex flex-col gap-3 pr-12 sm:inline-flex sm:flex-row sm:pr-0">
+              <div className="mt-8 flex max-w-sm flex-col gap-3 pr-12 sm:pr-0">
                 <button
                   type="button"
                   onClick={() => setEligibilityOpen(true)}
-                  className="inline-flex items-center justify-center gap-2 rounded-md border border-white/35 bg-white/10 px-5 py-3 font-semibold text-white transition hover:bg-white/20"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-md border border-white/35 bg-white/10 px-5 py-3 font-semibold text-white transition hover:bg-white/20"
                 >
                   Check My Eligibility
                   <ArrowRight size={18} />
                 </button>
+                <Link
+                  to="/success-letters"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-md border border-yellow-300/70 bg-yellow-300/15 px-5 py-3 font-semibold text-yellow-100 transition hover:bg-yellow-300/25"
+                >
+                  View MBBS Admission Letters
+                  <ArrowRight size={18} />
+                </Link>
               </div>
             </div>
           </div>
