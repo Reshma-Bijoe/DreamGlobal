@@ -253,7 +253,7 @@ const MBBSGuide = () => (
           </div>
 
           <div className="rounded-lg border border-yellow-200 bg-yellow-50 p-6">
-            <p className="text-sm font-bold uppercase tracking-widest text-yellow-700">
+            {/* <p className="text-sm font-bold uppercase tracking-widest text-yellow-700">
               Processing support
             </p>
             <h3 className="mt-3 text-2xl font-bold text-slate-950">
@@ -262,7 +262,7 @@ const MBBSGuide = () => (
             <p className="mt-4 text-sm leading-7 text-slate-700">
               MBBS abroad processing support is typically structured in two
               stages: INR 25,000 at application and INR 25,000 after offer.
-            </p>
+            </p> */}
             <Link
               to="/mbbs#mbbs-forms"
               className="gold-gradient-bg mt-6 inline-flex w-full items-center justify-center gap-2 rounded-md px-5 py-3 text-sm font-semibold text-primary-foreground transition hover:opacity-90"
