@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -52,6 +52,7 @@ const highlights = [
 const SuccessLetters = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [previewIndex, setPreviewIndex] = useState<number | null>(null);
+  const swipeStartX = useRef<number | null>(null);
   const activeLetter = admissionLetters[activeIndex];
 
   useEffect(() => {
@@ -78,6 +79,21 @@ const SuccessLetters = () => {
     const total = admissionLetters.length;
     const rawOffset = (index - activeIndex + total) % total;
     return rawOffset > total / 2 ? rawOffset - total : rawOffset;
+  };
+
+  const handleSwipeStart = (clientX: number) => {
+    swipeStartX.current = clientX;
+  };
+
+  const handleSwipeEnd = (clientX: number) => {
+    if (swipeStartX.current === null) return;
+
+    const distance = clientX - swipeStartX.current;
+    swipeStartX.current = null;
+
+    if (Math.abs(distance) < 45) return;
+
+    moveCarousel(distance > 0 ? "previous" : "next");
   };
 
   return (
@@ -166,7 +182,7 @@ const SuccessLetters = () => {
                 </h2>
               </div>
 
-              <div className="flex gap-2">
+              <div className="hidden">
                 <button
                   type="button"
                   onClick={() => moveCarousel("previous")}
@@ -186,85 +202,122 @@ const SuccessLetters = () => {
               </div>
             </div>
 
-            <div className="relative mt-10 h-[610px] overflow-hidden rounded-lg bg-slate-50 px-3 py-8 sm:h-[690px] lg:h-[720px]">
-              <div className="absolute inset-x-0 bottom-6 z-20 flex justify-center gap-2">
-                {admissionLetters.map((letter, index) => (
-                  <button
-                    key={letter.title}
-                    type="button"
-                    onClick={() => setActiveIndex(index)}
-                    className={`h-2.5 rounded-full transition-all ${
-                      index === activeIndex
-                        ? "w-8 bg-primary"
-                        : "w-2.5 bg-secondary/25 hover:bg-secondary/45"
-                    }`}
-                    aria-label={`Show ${letter.title}`}
-                  />
-                ))}
-              </div>
+            <div className="relative mt-10">
+              <button
+                type="button"
+                onClick={() => moveCarousel("previous")}
+                className="absolute left-0 top-1/2 z-40 inline-flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-secondary/85 text-white shadow-lg transition hover:bg-secondary sm:h-12 sm:w-12"
+                aria-label="Previous admission letter"
+              >
+                <ArrowLeft size={20} />
+              </button>
 
-              <div className="relative mx-auto h-full max-w-5xl">
-                {admissionLetters.map((letter, index) => {
-                  const offset = getOffset(index);
-                  const isActive = offset === 0;
-                  const isVisible = Math.abs(offset) <= 1;
+              <button
+                type="button"
+                onClick={() => moveCarousel("next")}
+                className="absolute right-0 top-1/2 z-40 inline-flex h-11 w-11 -translate-y-1/2 translate-x-1/2 items-center justify-center rounded-full bg-secondary/85 text-white shadow-lg transition hover:bg-secondary sm:h-12 sm:w-12"
+                aria-label="Next admission letter"
+              >
+                <ArrowRight size={20} />
+              </button>
 
-                  return (
-                    <motion.button
+              <div
+                className="relative h-[610px] touch-pan-y overflow-hidden rounded-lg bg-slate-50 px-3 py-8 sm:h-[690px] lg:h-[720px]"
+                onTouchStart={(event) =>
+                  handleSwipeStart(event.touches[0].clientX)
+                }
+                onTouchEnd={(event) =>
+                  handleSwipeEnd(event.changedTouches[0].clientX)
+                }
+                onMouseDown={(event) => handleSwipeStart(event.clientX)}
+                onMouseUp={(event) => handleSwipeEnd(event.clientX)}
+                onMouseLeave={() => {
+                  swipeStartX.current = null;
+                }}
+              >
+                <div className="absolute inset-x-0 bottom-6 z-20 flex justify-center gap-2">
+                  {admissionLetters.map((letter, index) => (
+                    <button
                       key={letter.title}
                       type="button"
-                      onClick={() =>
-                        isActive ? setPreviewIndex(index) : setActiveIndex(index)
-                      }
-                      className={`absolute left-1/2 top-8 w-[82%] max-w-[420px] rounded-lg border bg-card p-3 text-left shadow-xl transition-colors sm:w-[64%] lg:w-[41%] ${
-                        isActive
-                          ? "border-primary/60"
-                          : "border-border hover:border-primary/40"
+                      onClick={() => setActiveIndex(index)}
+                      className={`h-2.5 rounded-full transition-all ${
+                        index === activeIndex
+                          ? "w-8 bg-primary"
+                          : "w-2.5 bg-secondary/25 hover:bg-secondary/45"
                       }`}
-                      initial={false}
-                      animate={{
-                        x: `calc(-50% + ${offset * 330}px)`,
-                        y: isActive ? 0 : 34,
-                        rotate: isActive ? 0 : offset * -7,
-                        scale: isActive ? 1 : 0.82,
-                        opacity: isVisible ? (isActive ? 1 : 0.56) : 0,
-                        zIndex: isActive ? 30 : 10 - Math.abs(offset),
-                      }}
-                      transition={{
-                        type: "spring",
-                        stiffness: 180,
-                        damping: 24,
-                      }}
-                    >
-                      <div className="aspect-[3/4] overflow-hidden rounded-md bg-muted">
-                        <img
-                          src={letter.image}
-                          alt={letter.title}
-                          className="h-full w-full object-contain"
-                          loading={index === 0 ? "eager" : "lazy"}
-                        />
-                      </div>
-                      <div className="mt-4 flex items-start justify-between gap-3">
-                        <div>
-                          <h3 className="font-heading text-xl font-bold text-foreground">
-                            {letter.title}
-                          </h3>
-                          <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                            {isActive
-                              ? "Tap the highlighted letter to view it clearly."
-                              : letter.note}
-                          </p>
+                      aria-label={`Show ${letter.title}`}
+                    />
+                  ))}
+                </div>
+
+                <div className="relative mx-auto h-full max-w-5xl">
+                  {admissionLetters.map((letter, index) => {
+                    const offset = getOffset(index);
+                    const isActive = offset === 0;
+                    const isVisible = Math.abs(offset) <= 1;
+
+                    return (
+                      <motion.button
+                        key={letter.title}
+                        type="button"
+                        onClick={() =>
+                          isActive
+                            ? setPreviewIndex(index)
+                            : setActiveIndex(index)
+                        }
+                        className={`absolute left-1/2 top-8 w-[90%] max-w-[460px] rounded-lg border bg-card p-3 text-left shadow-xl transition-colors sm:w-[64%] sm:max-w-[420px] lg:w-[41%] ${
+                          isActive
+                            ? "border-primary/60"
+                            : "border-border hover:border-primary/40"
+                        }`}
+                        initial={false}
+                        animate={{
+                          x: `calc(-50% + ${offset * 330}px)`,
+                          y: isActive ? 0 : 34,
+                          rotate: isActive ? 0 : offset * -7,
+                          scale: isActive ? 1 : 0.82,
+                          opacity: isVisible ? (isActive ? 1 : 0.56) : 0,
+                          zIndex: isActive ? 30 : 10 - Math.abs(offset),
+                        }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 180,
+                          damping: 24,
+                        }}
+                      >
+                        <div className="aspect-[3/4] overflow-hidden rounded-md bg-muted">
+                          <img
+                            src={letter.image}
+                            alt={letter.title}
+                            className="h-full w-full object-contain"
+                            loading={index === 0 ? "eager" : "lazy"}
+                          />
                         </div>
-                        <GraduationCap
-                          className={`mt-1 shrink-0 ${
-                            isActive ? "text-primary" : "text-muted-foreground"
-                          }`}
-                          size={24}
-                        />
-                      </div>
-                    </motion.button>
-                  );
-                })}
+                        <div className="mt-4 flex items-start justify-between gap-3">
+                          <div>
+                            <h3 className="font-heading text-xl font-bold text-foreground">
+                              {letter.title}
+                            </h3>
+                            <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                              {isActive
+                                ? "Tap the highlighted letter to view it clearly."
+                                : letter.note}
+                            </p>
+                          </div>
+                          <GraduationCap
+                            className={`mt-1 shrink-0 ${
+                              isActive
+                                ? "text-primary"
+                                : "text-muted-foreground"
+                            }`}
+                            size={24}
+                          />
+                        </div>
+                      </motion.button>
+                    );
+                  })}
+                </div>
               </div>
             </div>
 
