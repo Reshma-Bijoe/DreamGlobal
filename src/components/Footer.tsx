@@ -20,8 +20,9 @@ const pageLinks = [
 
 const Footer = () => {
   const location = useLocation();
-  const isHomePage = location.pathname === "/";
-  const sectionHref = (href: string) => (isHomePage ? href : `/${href}`);
+  const isHigherStudiesPage = location.pathname === "/higher-studies";
+  const sectionHref = (href: string) =>
+    isHigherStudiesPage ? href : `/higher-studies${href}`;
   const replaySection = (hash: string) => {
     window.dispatchEvent(
       new CustomEvent("dreamglobal:section-replay", { detail: { hash } })
@@ -33,7 +34,10 @@ const Footer = () => {
       <div className="container mx-auto grid grid-cols-1 gap-12 md:grid-cols-[1fr_0.75fr_0.75fr_0.85fr]">
         {/* Brand */}
         <div>
-          <Link to="/" className="font-heading text-2xl font-bold tracking-wide">
+          <Link
+            to="/higher-studies"
+            className="font-heading text-2xl font-bold tracking-wide"
+          >
             <span className="gold-gradient-text">Dream</span>
             <span className="text-white">Global</span>
           </Link>

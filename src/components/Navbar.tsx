@@ -35,8 +35,9 @@ const Navbar = () => {
   const [moreOpen, setMoreOpen] = useState(false);
   const [showChatTip, setShowChatTip] = useState(true);
   const location = useLocation();
-  const isHomePage = location.pathname === "/";
-  const sectionHref = (href: string) => (isHomePage ? href : `/${href}`);
+  const isHigherStudiesPage = location.pathname === "/higher-studies";
+  const sectionHref = (href: string) =>
+    isHigherStudiesPage ? href : `/higher-studies${href}`;
   const desktopNavTextClass = scrolled
     ? "text-muted-foreground hover:text-primary"
     : "text-white drop-shadow-sm hover:text-gold";
@@ -114,7 +115,7 @@ const Navbar = () => {
       <div className="container relative mx-auto flex items-center justify-between px-4 py-3 sm:py-4">
         {/* LOGO */}
         <Link
-          to="/"
+          to="/higher-studies"
           className="flex shrink-0 items-center gap-3 font-bold tracking-wide"
         >
           <img

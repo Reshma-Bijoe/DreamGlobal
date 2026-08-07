@@ -9,10 +9,12 @@ import Admin from "./pages/Admin.tsx";
 import BlogPost from "./pages/BlogPost.tsx";
 import Blogs from "./pages/Blogs.tsx";
 import CallbackLanding from "./pages/CallbackLanding.tsx";
+import CareerCounselling from "./pages/CareerCounselling.tsx";
 import Countries from "./pages/Countries.tsx";
 import CountryPage from "./pages/CountryPage.tsx";
 import FAQs from "./pages/FAQs.tsx";
 import Index from "./pages/Index.tsx";
+import Landing from "./pages/Landing.tsx";
 import MBBS from "./pages/MBBS.tsx";
 import MBBSGuide from "./pages/MBBSGuide.tsx";
 import NotFound from "./pages/NotFound.tsx";
@@ -32,15 +34,17 @@ const App = () => (
         <ScrollManager />
         <FloatingContactTabs />
         <Routes>
-          <Route path="/" element={<Index />} />
+          <Route path="/" element={<Landing />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/blogs/:slug" element={<BlogPost />} />
           <Route path="/callback" element={<CallbackLanding />} />
           <Route path="/callback/:countryId" element={<CallbackLanding />} />
+          <Route path="/career-counselling" element={<CareerCounselling />} />
           <Route path="/countries" element={<Countries />} />
           <Route path="/countries/:countryId" element={<CountryPage />} />
           <Route path="/faqs" element={<FAQs />} />
+          <Route path="/higher-studies" element={<Index />} />
           <Route path="/mbbs" element={<MBBS />} />
           <Route path="/mbbs/guide" element={<MBBSGuide />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
