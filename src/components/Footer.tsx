@@ -1,15 +1,18 @@
 import { Globe, Mail, Phone, MessageCircle } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import { WHATSAPP_URL } from "@/lib/careerCounsellingData";
 
 const quickLinks = [
   { label: "Home", href: "#hero" },
   { label: "About", href: "#about" },
   { label: "Services", href: "#services" },
   { label: "Why Us", href: "#features" },
-  { label: "Contact", href: "#contact" },
 ];
 
 const pageLinks = [
+  { label: "Career Counselling", to: "/career-counselling" },
+  { label: "Founder", to: "/founder" },
+  { label: "Contact", to: "/contact" },
   { label: "MBBS Abroad", to: "/mbbs" },
   { label: "Countries", to: "/countries" },
   { label: "Success Letters", to: "/success-letters" },
@@ -46,7 +49,7 @@ const Footer = () => {
           </p>
           <div className="flex gap-4 mt-6">
             <a
-              href="https://wa.me/918848674757"
+              href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="w-9 h-9 rounded-full border border-white/30 flex items-center justify-center text-white/70 hover:text-gold hover:border-gold/50 transition-colors"

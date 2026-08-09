@@ -1,0 +1,5 @@
+
+> vite_react_shadcn_ts@0.0.0 dev
+> vite --host 127.0.0.1 --port 5173 --strictPort
+
+Re-optimizing dependencies because vite config has changed

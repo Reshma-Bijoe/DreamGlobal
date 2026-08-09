@@ -12,13 +12,20 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import DreamGlobalLogo from "@/assets/DreamGlobalLogo.jpeg";
 import { countryDestinations } from "@/data/countryDestinations";
+import { WHATSAPP_URL } from "@/lib/careerCounsellingData";
 
-const navLinks = [
-  { label: "Home", href: "#hero" },
-  { label: "Contact", href: "#contact" },
+const navLinks: { label: string; to: string }[] = [
+  { label: "Home", to: "/" },
 ];
 
-const pageLinks: { label: string; to: string }[] = [];
+const pageLinks: { label: string; to: string }[] = [
+  { label: "Career Counselling", to: "/career-counselling" },
+];
+
+const companyLinks: { label: string; to: string }[] = [
+  { label: "Founder", to: "/founder" },
+  { label: "Contact", to: "/contact" },
+];
 
 const moreLinks = [
   { label: "About", href: "#about" },
@@ -27,18 +34,43 @@ const moreLinks = [
   { label: "Privacy Policy", to: "/privacy-policy" },
 ];
 
+const careerResourceLinks = [
+  {
+    label: "Career Booster",
+    href: "https://dreamglobal.edumilestones.com/career-boosters/",
+  },
+  {
+    label: "Career Suitability",
+    href: "https://dreamglobal.edumilestones.com/login/suitability#pro_gra",
+  },
+  {
+    label: "Career Library",
+    href: "https://dreamglobal.edumilestones.com/global-career-library/",
+  },
+];
+
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [studyOptionsOpen, setStudyOptionsOpen] = useState(false);
   const [countriesOpen, setCountriesOpen] = useState(false);
+  const [companyOpen, setCompanyOpen] = useState(false);
+  const [careerToolkitOpen, setCareerToolkitOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
   const [showChatTip, setShowChatTip] = useState(true);
   const location = useLocation();
   const isHigherStudiesPage = location.pathname === "/higher-studies";
+  const isCareerCounsellingPage = location.pathname === "/career-counselling";
+  const isFounderPage = location.pathname === "/founder";
+  const isCareerPage = ["/career-counselling", "/founder", "/contact"].includes(
+    location.pathname
+  );
+  const showAdmissionBanner = !isCareerCounsellingPage && !isFounderPage;
+  const solidNavbar = scrolled || isCareerPage;
+  const activeNavLinks = pageLinks;
   const sectionHref = (href: string) =>
     isHigherStudiesPage ? href : `/higher-studies${href}`;
-  const desktopNavTextClass = scrolled
+  const desktopNavTextClass = solidNavbar
     ? "text-muted-foreground hover:text-primary"
     : "text-white drop-shadow-sm hover:text-gold";
   const replaySection = (hash: string) => {
@@ -46,9 +78,14 @@ const Navbar = () => {
       new CustomEvent("dreamglobal:section-replay", { detail: { hash } })
     );
   };
+  const openCounsellingForm = () => {
+    window.dispatchEvent(new CustomEvent("dreamglobal:open-counselling-form"));
+  };
 
   useEffect(() => {
     const getHeroScrollLimit = () => {
+      if (isCareerPage) return 12;
+
       const firstSection = document.querySelector("main section");
 
       if (!(firstSection instanceof HTMLElement)) return 40;
@@ -64,7 +101,7 @@ const Navbar = () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
-  }, [location.pathname]);
+  }, [isCareerPage, location.pathname]);
 
   useEffect(() => {
     const timer = setTimeout(() => setShowChatTip(false), 3000);
@@ -74,21 +111,20 @@ const Navbar = () => {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-background/80 backdrop-blur-md shadow-md"
-          : "bg-transparent"
+        solidNavbar ? "bg-white shadow-md" : "bg-transparent"
       }`}
     >
-      {/* ADMISSION ALERT */}
-      <div className="gold-gradient-bg text-primary-foreground">
-        <div className="container mx-auto flex items-center justify-center gap-2 px-4 py-2 text-center text-xs font-bold uppercase tracking-[0.12em] sm:text-sm">
-          <Megaphone size={16} />
-          <span>
-            Multiple university admission intakes are open. Contact us now and hurry
-            to secure your seat ! Free Counselling !!
-          </span>
+      {showAdmissionBanner && (
+        <div className="gold-gradient-bg text-primary-foreground">
+          <div className="container mx-auto flex items-center justify-center gap-2 px-4 py-2 text-center text-xs font-bold uppercase tracking-[0.12em] sm:text-sm">
+            <Megaphone size={16} />
+            <span>
+              Multiple university admission intakes are open. Contact us now and hurry
+              to secure your seat ! Free Counselling !!
+            </span>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* TOP BAR */}
       <div className="bg-secondary py-2 border-b border-white/10">
@@ -115,7 +151,7 @@ const Navbar = () => {
       <div className="container relative mx-auto flex items-center justify-between px-4 py-3 sm:py-4">
         {/* LOGO */}
         <Link
-          to="/higher-studies"
+          to="/"
           className="flex shrink-0 items-center gap-3 font-bold tracking-wide"
         >
           <img
@@ -123,25 +159,19 @@ const Navbar = () => {
             alt="Dream Global Logo"
             className="h-10 w-10 sm:h-12 sm:w-12 lg:h-14 lg:w-14 rounded-full"
           />
-          <span className="dream-gradient-text text-2xl font-bold sm:text-4xl">
-            DreamGlobal
+          <span className="flex flex-col leading-none">
+            <span className="dream-gradient-text text-2xl font-bold sm:text-4xl">
+              DreamGlobal
+            </span>
+            <span className="dream-gradient-text mt-1 text-[0.55rem] font-bold uppercase tracking-[0.1em] sm:text-[0.65rem] lg:text-xs">
+              Career Planning & Higher Education Solutions
+            </span>
           </span>
         </Link>
 
         {/* DESKTOP MENU */}
         <div className="ml-auto hidden items-center justify-end gap-5 xl:flex 2xl:gap-7">
           {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={sectionHref(link.href)}
-              onClick={() => replaySection(link.href)}
-              className={`whitespace-nowrap text-sm transition 2xl:text-base ${desktopNavTextClass}`}
-            >
-              {link.label}
-            </a>
-          ))}
-
-          {pageLinks.map((link) => (
             <Link
               key={link.to}
               to={link.to}
@@ -151,7 +181,110 @@ const Navbar = () => {
             </Link>
           ))}
 
+          {activeNavLinks.map((link) => (
+            <Link
+              key={link.to}
+              to={link.to}
+              className={`whitespace-nowrap text-sm transition 2xl:text-base ${desktopNavTextClass}`}
+            >
+              {link.label}
+            </Link>
+          ))}
+
+          {isCareerCounsellingPage && (
+            <div
+              className="relative"
+              onMouseEnter={() => setCareerToolkitOpen(true)}
+              onMouseLeave={() => setCareerToolkitOpen(false)}
+            >
+              <button
+                type="button"
+                onClick={() => setCareerToolkitOpen((current) => !current)}
+                className={`flex items-center gap-1 whitespace-nowrap text-sm transition 2xl:text-base ${desktopNavTextClass}`}
+                aria-expanded={careerToolkitOpen}
+              >
+                Career Toolkit
+                <ChevronDown
+                  size={16}
+                  className={`transition ${careerToolkitOpen ? "rotate-180" : ""}`}
+                />
+              </button>
+
+              <AnimatePresence>
+                {careerToolkitOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 8 }}
+                    className="absolute left-1/2 top-full z-50 mt-3 w-56 -translate-x-1/2 overflow-hidden rounded-lg border border-slate-200 bg-white py-2 shadow-xl"
+                  >
+                    <p className="px-4 pb-2 pt-1 text-xs font-bold uppercase tracking-widest text-yellow-600">
+                      Career Toolkit
+                    </p>
+                    {careerResourceLinks.map((link) => (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => setCareerToolkitOpen(false)}
+                        className="block px-4 py-2 text-sm font-bold text-slate-900 transition hover:bg-yellow-50"
+                      >
+                        {link.label}
+                      </a>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          )}
+
+
           <div
+            className="relative"
+            onMouseEnter={() => setCompanyOpen(true)}
+            onMouseLeave={() => setCompanyOpen(false)}
+          >
+            <button
+              type="button"
+              onClick={() => setCompanyOpen((current) => !current)}
+              className={`flex items-center gap-1 whitespace-nowrap text-sm transition 2xl:text-base ${desktopNavTextClass}`}
+              aria-expanded={companyOpen}
+            >
+              Company
+              <ChevronDown
+                size={16}
+                className={`transition ${companyOpen ? "rotate-180" : ""}`}
+              />
+            </button>
+
+            <AnimatePresence>
+              {companyOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 8 }}
+                  className="absolute left-1/2 top-full z-50 mt-3 w-48 -translate-x-1/2 overflow-hidden rounded-lg border border-slate-200 bg-white py-2 shadow-xl"
+                >
+                  <p className="px-4 pb-2 pt-1 text-xs font-bold uppercase tracking-widest text-yellow-600">
+                    Company
+                  </p>
+                  {companyLinks.map((link) => (
+                    <Link
+                      key={link.to}
+                      to={link.to}
+                      onClick={() => setCompanyOpen(false)}
+                      className="block px-4 py-2 text-sm font-bold text-slate-900 transition hover:bg-yellow-50"
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          {!isCareerPage && <div
             className="relative"
             onMouseEnter={() => setMoreOpen(true)}
             onMouseLeave={() => setMoreOpen(false)}
@@ -207,9 +340,9 @@ const Navbar = () => {
                 </motion.div>
               )}
             </AnimatePresence>
-          </div>
+          </div>}
 
-          <div
+          {!isCareerPage && <div
             className="relative"
             onMouseEnter={() => setStudyOptionsOpen(true)}
             onMouseLeave={() => {
@@ -308,15 +441,25 @@ const Navbar = () => {
                 </motion.div>
               )}
             </AnimatePresence>
-          </div>
+          </div>}
 
           <div className="flex items-center gap-2">
-            <a
-              href="https://dreamglobal.edumilestones.com/"
-              className="gold-gradient-bg whitespace-nowrap rounded-md px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90"
-            >
-              Start Your Journey
-            </a>
+            {isCareerPage ? (
+              <Link
+                to="/career-counselling#counselling-form"
+                onClick={openCounsellingForm}
+                className="gold-gradient-bg whitespace-nowrap rounded-md px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90"
+              >
+                Book Free Counselling
+              </Link>
+            ) : (
+              <a
+                href="https://dreamglobal.edumilestones.com/"
+                className="gold-gradient-bg whitespace-nowrap rounded-md px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90"
+              >
+                Start Your Journey
+              </a>
+            )}
 
             <div className="relative ml-2 flex items-center justify-center">
               <AnimatePresence>
@@ -336,7 +479,7 @@ const Navbar = () => {
               <span className="absolute h-12 w-12 rounded-full bg-green-400 opacity-30 animate-ping " />
 
               <motion.a
-                href="https://wa.me/918848674757"
+                href={WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="relative flex h-12 w-12 items-center justify-center rounded-full bg-green-500 text-white shadow-lg "
@@ -354,7 +497,7 @@ const Navbar = () => {
         {/* MOBILE ACTIONS */}
         <div className="flex items-center gap-2 xl:hidden">
           <motion.a
-            href="https://wa.me/918848674757"
+            href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="relative inline-flex h-10 w-10 items-center justify-center rounded-full bg-green-500 text-white shadow-lg shadow-green-900/20"
@@ -383,26 +526,48 @@ const Navbar = () => {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="max-h-[calc(100vh-8rem)] overflow-y-auto border-t bg-background/95 backdrop-blur-md xl:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[70] bg-slate-950/35 backdrop-blur-[2px] xl:hidden"
+            onClick={() => setMobileOpen(false)}
           >
-            <div className="container mx-auto flex flex-col gap-4 px-4 py-4">
+            <motion.aside
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", stiffness: 320, damping: 32 }}
+              className="ml-auto flex h-full w-[min(22rem,88vw)] flex-col overflow-y-auto border-l border-slate-200 bg-white p-5 shadow-2xl"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <div className="mb-6 flex items-center justify-between gap-4">
+                <span className="font-heading text-xl font-bold text-slate-950">
+                  Menu
+                </span>
+                <button
+                  type="button"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-slate-200 text-slate-800 transition hover:bg-slate-50"
+                  onClick={() => setMobileOpen(false)}
+                  aria-label="Close menu"
+                >
+                  <X size={21} />
+                </button>
+              </div>
+
+            <div className="flex flex-col gap-4">
               {navLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={sectionHref(link.href)}
+                <Link
+                  key={link.to}
+                  to={link.to}
                   onClick={() => {
-                    replaySection(link.href);
                     setMobileOpen(false);
                   }}
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
 
-              {pageLinks.map((link) => (
+              {activeNavLinks.map((link) => (
                 <Link
                   key={link.to}
                   to={link.to}
@@ -414,6 +579,46 @@ const Navbar = () => {
               ))}
 
               <div>
+                <p className="mb-2 text-xs font-bold uppercase tracking-widest text-yellow-600">
+                  Company
+                </p>
+                <div className="grid gap-2">
+                  {companyLinks.map((link) => (
+                    <Link
+                      key={link.to}
+                      to={link.to}
+                      onClick={() => setMobileOpen(false)}
+                      className="text-foreground"
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+              {isCareerCounsellingPage && (
+                <div>
+                  <p className="mb-2 text-xs font-bold uppercase tracking-widest text-yellow-600">
+                    Career Toolkit
+                  </p>
+                  <div className="grid gap-2">
+                    {careerResourceLinks.map((link) => (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => setMobileOpen(false)}
+                        className="text-foreground"
+                      >
+                        {link.label}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {!isCareerPage && <div>
                 <p className="mb-2 text-xs font-bold uppercase tracking-widest text-yellow-600">
                   Explore
                 </p>
@@ -443,9 +648,9 @@ const Navbar = () => {
                     )
                   )}
                 </div>
-              </div>
+              </div>}
 
-              <div>
+              {!isCareerPage && <div>
                 <p className="mb-2 text-xs font-bold uppercase tracking-widest text-yellow-600">
                   Study Options
                 </p>
@@ -475,15 +680,29 @@ const Navbar = () => {
                     </Link>
                   ))}
                 </div>
-              </div>
+              </div>}
 
-              <a
-                href="https://dreamglobal.edumilestones.com/"
-                className="gold-gradient-bg text-primary-foreground px-5 py-2.5 rounded-md text-center"
-              >
-                Start Your Journey
-              </a>
+              {isCareerPage ? (
+                <Link
+                  to="/career-counselling#counselling-form"
+                  onClick={() => {
+                    openCounsellingForm();
+                    setMobileOpen(false);
+                  }}
+                  className="gold-gradient-bg text-primary-foreground px-5 py-2.5 rounded-md text-center"
+                >
+                  Book Free Counselling
+                </Link>
+              ) : (
+                <a
+                  href="https://dreamglobal.edumilestones.com/"
+                  className="gold-gradient-bg text-primary-foreground px-5 py-2.5 rounded-md text-center"
+                >
+                  Start Your Journey
+                </a>
+              )}
             </div>
+            </motion.aside>
           </motion.div>
         )}
       </AnimatePresence>

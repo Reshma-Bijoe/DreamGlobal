@@ -6,20 +6,22 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import FloatingContactTabs from "./components/FloatingContactTabs.tsx";
 import ScrollManager from "./components/ScrollManager.tsx";
 import Admin from "./pages/Admin.tsx";
-import BlogPost from "./pages/BlogPost.tsx";
-import Blogs from "./pages/Blogs.tsx";
-import CallbackLanding from "./pages/CallbackLanding.tsx";
 import CareerCounselling from "./pages/CareerCounselling.tsx";
-import Countries from "./pages/Countries.tsx";
-import CountryPage from "./pages/CountryPage.tsx";
-import FAQs from "./pages/FAQs.tsx";
-import Index from "./pages/Index.tsx";
+import Contact from "./pages/Contact.tsx";
+import Founder from "./pages/Founder.tsx";
 import Landing from "./pages/Landing.tsx";
-import MBBS from "./pages/MBBS.tsx";
-import MBBSGuide from "./pages/MBBSGuide.tsx";
+import BlogPost from "./pages/higher-studies/BlogPost.tsx";
+import Blogs from "./pages/higher-studies/Blogs.tsx";
+import CallbackLanding from "./pages/higher-studies/CallbackLanding.tsx";
+import Countries from "./pages/higher-studies/Countries.tsx";
+import CountryPage from "./pages/higher-studies/CountryPage.tsx";
+import FAQs from "./pages/higher-studies/FAQs.tsx";
+import Index from "./pages/higher-studies/Index.tsx";
+import MBBS from "./pages/higher-studies/MBBS.tsx";
+import MBBSGuide from "./pages/higher-studies/MBBSGuide.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import PrivacyPolicy from "./pages/PrivacyPolicy.tsx";
-import SuccessLetters from "./pages/SuccessLetters.tsx";
+import SuccessLetters from "./pages/higher-studies/SuccessLetters.tsx";
 
 const queryClient = new QueryClient();
 
@@ -41,9 +43,11 @@ const App = () => (
           <Route path="/callback" element={<CallbackLanding />} />
           <Route path="/callback/:countryId" element={<CallbackLanding />} />
           <Route path="/career-counselling" element={<CareerCounselling />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/countries" element={<Countries />} />
           <Route path="/countries/:countryId" element={<CountryPage />} />
           <Route path="/faqs" element={<FAQs />} />
+          <Route path="/founder" element={<Founder />} />
           <Route path="/higher-studies" element={<Index />} />
           <Route path="/mbbs" element={<MBBS />} />
           <Route path="/mbbs/guide" element={<MBBSGuide />} />

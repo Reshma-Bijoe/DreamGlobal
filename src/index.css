@@ -225,3 +225,305 @@
 
 }
 }
+
+@layer components {
+  .career-theme {
+    --career-background: oklch(1 0 0);
+    --career-foreground: oklch(0.31 0.055 244);
+    --career-primary: hsl(var(--gold));
+    --career-primary-deep: hsl(var(--gold-dark));
+    --career-primary-ink: oklch(0.335 0.068 245);
+    --career-gold-bright: hsl(var(--gold-light));
+    --career-gold-shadow: hsl(var(--gold-dark) / 0.42);
+    --career-primary-soft: hsl(var(--gold) / 0.12);
+    --career-primary-tint: hsl(var(--gold) / 0.07);
+    --career-muted: oklch(0.55 0.035 245);
+    --career-border: oklch(0.915 0.02 234);
+    --career-hero: linear-gradient(
+      180deg,
+      oklch(0.955 0.03 231) 0%,
+      oklch(0.985 0.012 231) 45%,
+      oklch(1 0 0) 100%
+    );
+    --career-cta: linear-gradient(
+      180deg,
+      oklch(1 0 0) 0%,
+      oklch(0.955 0.032 231) 100%
+    );
+    --career-shadow-soft: 0 1px 2px oklch(0.425 0.095 243 / 0.04),
+      0 12px 32px -12px oklch(0.425 0.095 243 / 0.14);
+    --career-shadow-float: 0 24px 60px -24px oklch(0.425 0.095 243 / 0.28);
+    background: var(--career-background);
+    color: var(--career-foreground);
+  }
+
+  .career-hero-surface {
+    position: relative;
+    background:
+      linear-gradient(
+        180deg,
+        oklch(0.935 0.055 231) 0%,
+        oklch(0.972 0.028 231) 42%,
+        white 100%
+      );
+    isolation: isolate;
+  }
+
+  .career-hero-surface::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: -2;
+    background:
+      radial-gradient(
+        circle at 12% 12%,
+        hsl(var(--gold-light) / 0.35),
+        transparent 28%
+      ),
+      radial-gradient(
+        circle at 82% 18%,
+        oklch(0.74 0.128 248 / 0.34),
+        transparent 30%
+      ),
+      radial-gradient(
+        circle at 42% 58%,
+        hsl(var(--gold) / 0.16),
+        transparent 32%
+      );
+    background-size: 135% 135%;
+    animation: careerGradientFlow 12s ease-in-out infinite;
+    opacity: 0.88;
+  }
+
+  .career-hero-surface::after {
+    content: "";
+    position: absolute;
+    inset: -18% -12% auto;
+    height: 55rem;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      linear-gradient(
+        115deg,
+        transparent 5%,
+        oklch(0.99 0.01 231 / 0.74) 36%,
+        transparent 64%
+      ),
+      linear-gradient(
+        245deg,
+        transparent 12%,
+        oklch(0.875 0.075 232 / 0.36) 46%,
+        transparent 78%
+      );
+    background-size: 240% 240%, 190% 190%;
+    animation: careerGradientVeil 9s ease-in-out infinite alternate;
+    filter: blur(1px);
+    opacity: 0.9;
+  }
+
+  .career-cta-surface {
+    background: var(--career-cta);
+  }
+
+  .career-founder-panel {
+    border: 1px solid var(--career-border);
+    background:
+      linear-gradient(180deg, white 0%, var(--career-primary-tint) 100%);
+    box-shadow: inset 0 1px 0 color-mix(in oklab, white 78%, transparent);
+  }
+
+  .career-eyebrow {
+    color: var(--career-primary);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .career-heading {
+    color: var(--career-primary-ink);
+    letter-spacing: 0;
+  }
+
+  .career-copy {
+    color: var(--career-muted);
+  }
+
+  .career-card {
+    border: 1px solid var(--career-border);
+    background: color-mix(in oklab, white 88%, transparent);
+    box-shadow: var(--career-shadow-soft);
+  }
+
+  .career-gold-card {
+    border-color: hsl(var(--gold) / 0.38);
+    box-shadow: 0 1px 2px hsl(var(--gold-dark) / 0.08),
+      0 18px 44px -26px hsl(var(--gold-dark) / 0.42);
+  }
+
+  .career-gold-pill {
+    border: 1px solid hsl(var(--gold) / 0.42);
+    background: linear-gradient(135deg, hsl(var(--gold-light)), hsl(var(--gold)));
+    color: hsl(var(--primary-foreground));
+    box-shadow: 0 14px 30px -20px var(--career-gold-shadow);
+  }
+
+  .career-gold-link {
+    color: var(--career-primary-deep);
+    transition: color 160ms ease, transform 160ms ease;
+  }
+
+  .career-gold-link:hover {
+    color: var(--career-primary);
+  }
+
+  .career-gold-link svg,
+  .career-primary-button svg,
+  .career-secondary-button svg {
+    color: currentColor;
+    transition: transform 160ms ease;
+  }
+
+  .career-gold-link:hover svg,
+  .career-primary-button:hover svg,
+  .career-secondary-button:hover svg {
+    transform: translateX(3px);
+  }
+
+  .career-glass-card {
+    border: 1px solid color-mix(in oklab, white 64%, transparent);
+    background: color-mix(in oklab, white 76%, transparent);
+    backdrop-filter: blur(14px) saturate(150%);
+    box-shadow: var(--career-shadow-float);
+  }
+
+  .career-primary-button {
+    border: 1px solid hsl(var(--gold-light) / 0.62);
+    background: linear-gradient(
+      135deg,
+      hsl(var(--gold-light)) 0%,
+      hsl(var(--gold)) 46%,
+      hsl(var(--gold-dark)) 100%
+    );
+    color: hsl(var(--primary-foreground));
+    box-shadow: 0 16px 34px -17px hsl(var(--gold-dark) / 0.72),
+      inset 0 1px 0 hsl(var(--gold-light) / 0.78);
+  }
+
+  .career-primary-button:hover {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--gold-light)) 0%,
+      hsl(var(--gold)) 38%,
+      hsl(var(--gold-dark)) 100%
+    );
+    box-shadow: 0 18px 38px -16px hsl(var(--gold-dark) / 0.82),
+      inset 0 1px 0 hsl(var(--gold-light) / 0.88);
+  }
+
+  .career-secondary-button {
+    border: 1px solid hsl(var(--gold) / 0.48);
+    background: linear-gradient(
+      135deg,
+      hsl(var(--gold) / 0.16),
+      hsl(var(--gold-light) / 0.22)
+    );
+    color: var(--career-primary-ink);
+    box-shadow: inset 0 1px 0 hsl(var(--gold-light) / 0.4);
+  }
+
+  .career-secondary-button:hover {
+    border-color: var(--career-primary);
+    background: linear-gradient(
+      135deg,
+      hsl(var(--gold-light) / 0.34),
+      hsl(var(--gold) / 0.22)
+    );
+    color: hsl(var(--gold-dark));
+  }
+
+  .career-dark-secondary-button {
+    border: 1px solid hsl(var(--gold-light) / 0.72);
+    background: hsl(var(--gold-light) / 0.14);
+    color: hsl(var(--gold-light));
+    box-shadow: inset 0 1px 0 hsl(var(--gold-light) / 0.18);
+  }
+
+  .career-dark-secondary-button:hover {
+    background: linear-gradient(135deg, hsl(var(--gold-light)), hsl(var(--gold)));
+    color: hsl(var(--primary-foreground));
+    box-shadow: 0 16px 34px -18px hsl(var(--gold-dark) / 0.75),
+      inset 0 1px 0 hsl(var(--gold-light) / 0.78);
+  }
+
+  .career-field {
+    height: 2.75rem;
+    width: 100%;
+    border-radius: 0.5rem;
+    border: 1px solid var(--career-border);
+    background: white;
+    padding: 0 0.75rem;
+    color: var(--career-primary-ink);
+    font-size: 0.875rem;
+    outline: none;
+    transition: border-color 160ms ease, box-shadow 160ms ease;
+  }
+
+  .career-field::placeholder {
+    color: color-mix(in oklab, var(--career-muted) 78%, white);
+  }
+
+  .career-field:focus {
+    border-color: var(--career-primary);
+    box-shadow: 0 0 0 3px hsl(var(--gold) / 0.18);
+  }
+
+  .career-review-viewport {
+    mask-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%
+    );
+  }
+
+  .career-review-track {
+    animation: careerReviewRevolve 42s linear infinite;
+  }
+
+  .career-review-viewport:hover .career-review-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes careerGradientFlow {
+    0%,
+    100% {
+      background-position: 0% 12%;
+    }
+    50% {
+      background-position: 100% 80%;
+    }
+  }
+
+  @keyframes careerGradientVeil {
+    0% {
+      background-position: 0% 50%, 100% 30%;
+      transform: translate3d(-2%, 0, 0) rotate(0deg);
+    }
+    100% {
+      background-position: 100% 50%, 0% 74%;
+      transform: translate3d(2%, 1.5%, 0) rotate(1deg);
+    }
+  }
+
+  @keyframes careerReviewRevolve {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
