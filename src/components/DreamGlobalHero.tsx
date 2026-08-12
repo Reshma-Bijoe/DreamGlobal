@@ -206,7 +206,7 @@ const DreamGlobalHero = () => {
             <MantraCard className="mt-6 hidden md:block" />
           </div>
 
-          <div className="relative z-20 mt-6 grid w-full gap-4 sm:grid-cols-2 lg:absolute lg:inset-0 lg:mt-0 lg:block">
+          <div className="pointer-events-none relative z-20 mt-6 grid w-full gap-4 sm:grid-cols-2 lg:absolute lg:inset-0 lg:mt-0 lg:block">
             <svg
               aria-hidden="true"
               viewBox="0 0 86 430"
