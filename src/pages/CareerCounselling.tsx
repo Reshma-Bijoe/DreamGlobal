@@ -187,7 +187,7 @@ const CareerCounselling = () => {
       return;
     }
 
-    window.open(`${WHATSAPP_URL}?text=${whatsappText}`, "_blank", "noopener,noreferrer");
+    window.location.href = `${WHATSAPP_URL}?text=${whatsappText}`;
   };
 
   const openForm = () => {
@@ -271,8 +271,6 @@ const CareerCounselling = () => {
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <a
                   href={CAREER_TEST_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   className="career-primary-button inline-flex items-center justify-center gap-2 rounded-md px-6 py-3 text-sm font-bold transition"
                 >
                   Take Career Test
@@ -369,8 +367,6 @@ const CareerCounselling = () => {
                   </p>
                   <a
                     href={assessment.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
                     className="career-gold-link mt-6 inline-flex items-center gap-2 text-sm font-bold"
                   >
                     Start Assessment
@@ -584,8 +580,6 @@ const CareerCounselling = () => {
             <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
               <a
                 href={CAREER_TEST_URL}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="career-primary-button inline-flex items-center justify-center gap-2 rounded-md px-6 py-3 text-sm font-bold transition"
               >
                 Take the Career Test

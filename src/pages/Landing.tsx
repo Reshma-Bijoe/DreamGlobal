@@ -6,20 +6,23 @@ import {
   BriefcaseBusiness,
   CalendarCheck,
   CheckCircle2,
+  ChevronDown,
   Compass,
   GraduationCap,
-  Mail,
   MapPinned,
+  Menu,
   MessageCircle,
   Phone,
   Send,
-  Sparkles,
   Target,
   UserCheck,
   X,
 } from "lucide-react";
 import DreamGlobalLogo from "@/assets/DreamGlobalLogo.jpeg";
 import founder from "@/assets/founder.jpeg";
+import DreamGlobalHero from "@/components/DreamGlobalHero";
+import Footer from "@/components/Footer";
+import { countryDestinations } from "@/data/countryDestinations";
 import { supabase } from "../../supabaseClient";
 import {
   CAREER_TEST_URL,
@@ -31,11 +34,19 @@ import {
 const STUDENT_PROFILER_URL =
   "https://careertest.edumilestones.com/student-profiler/?channel_id=NDU1Mg==";
 
-const stats = [
-  { value: "1:1", label: "Personal Guidance" },
-  { value: "360", label: "Profile Review" },
-  { value: "Global", label: "Talent Pathways" },
-  { value: "End-to-End", label: "Student Support" },
+const careerResourceLinks = [
+  {
+    label: "Career Booster",
+    href: "https://dreamglobal.edumilestones.com/career-boosters/",
+  },
+  {
+    label: "Career Suitability",
+    href: "https://dreamglobal.edumilestones.com/login/suitability#pro_gra",
+  },
+  {
+    label: "Career Library",
+    href: "https://dreamglobal.edumilestones.com/global-career-library/",
+  },
 ];
 
 type ConsultationForm = {
@@ -98,6 +109,10 @@ const pathOptions = [
     ],
     actions: [
       {
+        label: "Book Free Consultation",
+        to: "/book-consultation",
+      },
+      {
         label: "Take Career Test",
         href: CAREER_TEST_URL,
         external: true,
@@ -106,10 +121,6 @@ const pathOptions = [
       {
         label: "Explore More",
         to: "/career-counselling",
-      },
-      {
-        label: "Book Free Consultation",
-        form: true,
       },
     ],
   },
@@ -129,6 +140,10 @@ const pathOptions = [
     ],
     actions: [
       {
+        label: "Book Free Consultation",
+        to: "/book-consultation",
+      },
+      {
         label: "Start Profiling",
         href: STUDENT_PROFILER_URL,
         external: true,
@@ -137,10 +152,6 @@ const pathOptions = [
       {
         label: "Explore Higher Studies",
         to: "/higher-studies",
-      },
-      {
-        label: "Book Free Consultation",
-        form: true,
       },
     ],
   },
@@ -191,8 +202,19 @@ const founderHighlights = [
   "International education and student-success specialist",
 ];
 
+const navItems = [
+  { label: "About", href: "#about" },
+  { label: "Services", href: "#services" },
+  { label: "Founder", to: "/founder" },
+  { label: "Contact", href: "#contact" },
+];
+
 const Landing = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [mobileNavOpen, setMobileNavOpen] = useState<
+    "career" | "higher" | "main" | null
+  >(null);
   const [form, setForm] = useState<ConsultationForm>(initialForm);
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -255,7 +277,7 @@ const Landing = () => {
       return;
     }
 
-    window.open(`${WHATSAPP_URL}?text=${whatsappText}`, "_blank", "noopener,noreferrer");
+    window.location.href = `${WHATSAPP_URL}?text=${whatsappText}`;
   };
 
   const openForm = () => {
@@ -307,150 +329,329 @@ const Landing = () => {
   return (
     <div className="career-theme min-h-screen">
       <main className="career-hero-surface relative min-h-screen overflow-hidden">
-      <header className="fixed left-0 right-0 top-0 z-50 border-b border-[color:var(--career-border)] bg-white shadow-sm">
-        <div className="bg-secondary py-2 border-b border-white/10">
-          <div className="container mx-auto flex flex-col items-center gap-2 px-4 text-xs text-white/80 sm:text-sm md:flex-row md:justify-end md:gap-6">
-            <a
-              href="mailto:dreamglobalin@gmail.com"
-              className="flex items-center gap-2 transition-colors hover:text-gold"
-            >
-              <Mail size={14} className="text-gold" />
-              <span>dreamglobalin@gmail.com</span>
-            </a>
-            <a
-              href="tel:+918848674757"
-              className="flex items-center gap-2 transition-colors hover:text-gold"
-            >
-              <Phone size={14} className="text-gold" />
-              <span>+91 88486 74757</span>
-            </a>
-          </div>
-        </div>
-        <div className="container mx-auto flex items-center gap-4 px-4 py-4">
+      <header className="fixed left-0 right-0 top-0 z-50 border-b border-[#0A2342]/10 bg-[linear-gradient(90deg,#fffdf8_0%,#f8fbff_55%,#eaf5ff_100%)] shadow-[0_1px_16px_rgba(10,35,66,0.06)]">
+        <div className="flex h-[82px] w-full items-center gap-4 px-[clamp(1rem,3.8vw,58px)] md:h-[96px] md:gap-7">
           <Link to="/" className="flex items-center gap-3">
             <img
               src={DreamGlobalLogo}
               alt="DreamGlobal Logo"
-              className="h-12 w-12 rounded-full object-cover"
+              className="h-12 w-12 rounded-full object-cover md:h-16 md:w-16"
             />
             <span className="flex flex-col leading-none">
-              <span className="dream-gradient-text text-3xl font-bold">
+              <span className="dream-gradient-text text-[1.55rem] font-bold md:text-[2.45rem]">
                 DreamGlobal
               </span>
-              <span className="dream-gradient-text mt-1 text-[0.65rem] font-bold uppercase tracking-[0.12em] sm:text-xs">
-                Career Planning & Higher Education Solutions
+              <span className="dream-gradient-text mt-1 hidden text-[0.68rem] font-extrabold uppercase tracking-[0.08em] sm:block md:text-sm">
+                Career Consulting & Higher Studies Solutions
               </span>
             </span>
           </Link>
-          <div className="ml-auto hidden items-center justify-end gap-6 text-base font-semibold text-[color:var(--career-primary-ink)] md:flex">
-            <a href="#about" className="transition hover:text-[color:var(--career-primary)]">
-              About
-            </a>
-            <a href="#services" className="transition hover:text-[color:var(--career-primary)]">
-              Services
-            </a>
-            <Link to="/career-counselling" className="transition hover:text-[color:var(--career-primary)]">
-              Career Counselling
-            </Link>
-            <Link to="/higher-studies" className="transition hover:text-[color:var(--career-primary)]">
-              Higher Studies
-            </Link>
-            <Link to="/founder" className="transition hover:text-[color:var(--career-primary)]">
-              Founder
-            </Link>
-            <a href="#contact" className="transition hover:text-[color:var(--career-primary)]">
-              Contact
-            </a>
-          </div>
-          <div className="ml-auto flex items-center gap-2 md:ml-0">
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-green-500 text-white shadow-sm transition hover:bg-green-600"
-              aria-label="Chat on WhatsApp"
-            >
-              <MessageCircle size={20} />
-            </a>
-            <a
-              href="tel:+918848674757"
-              className="career-primary-button hidden rounded-md px-4 py-2 text-sm font-bold transition sm:inline-flex"
-            >
-              Call Now
-            </a>
-          </div>
-        </div>
-      </header>
-
-      <section className="px-4 pb-16 pt-40 md:pb-24 md:pt-44">
-        <div className="container mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1fr_0.9fr]">
-          <div>
-            <p className="career-eyebrow inline-flex items-center gap-2">
-              <Sparkles size={15} />
-              Career Planning & Higher Education Solutions
-            </p>
-            <h1 className="career-heading mt-5 font-heading text-4xl font-bold leading-tight sm:text-5xl md:text-6xl">
-              Transforming potential into futures beyond borders.
-            </h1>
-            <p className="mt-6 max-w-3xl text-lg font-semibold leading-8 text-[color:var(--career-primary-deep)] sm:text-xl">
-              Discover your strengths, design your roadmap, and choose the
-              right career, course, university, or global education pathway with
-              clarity.
-            </p>
-            <p className="career-copy mt-5 max-w-2xl text-base leading-8">
-              At DreamGlobal, scientific assessments meet personal mentoring.
-              We help students and families move from confusion to confident
-              action through career counselling, higher education planning, and
-              study-abroad guidance.
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link
-                to="/career-counselling"
-                className="career-primary-button inline-flex items-center justify-center gap-2 rounded-md px-6 py-3 text-sm font-bold transition"
+          <div className="ml-auto hidden flex-1 items-center justify-end gap-[clamp(0.95rem,1.45vw,1.8rem)] text-base font-semibold text-[#061D3D] lg:flex">
+            <div className="group relative">
+              <button
+                type="button"
+                className="flex items-center gap-1 transition hover:text-[color:var(--career-primary)]"
               >
-                Start Career Counselling
-                <ArrowRight size={17} />
-              </Link>
-              <Link
-                to="/higher-studies"
-                className="career-primary-button inline-flex items-center justify-center gap-2 rounded-md px-6 py-3 text-sm font-bold transition"
-              >
-                Explore Higher Studies
-                <GraduationCap size={17} />
-              </Link>
-            </div>
-          </div>
-
-          <div className="career-glass-card rounded-2xl p-5">
-            <div className="rounded-2xl bg-white p-5 shadow-[var(--career-shadow-soft)]">
-              <p className="career-eyebrow">Our Mantra</p>
-              <blockquote className="career-heading mt-4 font-heading text-3xl font-bold leading-snug">
-                Enabling Global Talent.
-              </blockquote>
-              <p className="career-copy mt-4 text-sm leading-7">
-                We turn potential into direction through personalised career
-                planning, professional development, and higher education
-                solutions that students and parents can actually use.
-              </p>
-              <div className="mt-6 grid grid-cols-2 gap-3">
-                {stats.map((stat) => (
-                  <div
-                    key={stat.label}
-                    className="rounded-lg border border-[color:var(--career-border)] bg-[color:var(--career-primary-tint)] p-4"
+                Career Counselling
+                <ChevronDown size={15} />
+              </button>
+              <div className="invisible absolute left-1/2 top-full z-50 w-64 -translate-x-1/2 rounded-lg border border-slate-200 bg-white py-2 opacity-0 shadow-xl transition group-hover:visible group-hover:opacity-100">
+                <p className="px-4 pb-2 pt-1 text-xs font-bold uppercase tracking-widest text-[#C88A18]">
+                  Career Counselling
+                </p>
+                <Link
+                  to="/career-counselling"
+                  className="block border-b border-slate-100 px-4 py-2 text-sm font-bold text-slate-900 transition hover:bg-[#D4A24C]/12"
+                >
+                  Explore Career Counselling
+                </Link>
+                <div className="group/toolkit relative">
+                  <button
+                    type="button"
+                    className="flex w-full items-center justify-between px-4 py-2 text-left text-sm font-bold text-slate-900 transition hover:bg-[#D4A24C]/12"
                   >
-                    <p className="font-heading text-2xl font-bold text-[color:var(--career-primary)]">
-                      {stat.value}
-                    </p>
-                    <p className="mt-1 text-xs font-bold uppercase tracking-[0.12em] text-[color:var(--career-primary-ink)]">
-                      {stat.label}
-                    </p>
+                    Career Toolkit
+                    <ChevronDown size={15} className="-rotate-90 text-[#C88A18]" />
+                  </button>
+                  <div className="invisible absolute left-full top-0 z-50 w-56 overflow-hidden rounded-lg border border-slate-200 bg-white py-2 opacity-0 shadow-xl transition group-hover/toolkit:visible group-hover/toolkit:opacity-100">
+                    {careerResourceLinks.map((link) => (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        className="block px-4 py-2 text-sm font-bold text-slate-900 transition hover:bg-[#D4A24C]/12"
+                      >
+                        {link.label}
+                      </a>
+                    ))}
                   </div>
-                ))}
+                </div>
               </div>
             </div>
+            <div className="group relative">
+              <button
+                type="button"
+                className="flex items-center gap-1 transition hover:text-[color:var(--career-primary)]"
+              >
+                Higher Studies
+                <ChevronDown size={15} />
+              </button>
+              <div className="invisible absolute left-1/2 top-full z-50 w-64 -translate-x-1/2 rounded-lg border border-slate-200 bg-white py-2 opacity-0 shadow-xl transition group-hover:visible group-hover:opacity-100">
+                <p className="px-4 pb-2 pt-1 text-xs font-bold uppercase tracking-widest text-[#C88A18]">
+                  Higher Studies
+                </p>
+                <Link
+                  to="/higher-studies"
+                  className="block border-b border-slate-100 px-4 py-2 text-sm font-bold text-slate-900 transition hover:bg-[#D4A24C]/12"
+                >
+                  Explore Higher Studies
+                </Link>
+                <Link
+                  to="/mbbs"
+                  className="block border-b border-slate-100 px-4 py-2 text-sm font-bold text-slate-900 transition hover:bg-[#D4A24C]/12"
+                >
+                  MBBS
+                </Link>
+                <div className="group/countries relative">
+                  <button
+                    type="button"
+                    className="flex w-full items-center justify-between border-b border-slate-100 px-4 py-2 text-left text-sm font-bold text-slate-900 transition hover:bg-[#D4A24C]/12"
+                  >
+                    Countries
+                    <ChevronDown size={15} className="-rotate-90 text-[#C88A18]" />
+                  </button>
+                  <div className="invisible absolute left-full top-0 z-50 w-56 overflow-hidden rounded-lg border border-slate-200 bg-white py-2 opacity-0 shadow-xl transition group-hover/countries:visible group-hover/countries:opacity-100">
+                    <Link
+                      to="/countries"
+                      className="block border-b border-slate-100 px-4 py-2 text-sm font-bold text-slate-900 transition hover:bg-[#D4A24C]/12"
+                    >
+                      All Countries
+                    </Link>
+                    {countryDestinations.map((country) => (
+                      <Link
+                        key={country.id}
+                        to={country.route}
+                        className="block px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-[#D4A24C]/12 hover:text-slate-950"
+                      >
+                        {country.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+            {navItems.map((item) =>
+              "to" in item ? (
+                <Link
+                  key={item.label}
+                  to={item.to}
+                  className="transition hover:text-[color:var(--career-primary)]"
+                >
+                  {item.label}
+                </Link>
+              ) : (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className="transition hover:text-[color:var(--career-primary)]"
+                >
+                  {item.label}
+                </a>
+              )
+            )}
+          </div>
+          <div className="ml-auto flex items-center gap-4 lg:ml-0">
+            <a
+              href={WHATSAPP_URL}
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#24C65A] text-white shadow-[0_10px_22px_-12px_rgba(36,198,90,0.85)] transition hover:bg-[#1FB04F]"
+              aria-label="Chat on WhatsApp"
+            >
+              <MessageCircle size={24} />
+            </a>
+            <Link
+              to="/book-consultation"
+              className="dream-gold-button hidden h-11 items-center justify-center rounded-md px-6 text-sm font-bold shadow-[0_14px_28px_-18px_rgba(200,138,24,0.9)] transition sm:inline-flex"
+            >
+              Book a Consultation
+            </Link>
+            <button
+              type="button"
+              onClick={() => {
+                setIsMenuOpen((current) => {
+                  if (current) setMobileNavOpen(null);
+                  return !current;
+                });
+              }}
+              className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-[#0A2342]/15 bg-white/70 text-[#0A2342] shadow-sm backdrop-blur transition hover:border-[#C88A18] hover:text-[#C88A18] lg:hidden"
+              aria-label="Toggle navigation menu"
+              aria-expanded={isMenuOpen}
+            >
+              {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
           </div>
         </div>
-      </section>
+        {isMenuOpen && (
+          <div className="border-t border-[#0A2342]/10 bg-white/95 px-4 py-4 shadow-[0_18px_36px_-30px_rgba(10,35,66,0.55)] backdrop-blur lg:hidden">
+            <nav className="grid gap-2 text-sm font-bold text-[#061D3D]">
+              <div className="rounded-md border border-[#0A2342]/10 p-3">
+                <button
+                  type="button"
+                  onClick={() =>
+                    setMobileNavOpen((current) =>
+                      current === "career" ? null : "career"
+                    )
+                  }
+                  className="flex w-full items-center justify-between font-bold text-[#061D3D]"
+                  aria-expanded={mobileNavOpen === "career"}
+                >
+                  Career Counselling
+                  <ChevronDown
+                    size={16}
+                    className={`transition ${
+                      mobileNavOpen === "career" ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+                {mobileNavOpen === "career" && (
+                  <div className="mt-2 grid gap-1">
+                    <Link
+                      to="/career-counselling"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="rounded px-2 py-1.5 text-sm font-semibold text-slate-700 transition hover:bg-[#D4A24C]/12"
+                    >
+                      Explore Career Counselling
+                    </Link>
+                    <p className="px-2 pt-2 text-xs font-extrabold uppercase tracking-[0.12em] text-[#C88A18]">
+                      Career Toolkit
+                    </p>
+                    {careerResourceLinks.map((link) => (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        onClick={() => setIsMenuOpen(false)}
+                        className="rounded px-2 py-1.5 text-sm font-semibold text-slate-700 transition hover:bg-[#D4A24C]/12"
+                      >
+                        {link.label}
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <div className="rounded-md border border-[#0A2342]/10 p-3">
+                <button
+                  type="button"
+                  onClick={() =>
+                    setMobileNavOpen((current) =>
+                      current === "higher" ? null : "higher"
+                    )
+                  }
+                  className="flex w-full items-center justify-between font-bold text-[#061D3D]"
+                  aria-expanded={mobileNavOpen === "higher"}
+                >
+                  Higher Studies
+                  <ChevronDown
+                    size={16}
+                    className={`transition ${
+                      mobileNavOpen === "higher" ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+                {mobileNavOpen === "higher" && (
+                  <div className="mt-2 grid gap-1">
+                    <Link
+                      to="/higher-studies"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="rounded px-2 py-1.5 text-sm font-semibold text-slate-700 transition hover:bg-[#D4A24C]/12"
+                    >
+                      Explore Higher Studies
+                    </Link>
+                    <Link
+                      to="/mbbs"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="rounded px-2 py-1.5 text-sm font-semibold text-slate-700 transition hover:bg-[#D4A24C]/12"
+                    >
+                      MBBS
+                    </Link>
+                    <p className="px-2 pt-2 text-xs font-extrabold uppercase tracking-[0.12em] text-[#C88A18]">
+                      Countries
+                    </p>
+                    <Link
+                      to="/countries"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="rounded px-2 py-1.5 text-sm font-semibold text-slate-700 transition hover:bg-[#D4A24C]/12"
+                    >
+                      All Countries
+                    </Link>
+                    {countryDestinations.map((country) => (
+                      <Link
+                        key={country.id}
+                        to={country.route}
+                        onClick={() => setIsMenuOpen(false)}
+                        className="rounded px-2 py-1.5 text-sm font-medium text-slate-700 transition hover:bg-[#D4A24C]/12"
+                      >
+                        {country.name}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <div className="rounded-md border border-[#0A2342]/10 p-3">
+                <button
+                  type="button"
+                  onClick={() =>
+                    setMobileNavOpen((current) =>
+                      current === "main" ? null : "main"
+                    )
+                  }
+                  className="flex w-full items-center justify-between font-bold text-[#061D3D]"
+                  aria-expanded={mobileNavOpen === "main"}
+                >
+                  More
+                  <ChevronDown
+                    size={16}
+                    className={`transition ${
+                      mobileNavOpen === "main" ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+                {mobileNavOpen === "main" && (
+                  <div className="mt-2 grid gap-1">
+                    {navItems.map((item) =>
+                      "to" in item ? (
+                        <Link
+                          key={item.label}
+                          to={item.to}
+                          onClick={() => setIsMenuOpen(false)}
+                          className="rounded px-2 py-1.5 text-sm font-semibold text-slate-700 transition hover:bg-[#D4A24C]/12"
+                        >
+                          {item.label}
+                        </Link>
+                      ) : (
+                        <a
+                          key={item.label}
+                          href={item.href}
+                          onClick={() => setIsMenuOpen(false)}
+                          className="rounded px-2 py-1.5 text-sm font-semibold text-slate-700 transition hover:bg-[#D4A24C]/12"
+                        >
+                          {item.label}
+                        </a>
+                      )
+                    )}
+                  </div>
+                )}
+              </div>
+              <Link
+                to="/book-consultation"
+                onClick={() => setIsMenuOpen(false)}
+                className="dream-gold-button mt-2 rounded-md px-3 py-3 text-left transition"
+              >
+                Book a Consultation
+              </Link>
+            </nav>
+          </div>
+        )}
+      </header>
+
+      <DreamGlobalHero />
 
       <section id="services" className="px-4 py-16">
         <div className="container mx-auto max-w-7xl">
@@ -511,23 +712,11 @@ const Landing = () => {
                         <a
                           key={action.label}
                           href={action.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
                           className="career-primary-button inline-flex w-full items-center justify-center gap-2 rounded-md px-5 py-3 text-sm font-bold transition"
                         >
                           {action.label}
                           <ArrowRight size={17} />
                         </a>
-                      ) : "form" in action ? (
-                        <button
-                          key={action.label}
-                          type="button"
-                          onClick={openForm}
-                          className="career-primary-button inline-flex w-full items-center justify-center gap-2 rounded-md px-5 py-3 text-sm font-bold transition"
-                        >
-                          {action.label}
-                          <CalendarCheck size={17} />
-                        </button>
                       ) : (
                         <Link
                           key={action.label}
@@ -535,7 +724,11 @@ const Landing = () => {
                           className="career-primary-button inline-flex w-full items-center justify-center gap-2 rounded-md px-5 py-3 text-sm font-bold transition"
                         >
                           {action.label}
-                          <ArrowRight size={17} />
+                          {action.label.includes("Consultation") ? (
+                            <CalendarCheck size={17} />
+                          ) : (
+                            <ArrowRight size={17} />
+                          )}
                         </Link>
                       )
                     )}
@@ -736,26 +929,26 @@ const Landing = () => {
               </a>
               <a
                 href={WHATSAPP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="career-primary-button inline-flex items-center justify-center gap-2 rounded-md px-6 py-3 text-sm font-bold transition"
               >
                 <MessageCircle size={18} />
                 WhatsApp
               </a>
-              <button
-                type="button"
-                onClick={openForm}
+              <Link
+                to="/book-consultation"
                 className="career-primary-button inline-flex items-center justify-center gap-2 rounded-md px-6 py-3 text-sm font-bold transition"
               >
                 <CalendarCheck size={18} />
                 Book Free Consultation
-              </button>
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
+      <Footer />
+
+      {/*
       {isFormOpen && (
         <div
           className="fixed inset-0 z-[80] flex items-center justify-center bg-[color:var(--career-primary-ink)]/55 px-4 py-6 backdrop-blur-sm"
@@ -849,6 +1042,7 @@ const Landing = () => {
           </div>
         </div>
       )}
+      */}
       </main>
     </div>
   );

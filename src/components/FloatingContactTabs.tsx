@@ -309,8 +309,6 @@ const FloatingContactTabs = () => {
                 </p>
                 <a
                   href={emailComposeHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 rounded-md border border-primary px-4 py-3 text-sm font-semibold text-primary transition hover:bg-primary hover:text-primary-foreground"
                 >
                   <Mail size={16} />

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -6,6 +7,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import FloatingContactTabs from "./components/FloatingContactTabs.tsx";
 import ScrollManager from "./components/ScrollManager.tsx";
 import Admin from "./pages/Admin.tsx";
+import BookConsultation from "./pages/BookConsultation.tsx";
 import CareerCounselling from "./pages/CareerCounselling.tsx";
 import Contact from "./pages/Contact.tsx";
 import Founder from "./pages/Founder.tsx";
@@ -25,6 +27,29 @@ import SuccessLetters from "./pages/higher-studies/SuccessLetters.tsx";
 
 const queryClient = new QueryClient();
 
+const SameTabLinkHandler = () => {
+  useEffect(() => {
+    const handleClick = (event: MouseEvent) => {
+      const target = event.target as HTMLElement | null;
+      const anchor = target?.closest("a[target='_blank']") as HTMLAnchorElement | null;
+
+      if (!anchor || !anchor.href) return;
+      if (anchor.href.startsWith("tel:") || anchor.href.startsWith("mailto:")) return;
+
+      event.preventDefault();
+      window.location.href = anchor.href;
+    };
+
+    document.addEventListener("click", handleClick);
+
+    return () => {
+      document.removeEventListener("click", handleClick);
+    };
+  }, []);
+
+  return null;
+};
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
@@ -34,12 +59,14 @@ const App = () => (
         future={{ v7_relativeSplatPath: true, v7_startTransition: true }}
       >
         <ScrollManager />
+        <SameTabLinkHandler />
         <FloatingContactTabs />
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/blogs/:slug" element={<BlogPost />} />
+          <Route path="/book-consultation" element={<BookConsultation />} />
           <Route path="/callback" element={<CallbackLanding />} />
           <Route path="/callback/:countryId" element={<CallbackLanding />} />
           <Route path="/career-counselling" element={<CareerCounselling />} />

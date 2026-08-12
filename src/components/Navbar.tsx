@@ -18,9 +18,7 @@ const navLinks: { label: string; to: string }[] = [
   { label: "Home", to: "/" },
 ];
 
-const pageLinks: { label: string; to: string }[] = [
-  { label: "Career Counselling", to: "/career-counselling" },
-];
+const pageLinks: { label: string; to: string }[] = [];
 
 const companyLinks: { label: string; to: string }[] = [
   { label: "Founder", to: "/founder" },
@@ -164,13 +162,13 @@ const Navbar = () => {
               DreamGlobal
             </span>
             <span className="dream-gradient-text mt-1 text-[0.55rem] font-bold uppercase tracking-[0.1em] sm:text-[0.65rem] lg:text-xs">
-              Career Planning & Higher Education Solutions
+              Career Consulting & Higher Studies Solutions
             </span>
           </span>
         </Link>
 
         {/* DESKTOP MENU */}
-        <div className="ml-auto hidden items-center justify-end gap-5 xl:flex 2xl:gap-7">
+        <div className="ml-auto hidden items-center justify-end gap-4 xl:flex 2xl:gap-5">
           {navLinks.map((link) => (
             <Link
               key={link.to}
@@ -191,54 +189,67 @@ const Navbar = () => {
             </Link>
           ))}
 
-          {isCareerCounsellingPage && (
-            <div
-              className="relative"
-              onMouseEnter={() => setCareerToolkitOpen(true)}
-              onMouseLeave={() => setCareerToolkitOpen(false)}
+          <div
+            className="relative"
+            onMouseEnter={() => setCareerToolkitOpen(true)}
+            onMouseLeave={() => setCareerToolkitOpen(false)}
+          >
+            <button
+              type="button"
+              onClick={() => setCareerToolkitOpen((current) => !current)}
+              className={`flex items-center gap-1 whitespace-nowrap text-sm transition 2xl:text-base ${desktopNavTextClass}`}
+              aria-expanded={careerToolkitOpen}
             >
-              <button
-                type="button"
-                onClick={() => setCareerToolkitOpen((current) => !current)}
-                className={`flex items-center gap-1 whitespace-nowrap text-sm transition 2xl:text-base ${desktopNavTextClass}`}
-                aria-expanded={careerToolkitOpen}
-              >
-                Career Toolkit
-                <ChevronDown
-                  size={16}
-                  className={`transition ${careerToolkitOpen ? "rotate-180" : ""}`}
-                />
-              </button>
+              Career Counselling
+              <ChevronDown
+                size={16}
+                className={`transition ${careerToolkitOpen ? "rotate-180" : ""}`}
+              />
+            </button>
 
-              <AnimatePresence>
-                {careerToolkitOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 8 }}
-                    className="absolute left-1/2 top-full z-50 mt-3 w-56 -translate-x-1/2 overflow-hidden rounded-lg border border-slate-200 bg-white py-2 shadow-xl"
+            <AnimatePresence>
+              {careerToolkitOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 8 }}
+                  className="absolute left-1/2 top-full z-50 w-64 -translate-x-1/2 rounded-lg border border-slate-200 bg-white py-2 shadow-xl"
+                >
+                  <p className="px-4 pb-2 pt-1 text-xs font-bold uppercase tracking-widest text-yellow-600">
+                    Career Counselling
+                  </p>
+                  <Link
+                    to="/career-counselling"
+                    onClick={() => setCareerToolkitOpen(false)}
+                    className="block border-b border-slate-100 px-4 py-2 text-sm font-bold text-slate-900 transition hover:bg-yellow-50"
                   >
-                    <p className="px-4 pb-2 pt-1 text-xs font-bold uppercase tracking-widest text-yellow-600">
+                    Explore Career Counselling
+                  </Link>
+                  <div className="group/toolkit relative">
+                    <button
+                      type="button"
+                      className="flex w-full items-center justify-between px-4 py-2 text-left text-sm font-bold text-slate-900 transition hover:bg-yellow-50"
+                    >
                       Career Toolkit
-                    </p>
-                    {careerResourceLinks.map((link) => (
-                      <a
-                        key={link.href}
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={() => setCareerToolkitOpen(false)}
-                        className="block px-4 py-2 text-sm font-bold text-slate-900 transition hover:bg-yellow-50"
-                      >
-                        {link.label}
-                      </a>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          )}
-
+                      <ChevronDown size={15} className="-rotate-90 text-yellow-700" />
+                    </button>
+                    <div className="invisible absolute left-full top-0 z-50 w-56 overflow-hidden rounded-lg border border-slate-200 bg-white py-2 opacity-0 shadow-xl transition group-hover/toolkit:visible group-hover/toolkit:opacity-100">
+                      {careerResourceLinks.map((link) => (
+                        <a
+                          key={link.href}
+                          href={link.href}
+                          onClick={() => setCareerToolkitOpen(false)}
+                          className="block px-4 py-2 text-sm font-bold text-slate-900 transition hover:bg-yellow-50"
+                        >
+                          {link.label}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
 
           <div
             className="relative"
@@ -264,7 +275,7 @@ const Navbar = () => {
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 8 }}
-                  className="absolute left-1/2 top-full z-50 mt-3 w-48 -translate-x-1/2 overflow-hidden rounded-lg border border-slate-200 bg-white py-2 shadow-xl"
+                  className="absolute left-1/2 top-full z-50 w-48 -translate-x-1/2 overflow-hidden rounded-lg border border-slate-200 bg-white py-2 shadow-xl"
                 >
                   <p className="px-4 pb-2 pt-1 text-xs font-bold uppercase tracking-widest text-yellow-600">
                     Company
@@ -308,7 +319,7 @@ const Navbar = () => {
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 8 }}
-                  className="absolute left-1/2 top-full z-50 mt-3 w-52 -translate-x-1/2 overflow-hidden rounded-lg border border-slate-200 bg-white py-2 shadow-xl"
+                  className="absolute left-1/2 top-full z-50 w-52 -translate-x-1/2 overflow-hidden rounded-lg border border-slate-200 bg-white py-2 shadow-xl"
                 >
                   <p className="px-4 pb-2 pt-1 text-xs font-bold uppercase tracking-widest text-yellow-600">
                     Explore
@@ -342,7 +353,7 @@ const Navbar = () => {
             </AnimatePresence>
           </div>}
 
-          {!isCareerPage && <div
+          <div
             className="relative"
             onMouseEnter={() => setStudyOptionsOpen(true)}
             onMouseLeave={() => {
@@ -356,7 +367,7 @@ const Navbar = () => {
               className={`flex items-center gap-1 whitespace-nowrap text-sm transition 2xl:text-base ${desktopNavTextClass}`}
               aria-expanded={studyOptionsOpen}
             >
-              Study Options
+              Higher Studies
               <ChevronDown
                 size={16}
                 className={`transition ${
@@ -371,11 +382,21 @@ const Navbar = () => {
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 8 }}
-                  className="absolute left-1/2 top-full z-50 mt-3 w-60 -translate-x-1/2 rounded-lg border border-slate-200 bg-white py-2 shadow-xl"
+                  className="absolute left-1/2 top-full z-50 w-60 -translate-x-1/2 rounded-lg border border-slate-200 bg-white py-2 shadow-xl"
                 >
                   <p className="px-4 pb-2 pt-1 text-xs font-bold uppercase tracking-widest text-yellow-600">
-                    Study Options
+                    Higher Studies
                   </p>
+                  <Link
+                    to="/higher-studies"
+                    onClick={() => {
+                      setStudyOptionsOpen(false);
+                      setCountriesOpen(false);
+                    }}
+                    className="block border-b border-slate-100 px-4 py-2 text-sm font-bold text-slate-900 transition hover:bg-yellow-50"
+                  >
+                    Explore Higher Studies
+                  </Link>
                   <Link
                     to="/mbbs"
                     onClick={() => {
@@ -409,7 +430,7 @@ const Navbar = () => {
                           initial={{ opacity: 0, x: 8 }}
                           animate={{ opacity: 1, x: 0 }}
                           exit={{ opacity: 0, x: 8 }}
-                          className="absolute left-full top-0 z-50 ml-2 w-56 overflow-hidden rounded-lg border border-slate-200 bg-white py-2 shadow-xl"
+                          className="absolute left-full top-0 z-50 w-56 overflow-hidden rounded-lg border border-slate-200 bg-white py-2 shadow-xl"
                         >
                           <Link
                             to="/countries"
@@ -441,7 +462,7 @@ const Navbar = () => {
                 </motion.div>
               )}
             </AnimatePresence>
-          </div>}
+          </div>
 
           <div className="flex items-center gap-2">
             {isCareerPage ? (
@@ -480,8 +501,6 @@ const Navbar = () => {
 
               <motion.a
                 href={WHATSAPP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="relative flex h-12 w-12 items-center justify-center rounded-full bg-green-500 text-white shadow-lg "
                 animate={{ scale: [1, 1.05, 1] }}
                 transition={{ duration: 2.5, repeat: Infinity }}
@@ -498,8 +517,6 @@ const Navbar = () => {
         <div className="flex items-center gap-2 xl:hidden">
           <motion.a
             href={WHATSAPP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
             className="relative inline-flex h-10 w-10 items-center justify-center rounded-full bg-green-500 text-white shadow-lg shadow-green-900/20"
             animate={{ scale: [1, 1.05, 1] }}
             transition={{ duration: 2.5, repeat: Infinity }}
@@ -596,27 +613,33 @@ const Navbar = () => {
                 </div>
               </div>
 
-              {isCareerCounsellingPage && (
-                <div>
-                  <p className="mb-2 text-xs font-bold uppercase tracking-widest text-yellow-600">
+              <div>
+                <p className="mb-2 text-xs font-bold uppercase tracking-widest text-yellow-600">
+                  Career Counselling
+                </p>
+                <div className="grid gap-2">
+                  <Link
+                    to="/career-counselling"
+                    onClick={() => setMobileOpen(false)}
+                    className="font-semibold text-foreground"
+                  >
+                    Explore Career Counselling
+                  </Link>
+                  <p className="pt-2 text-xs font-bold uppercase tracking-widest text-yellow-600">
                     Career Toolkit
                   </p>
-                  <div className="grid gap-2">
-                    {careerResourceLinks.map((link) => (
-                      <a
-                        key={link.href}
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={() => setMobileOpen(false)}
-                        className="text-foreground"
-                      >
-                        {link.label}
-                      </a>
-                    ))}
-                  </div>
+                  {careerResourceLinks.map((link) => (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setMobileOpen(false)}
+                      className="text-foreground"
+                    >
+                      {link.label}
+                    </a>
+                  ))}
                 </div>
-              )}
+              </div>
 
               {!isCareerPage && <div>
                 <p className="mb-2 text-xs font-bold uppercase tracking-widest text-yellow-600">
@@ -650,11 +673,18 @@ const Navbar = () => {
                 </div>
               </div>}
 
-              {!isCareerPage && <div>
+              <div>
                 <p className="mb-2 text-xs font-bold uppercase tracking-widest text-yellow-600">
-                  Study Options
+                  Higher Studies
                 </p>
                 <div className="grid gap-2">
+                  <Link
+                    to="/higher-studies"
+                    onClick={() => setMobileOpen(false)}
+                    className="font-semibold text-foreground"
+                  >
+                    Explore Higher Studies
+                  </Link>
                   <Link
                     to="/mbbs"
                     onClick={() => setMobileOpen(false)}
@@ -680,7 +710,7 @@ const Navbar = () => {
                     </Link>
                   ))}
                 </div>
-              </div>}
+              </div>
 
               {isCareerPage ? (
                 <Link

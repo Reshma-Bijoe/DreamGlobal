@@ -51,8 +51,6 @@ const Contact = () => {
                   <a
                     key={card.label}
                     href={card.href}
-                    target={card.href.startsWith("http") ? "_blank" : undefined}
-                    rel={card.href.startsWith("http") ? "noopener noreferrer" : undefined}
                     className="career-card rounded-2xl p-6 transition duration-300 hover:-translate-y-1 hover:shadow-[var(--career-shadow-float)]"
                   >
                     <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[color:var(--career-primary)] text-white">

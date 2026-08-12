@@ -24,8 +24,9 @@ const pageLinks = [
 const Footer = () => {
   const location = useLocation();
   const isHigherStudiesPage = location.pathname === "/higher-studies";
+  const isLandingPage = location.pathname === "/";
   const sectionHref = (href: string) =>
-    isHigherStudiesPage ? href : `/higher-studies${href}`;
+    isLandingPage || isHigherStudiesPage ? href : `/${href}`;
   const replaySection = (hash: string) => {
     window.dispatchEvent(
       new CustomEvent("dreamglobal:section-replay", { detail: { hash } })
@@ -50,8 +51,6 @@ const Footer = () => {
           <div className="flex gap-4 mt-6">
             <a
               href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
               className="w-9 h-9 rounded-full border border-white/30 flex items-center justify-center text-white/70 hover:text-gold hover:border-gold/50 transition-colors"
               aria-label="Chat on WhatsApp"
             >

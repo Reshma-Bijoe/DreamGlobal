@@ -66,395 +66,251 @@
         "@context": "https://schema.org",
         "@graph": [
           {
-            "@type": "WebSite",
-            "@id": "https://dreamglobal.in/#website",
-            "url": "https://dreamglobal.in/",
+            "@type": ["ProfessionalService", "LocalBusiness"],
+            "@id": "https://dreamglobal.in/#business",
             "name": "DreamGlobal",
-            "alternateName": "Dream Global",
-            "description": "DreamGlobal provides career counselling, career assessment, higher education guidance, study abroad consultancy, student visa support, university selection, scholarships, and personalised student mentoring in Kerala.",
-            "keywords": [
-              "career counselling Kerala",
-              "career counselling Kochi",
-              "career counselling Aluva",
-              "career counselling Thiruvananthapuram",
-              "career counselling Trivandrum",
-              "study abroad consultancy Kerala",
-              "study abroad consultants Kochi",
-              "study abroad consultants Aluva",
-              "study abroad consultants Thiruvananthapuram",
-              "overseas education Kerala",
-              "student visa assistance Kerala",
-              "higher education consultants Kerala",
-              "psychometric career assessment",
-              "career guidance for students"
-            ],
-            "publisher": {
-              "@id": "https://dreamglobal.in/#organization"
-            },
-            "potentialAction": {
-              "@type": "SearchAction",
-              "target": "https://dreamglobal.in/?q={search_term_string}",
-              "query-input": "required name=search_term_string"
-            },
-            "inLanguage": "en-IN"
-          },
-          {
-            "@type": [
-              "EducationalOrganization",
-              "LocalBusiness",
-              "ProfessionalService"
-            ],
-            "@id": "https://dreamglobal.in/#organization",
-            "name": "DreamGlobal",
-            "alternateName": "Dream Global",
-            "slogan": "Enabling Global Talent",
             "url": "https://dreamglobal.in/",
-            "logo": "https://dreamglobal.in/favicon-512.png",
-            "image": "https://dreamglobal.in/preview.jpeg",
-            "description": "DreamGlobal is a career counselling, higher education, and study abroad consultancy helping students and families in Kerala choose careers, courses, universities, countries, admissions, visas, scholarships, and future-ready education pathways.",
+            "telephone": "+91-8848674757",
             "email": "dreamglobalin@gmail.com",
-            "telephone": "+91-88486-74757",
+            "description": "DreamGlobal is a career counselling, career mentoring, career coaching and higher education consultancy based in Aluva, Ernakulam, Kerala. DreamGlobal provides personalized career guidance, psychometric analysis, higher education guidance, study abroad counselling, university and course selection, SOP and application support, visa processing assistance, education loan guidance and travel assistance.",
             "priceRange": "$$",
-            "currenciesAccepted": "INR",
-            "paymentAccepted": "Cash, UPI, Bank Transfer",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Aluva",
+              "addressRegion": "Kerala",
+              "addressCountry": "IN"
+            },
             "areaServed": [
-              {
-                "@type": "Country",
-                "name": "India"
-              },
-              {
-                "@type": "AdministrativeArea",
-                "name": "Kerala"
-              }
-            ],
-            "serviceArea": [
-              {
-                "@type": "AdministrativeArea",
-                "name": "Kerala"
-              },
-              {
-                "@type": "City",
-                "name": "Kochi"
-              },
               {
                 "@type": "City",
                 "name": "Aluva"
               },
               {
-                "@type": "City",
+                "@type": "AdministrativeArea",
                 "name": "Ernakulam"
               },
               {
-                "@type": "City",
-                "name": "Thiruvananthapuram"
-              },
-              {
-                "@type": "City",
-                "name": "Trivandrum"
-              },
-              {
-                "@type": "City",
+                "@type": "AdministrativeArea",
                 "name": "Thrissur"
               },
               {
-                "@type": "City",
-                "name": "Kozhikode"
-              },
-              {
-                "@type": "City",
+                "@type": "AdministrativeArea",
                 "name": "Kottayam"
               },
               {
-                "@type": "City",
-                "name": "Kollam"
+                "@type": "AdministrativeArea",
+                "name": "Idukki"
               },
               {
-                "@type": "City",
-                "name": "Kannur"
-              },
-              {
-                "@type": "City",
-                "name": "Palakkad"
-              },
-              {
-                "@type": "City",
-                "name": "Malappuram"
-              },
-              {
-                "@type": "City",
+                "@type": "AdministrativeArea",
                 "name": "Alappuzha"
-              }
-            ],
-            "contactPoint": [
-              {
-                "@type": "ContactPoint",
-                "telephone": "+91-88486-74757",
-                "email": "dreamglobalin@gmail.com",
-                "contactType": "customer support",
-                "areaServed": "IN",
-                "availableLanguage": [
-                  "English",
-                  "Malayalam",
-                  "Hindi"
-                ]
               },
               {
-                "@type": "ContactPoint",
-                "telephone": "+91-88486-74757",
-                "contactType": "career counselling consultation",
-                "areaServed": "Kerala",
-                "availableLanguage": [
-                  "English",
-                  "Malayalam"
-                ]
+                "@type": "State",
+                "name": "Kerala"
               }
             ],
             "knowsAbout": [
-              "Career counselling",
-              "Career guidance",
-              "Career planning",
-              "Career assessment",
-              "Career suitability test",
-              "Career boosters",
-              "Career library",
-              "Psychometric career assessment",
-              "Stream selection after 10th",
-              "Course selection after 12th",
-              "Undergraduate admissions",
-              "Postgraduate admissions",
-              "Study abroad consultancy",
-              "Overseas education",
-              "Higher education guidance",
-              "Student visa assistance",
-              "University selection",
-              "Scholarship guidance",
-              "SOP guidance",
-              "LOR guidance",
-              "IELTS preparation",
-              "MBBS abroad",
-              "Study in UK",
-              "Study in Canada",
-              "Study in Australia",
-              "Study in Germany",
-              "Study in Ireland",
-              "Study in New Zealand",
-              "Study in France",
-              "Study in Italy",
-              "Study in Spain"
+              "Career Counselling",
+              "Career Mentoring",
+              "Career Coaching",
+              "Psychometric Career Assessment",
+              "Career Planning",
+              "Subject Selection",
+              "Course Selection",
+              "Higher Education Guidance",
+              "Study Abroad Counselling",
+              "University Selection",
+              "Course Mapping",
+              "Career Alignment",
+              "Profile Building",
+              "Statement of Purpose",
+              "SOP Assistance",
+              "LOR Assistance",
+              "University Applications",
+              "Scholarship Guidance",
+              "Education Loan Guidance",
+              "Student Visa Assistance",
+              "Visa Processing",
+              "Pre-Departure Assistance",
+              "Travel Assistance",
+              "International Education"
             ],
             "hasOfferCatalog": {
               "@type": "OfferCatalog",
-              "name": "DreamGlobal Career and Study Abroad Services",
+              "name": "DreamGlobal Career and Higher Education Services",
               "itemListElement": [
                 {
                   "@type": "Offer",
                   "itemOffered": {
-                    "@id": "https://dreamglobal.in/#career-counselling-service"
+                    "@type": "Service",
+                    "@id": "https://dreamglobal.in/#career-counselling",
+                    "name": "Career Counselling",
+                    "description": "Personalized career counselling to help students and professionals identify suitable career paths, courses, subjects and long-term career opportunities.",
+                    "areaServed": {
+                      "@type": "AdministrativeArea",
+                      "name": "Ernakulam"
+                    },
+                    "provider": {
+                      "@id": "https://dreamglobal.in/#business"
+                    }
                   }
                 },
                 {
                   "@type": "Offer",
                   "itemOffered": {
-                    "@id": "https://dreamglobal.in/#study-abroad-service"
+                    "@type": "Service",
+                    "@id": "https://dreamglobal.in/#career-mentoring",
+                    "name": "Career Mentoring",
+                    "description": "Personalized career mentoring and guidance for academic and professional development.",
+                    "provider": {
+                      "@id": "https://dreamglobal.in/#business"
+                    }
                   }
                 },
                 {
                   "@type": "Offer",
                   "itemOffered": {
-                    "@id": "https://dreamglobal.in/#student-visa-service"
+                    "@type": "Service",
+                    "@id": "https://dreamglobal.in/#career-coaching",
+                    "name": "Career Coaching",
+                    "description": "One-to-one career coaching focused on career decisions, planning, employability and professional growth.",
+                    "provider": {
+                      "@id": "https://dreamglobal.in/#business"
+                    }
                   }
                 },
                 {
                   "@type": "Offer",
                   "itemOffered": {
-                    "@id": "https://dreamglobal.in/#higher-education-service"
+                    "@type": "Service",
+                    "@id": "https://dreamglobal.in/#psychometric-assessment",
+                    "name": "Psychometric Career Assessment",
+                    "description": "Psychometric assessment and interpretation to help identify suitable career and educational directions.",
+                    "provider": {
+                      "@id": "https://dreamglobal.in/#business"
+                    }
                   }
                 },
                 {
                   "@type": "Offer",
                   "itemOffered": {
-                    "@id": "https://dreamglobal.in/#mbbs-abroad-service"
+                    "@type": "Service",
+                    "@id": "https://dreamglobal.in/#higher-education",
+                    "name": "Higher Education Guidance",
+                    "description": "Guidance on courses, universities, academic pathways and higher education choices in India and abroad.",
+                    "provider": {
+                      "@id": "https://dreamglobal.in/#business"
+                    }
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "@id": "https://dreamglobal.in/#study-abroad",
+                    "name": "Study Abroad Counselling",
+                    "description": "Personalized study abroad counselling, country selection, university selection, course selection, application strategy and international education guidance.",
+                    "provider": {
+                      "@id": "https://dreamglobal.in/#business"
+                    }
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "@id": "https://dreamglobal.in/#sop",
+                    "name": "SOP Assistance",
+                    "description": "Professional guidance and assistance with Statements of Purpose for higher education applications.",
+                    "provider": {
+                      "@id": "https://dreamglobal.in/#business"
+                    }
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "@id": "https://dreamglobal.in/#visa",
+                    "name": "Student Visa Processing Assistance",
+                    "description": "Guidance and assistance for student visa applications and related documentation.",
+                    "provider": {
+                      "@id": "https://dreamglobal.in/#business"
+                    }
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "@id": "https://dreamglobal.in/#education-loans",
+                    "name": "Education Loan Guidance",
+                    "description": "Guidance for students and families exploring education loan options for higher education.",
+                    "provider": {
+                      "@id": "https://dreamglobal.in/#business"
+                    }
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "@id": "https://dreamglobal.in/#travel",
+                    "name": "Student Travel Assistance",
+                    "description": "Travel and pre-departure assistance for students travelling for higher education.",
+                    "provider": {
+                      "@id": "https://dreamglobal.in/#business"
+                    }
                   }
                 }
               ]
             },
             "sameAs": [
-              "https://dreamglobal.edumilestones.com/",
-              "https://dreamglobal.edumilestones.com/career-boosters/",
-              "https://dreamglobal.edumilestones.com/login/suitability#pro_gra",
-              "https://dreamglobal.edumilestones.com/global-career-library/"
+              "https://dreamglobal.in/"
             ]
           },
           {
-            "@type": "Service",
-            "@id": "https://dreamglobal.in/#career-counselling-service",
-            "name": "Career Counselling and Career Guidance",
-            "serviceType": "Career counselling",
-            "provider": {
-              "@id": "https://dreamglobal.in/#organization"
+            "@type": "Organization",
+            "@id": "https://dreamglobal.in/#organization",
+            "name": "DreamGlobal",
+            "url": "https://dreamglobal.in/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://dreamglobal.in/path-to-your-logo.png"
             },
+            "telephone": "+91-8848674757",
+            "email": "dreamglobalin@gmail.com",
+            "description": "DreamGlobal provides personalized career counselling, career mentoring, career coaching, psychometric career assessment, higher education guidance and study abroad consultancy services.",
             "areaServed": [
-              "Kerala",
-              "Kochi",
               "Aluva",
               "Ernakulam",
-              "Thiruvananthapuram",
-              "Trivandrum"
-            ],
-            "description": "Personalised career counselling, career guidance, psychometric assessment, stream selection, course selection, career suitability analysis, student mentoring, and future roadmap planning.",
-            "audience": {
-              "@type": "EducationalAudience",
-              "educationalRole": "student"
-            },
-            "url": "https://dreamglobal.in/career-counselling"
-          },
-          {
-            "@type": "Service",
-            "@id": "https://dreamglobal.in/#study-abroad-service",
-            "name": "Study Abroad Consultation",
-            "serviceType": "Study abroad consultancy",
-            "provider": {
-              "@id": "https://dreamglobal.in/#organization"
-            },
-            "areaServed": [
               "Kerala",
-              "Kochi",
-              "Aluva",
-              "Ernakulam",
-              "Thiruvananthapuram",
-              "Trivandrum"
-            ],
-            "description": "Study abroad consultation for university selection, country selection, course shortlisting, application support, scholarships, SOP, LOR, accommodation guidance, and pre-departure support.",
-            "url": "https://dreamglobal.in/higher-studies"
-          },
-          {
-            "@type": "Service",
-            "@id": "https://dreamglobal.in/#student-visa-service",
-            "name": "Student Visa Assistance",
-            "serviceType": "Student visa guidance",
-            "provider": {
-              "@id": "https://dreamglobal.in/#organization"
-            },
-            "areaServed": [
-              "Kerala",
-              "Kochi",
-              "Aluva",
-              "Thiruvananthapuram",
-              "Trivandrum"
-            ],
-            "description": "Student visa assistance and documentation guidance for students planning higher education abroad.",
-            "url": "https://dreamglobal.in/higher-studies"
-          },
-          {
-            "@type": "Service",
-            "@id": "https://dreamglobal.in/#higher-education-service",
-            "name": "Higher Education Guidance",
-            "serviceType": "Higher education counselling",
-            "provider": {
-              "@id": "https://dreamglobal.in/#organization"
-            },
-            "areaServed": [
-              "Kerala",
-              "Kochi",
-              "Aluva",
-              "Ernakulam",
-              "Thiruvananthapuram",
-              "Trivandrum"
-            ],
-            "description": "Higher education guidance for undergraduate, postgraduate, diploma, pathway, and international education programs.",
-            "url": "https://dreamglobal.in/higher-studies"
-          },
-          {
-            "@type": "Service",
-            "@id": "https://dreamglobal.in/#mbbs-abroad-service",
-            "name": "MBBS Abroad Guidance",
-            "serviceType": "MBBS abroad counselling",
-            "provider": {
-              "@id": "https://dreamglobal.in/#organization"
-            },
-            "areaServed": [
-              "Kerala",
-              "Kochi",
-              "Aluva",
-              "Thiruvananthapuram",
-              "Trivandrum"
-            ],
-            "description": "MBBS abroad guidance for students comparing countries, universities, eligibility, admission requirements, documents, and visa processes.",
-            "url": "https://dreamglobal.in/mbbs"
-          },
-          {
-            "@type": "ItemList",
-            "@id": "https://dreamglobal.in/#site-navigation",
-            "name": "DreamGlobal Website Navigation",
-            "itemListElement": [
-              {
-                "@type": "SiteNavigationElement",
-                "position": 1,
-                "name": "Home",
-                "url": "https://dreamglobal.in/"
-              },
-              {
-                "@type": "SiteNavigationElement",
-                "position": 2,
-                "name": "Career Counselling",
-                "url": "https://dreamglobal.in/career-counselling"
-              },
-              {
-                "@type": "SiteNavigationElement",
-                "position": 3,
-                "name": "Higher Studies",
-                "url": "https://dreamglobal.in/higher-studies"
-              },
-              {
-                "@type": "SiteNavigationElement",
-                "position": 4,
-                "name": "MBBS",
-                "url": "https://dreamglobal.in/mbbs"
-              },
-              {
-                "@type": "SiteNavigationElement",
-                "position": 5,
-                "name": "Founder",
-                "url": "https://dreamglobal.in/founder"
-              },
-              {
-                "@type": "SiteNavigationElement",
-                "position": 6,
-                "name": "Contact",
-                "url": "https://dreamglobal.in/contact"
-              }
+              "India"
             ]
           },
           {
-            "@type": "FAQPage",
-            "@id": "https://dreamglobal.in/#faq-schema",
-            "mainEntity": [
-              {
-                "@type": "Question",
-                "name": "Does DreamGlobal provide career counselling in Kerala?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Yes. DreamGlobal provides personalised career counselling, career assessment, stream selection, course guidance, and student mentoring for students and families across Kerala, including Kochi, Aluva, Ernakulam, Thiruvananthapuram, and Trivandrum."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "Does DreamGlobal offer study abroad consultation?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Yes. DreamGlobal supports study abroad planning, country selection, university shortlisting, application guidance, scholarship guidance, student visa assistance, and pre-departure support."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "What career services does DreamGlobal provide?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "DreamGlobal provides career counselling, career planning, psychometric career assessments, career suitability guidance, stream and subject selection, higher education planning, and future roadmap support."
-                }
-              }
-            ],
+            "@type": "WebSite",
+            "@id": "https://dreamglobal.in/#website",
+            "url": "https://dreamglobal.in/",
+            "name": "DreamGlobal",
+            "publisher": {
+              "@id": "https://dreamglobal.in/#organization"
+            },
             "inLanguage": "en-IN"
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://dreamglobal.in/#webpage",
+            "url": "https://dreamglobal.in/",
+            "name": "DreamGlobal | Career Counselling & Study Abroad Consultancy in Aluva, Ernakulam",
+            "isPartOf": {
+              "@id": "https://dreamglobal.in/#website"
+            },
+            "about": {
+              "@id": "https://dreamglobal.in/#business"
+            },
+            "description": "DreamGlobal offers career counselling, career mentoring, career coaching, psychometric assessment, higher education guidance and study abroad consultancy in Aluva, Ernakulam, Kerala, with support for university applications, SOP, visa processing, education loans and student travel."
           }
         ]
       }
@@ -474,8 +330,8 @@
       fbq('track', 'PageView');
     </script>
     <!-- End Facebook Pixel Code -->
-    <script type="module" crossorigin src="/assets/index-BZ_47NC0.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-DKE7nb9b.css">
+    <script type="module" crossorigin src="/assets/index-B8EBgXVt.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-Dohq3Z7x.css">
   </head>
 
   <body>
