@@ -115,7 +115,7 @@ const DreamGlobalHero = () => {
   return (
     <section id="hero" className="relative isolate overflow-hidden bg-[#FCF9F3]">
       <div
-        className="relative min-h-[auto] overflow-hidden pt-[82px] md:pt-[96px] lg:min-h-[620px]"
+        className="relative min-h-[auto] overflow-hidden pt-[78px] md:pt-[88px] lg:min-h-[600px]"
         style={{
           background:
             "linear-gradient(90deg, #fcf8f0 0%, #faf8f2 28%, #f4f7f7 43%, #e7f3fb 65%, #dceeff 100%)",
@@ -125,7 +125,7 @@ const DreamGlobalHero = () => {
           initial={{ opacity: 0, scale: 1.04 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, ease: "easeOut" }}
-          className="absolute bottom-0 left-0 right-0 top-[82px] md:top-[96px]"
+          className="absolute bottom-0 left-0 right-0 top-[78px] md:top-[88px]"
         >
           <img
             src={heroBgLand}
@@ -141,13 +141,13 @@ const DreamGlobalHero = () => {
           initial="hidden"
           animate="visible"
           variants={stagger}
-          className="relative z-10 flex min-h-[560px] w-full flex-col items-center px-[clamp(1rem,3.8vw,58px)] pb-16 pt-7 text-center sm:min-h-[590px] md:items-start md:text-left lg:min-h-[524px] lg:pb-16 lg:pt-5"
+          className="relative z-10 flex min-h-[540px] w-full flex-col items-center px-[clamp(1rem,3.2vw,50px)] pb-14 pt-6 text-center sm:min-h-[570px] md:items-start md:text-left lg:min-h-[512px] lg:pb-14 lg:pt-5"
         >
           <div className="mx-auto max-w-[560px] md:mx-0 md:max-w-[46vw] lg:max-w-[42vw] xl:max-w-[560px]">
             <motion.h1
               variants={fadeUp}
               transition={{ duration: 0.78, ease: "easeOut" }}
-              className="font-heading text-[clamp(1.55rem,2.65vw,2.85rem)] font-bold leading-[1.05] text-[#0A2342]"
+              className="font-heading text-[2.05rem] font-bold leading-[1.05] text-[#0A2342] sm:text-[2.45rem] lg:text-[2.72rem]"
             >
               <span className="block whitespace-nowrap">
                 Your Future Deserves the
@@ -182,7 +182,7 @@ const DreamGlobalHero = () => {
                 <span className="mt-[0.58rem] h-2.5 w-2.5 rounded-full bg-[#C88A18] shadow-[0_0_14px_rgba(200,138,24,0.45)]" />
                 <span>
                   Discover your strengths and ideal career path through
-                  <strong className="font-extrabold text-[#0A2342]">
+                  <strong className="font-extrabold text-[#0B5CAD]">
                     {" "}
                     AI-powered psychometric analysis
                   </strong>
@@ -196,7 +196,7 @@ const DreamGlobalHero = () => {
                 <span className="mt-[0.58rem] h-2.5 w-2.5 rounded-full bg-[#C88A18] shadow-[0_0_14px_rgba(200,138,24,0.45)]" />
                 <span>
                   We provide end-to-end{" "}
-                  <strong className="font-extrabold text-[#0A2342]">
+                  <strong className="font-extrabold text-[#0B5CAD]">
                     Higher Studies and Global Education
                   </strong>{" "}
                   solutions for India and abroad, from choosing the right course
@@ -212,7 +212,7 @@ const DreamGlobalHero = () => {
               <motion.div variants={fadeUp} whileHover={{ y: -3 }}>
                 <Link
                   to="https://careertest.edumilestones.com/student-dashboard/suitability-registration/login/NDU1Mg==/as11-as12-as13-as14-as204-pt15-grd18"
-                  className="dream-gold-button inline-flex h-[50px] w-full items-center justify-center gap-2 rounded-md px-5 text-sm font-bold shadow-[0_16px_30px_-17px_rgba(200,138,24,0.8)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_36px_-16px_rgba(200,138,24,0.9)] sm:w-[214px]"
+                  className="dream-gold-button inline-flex h-12 w-full items-center justify-center gap-2 rounded-md px-5 text-sm font-bold shadow-[0_16px_30px_-17px_rgba(200,138,24,0.8)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_36px_-16px_rgba(200,138,24,0.9)] sm:w-[214px]"
                 >
                   Take Career Test
                   <ArrowRight size={17} />
@@ -221,7 +221,7 @@ const DreamGlobalHero = () => {
               <motion.div variants={fadeUp} whileHover={{ y: -3 }}>
                 <Link
                   to="https://careertest.edumilestones.com/student-profiler/?channel_id=NDU1Mg=="
-                  className="dream-gold-button inline-flex h-[50px] w-full items-center justify-center gap-2 rounded-md px-5 text-sm font-bold shadow-[0_16px_30px_-17px_rgba(200,138,24,0.8)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_36px_-16px_rgba(200,138,24,0.9)] sm:w-[258px]"
+                  className="dream-gold-button inline-flex h-12 w-full items-center justify-center gap-2 rounded-md px-5 text-sm font-bold shadow-[0_16px_30px_-17px_rgba(200,138,24,0.8)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_36px_-16px_rgba(200,138,24,0.9)] sm:w-[258px]"
                 >
                   Higher Education Profiling
                   <ArrowRight size={17} />

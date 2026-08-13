@@ -333,18 +333,18 @@ const Landing = () => {
     <div className="career-theme min-h-screen">
       <main className="career-hero-surface relative min-h-screen overflow-hidden">
       <header className="fixed left-0 right-0 top-0 z-50 border-b border-[#0A2342]/10 bg-[linear-gradient(90deg,#fffdf8_0%,#f8fbff_55%,#eaf5ff_100%)] shadow-[0_1px_16px_rgba(10,35,66,0.06)]">
-        <div className="flex h-[82px] w-full items-center gap-4 px-[clamp(1rem,3.8vw,58px)] md:h-[96px] md:gap-7">
+        <div className="flex h-[78px] w-full items-center gap-4 px-[clamp(1rem,3.2vw,50px)] md:h-[88px] md:gap-6">
           <Link to="/" className="flex items-center gap-3">
             <img
               src={DreamGlobalLogo}
               alt="DreamGlobal Logo"
-              className="h-12 w-12 rounded-full object-cover md:h-16 md:w-16"
+              className="h-12 w-12 rounded-full object-cover md:h-14 md:w-14"
             />
             <span className="flex flex-col leading-none">
-              <span className="dream-gradient-text text-[1.55rem] font-bold md:text-[2.45rem]">
+              <span className="dream-gradient-text text-[1.55rem] font-bold md:text-[2.15rem]">
                 DreamGlobal
               </span>
-              <span className="dream-gradient-text mt-1 hidden text-[0.68rem] font-extrabold uppercase tracking-[0.08em] sm:block md:text-sm">
+              <span className="dream-gradient-text mt-1 hidden text-[0.68rem] font-extrabold uppercase tracking-[0.08em] sm:block md:text-xs">
                 Career Counselling & Higher Studies Solutions
               </span>
             </span>
@@ -494,7 +494,7 @@ const Landing = () => {
             </a>
             <Link
               to="/book-consultation"
-              className="dream-gold-button hidden h-11 items-center justify-center rounded-md px-6 text-sm font-bold shadow-[0_14px_28px_-18px_rgba(200,138,24,0.9)] transition sm:inline-flex"
+              className="dream-gold-button hidden h-10 items-center justify-center rounded-md px-5 text-sm font-bold shadow-[0_14px_28px_-18px_rgba(200,138,24,0.9)] transition sm:inline-flex"
             >
               Book a Consultation
             </Link>
