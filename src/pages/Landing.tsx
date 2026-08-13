@@ -333,23 +333,23 @@ const Landing = () => {
     <div className="career-theme min-h-screen">
       <main className="career-hero-surface relative min-h-screen overflow-hidden">
       <header className="fixed left-0 right-0 top-0 z-50 border-b border-[#0A2342]/10 bg-[linear-gradient(90deg,#fffdf8_0%,#f8fbff_55%,#eaf5ff_100%)] shadow-[0_1px_16px_rgba(10,35,66,0.06)]">
-        <div className="flex h-[78px] w-full items-center gap-4 px-[clamp(1rem,3.2vw,50px)] md:h-[88px] md:gap-6">
-          <Link to="/" className="flex items-center gap-3">
+        <div className="flex h-[72px] w-full items-center gap-3 px-6 md:h-[78px] lg:px-8">
+          <Link to="/" className="flex items-center gap-2.5">
             <img
               src={DreamGlobalLogo}
               alt="DreamGlobal Logo"
-              className="h-12 w-12 rounded-full object-cover md:h-14 md:w-14"
+              className="h-11 w-11 rounded-full object-cover md:h-12 md:w-12"
             />
             <span className="flex flex-col leading-none">
-              <span className="dream-gradient-text text-[1.55rem] font-bold md:text-[2.15rem]">
+              <span className="dream-gradient-text text-[1.45rem] font-bold md:text-[1.9rem]">
                 DreamGlobal
               </span>
-              <span className="dream-gradient-text mt-1 hidden text-[0.68rem] font-extrabold uppercase tracking-[0.08em] sm:block md:text-xs">
+              <span className="dream-gradient-text mt-1 hidden text-[0.62rem] font-extrabold uppercase tracking-[0.08em] sm:block md:text-[0.68rem]">
                 Career Counselling & Higher Studies Solutions
               </span>
             </span>
           </Link>
-          <div className="ml-auto hidden flex-1 items-center justify-end gap-[clamp(0.85rem,1.15vw,1.45rem)] text-base font-semibold text-[#061D3D] lg:flex">
+          <div className="ml-auto hidden flex-1 items-center justify-end gap-5 text-sm font-semibold text-[#061D3D] lg:flex">
             <div className="group relative">
               <button
                 type="button"
@@ -484,17 +484,17 @@ const Landing = () => {
               )
             )}
           </div>
-          <div className="ml-auto flex items-center gap-4 lg:ml-0">
+          <div className="ml-auto flex items-center gap-3 lg:ml-0">
             <a
               href={WHATSAPP_URL}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#24C65A] text-white shadow-[0_10px_22px_-12px_rgba(36,198,90,0.85)] transition hover:bg-[#1FB04F]"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#24C65A] text-white shadow-[0_10px_22px_-12px_rgba(36,198,90,0.85)] transition hover:bg-[#1FB04F]"
               aria-label="Chat on WhatsApp"
             >
-              <MessageCircle size={24} />
+              <MessageCircle size={22} />
             </a>
             <Link
               to="/book-consultation"
-              className="dream-gold-button hidden h-10 items-center justify-center rounded-md px-5 text-sm font-bold shadow-[0_14px_28px_-18px_rgba(200,138,24,0.9)] transition sm:inline-flex"
+              className="dream-gold-button hidden h-9 items-center justify-center rounded-md px-4 text-[0.82rem] font-bold shadow-[0_14px_28px_-18px_rgba(200,138,24,0.9)] transition sm:inline-flex"
             >
               Book a Consultation
             </Link>

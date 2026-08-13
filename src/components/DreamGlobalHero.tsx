@@ -115,7 +115,7 @@ const DreamGlobalHero = () => {
   return (
     <section id="hero" className="relative isolate overflow-hidden bg-[#FCF9F3]">
       <div
-        className="relative min-h-[auto] overflow-hidden pt-[78px] md:pt-[88px] lg:min-h-[600px]"
+        className="relative min-h-[auto] overflow-hidden pt-[72px] md:pt-[78px] lg:min-h-[570px]"
         style={{
           background:
             "linear-gradient(90deg, #fcf8f0 0%, #faf8f2 28%, #f4f7f7 43%, #e7f3fb 65%, #dceeff 100%)",
@@ -125,7 +125,7 @@ const DreamGlobalHero = () => {
           initial={{ opacity: 0, scale: 1.04 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, ease: "easeOut" }}
-          className="absolute bottom-0 left-0 right-0 top-[78px] md:top-[88px]"
+          className="absolute bottom-0 left-0 right-0 top-[72px] md:top-[78px]"
         >
           <img
             src={heroBgLand}
@@ -141,13 +141,13 @@ const DreamGlobalHero = () => {
           initial="hidden"
           animate="visible"
           variants={stagger}
-          className="relative z-10 flex min-h-[540px] w-full flex-col items-center px-[clamp(1rem,3.2vw,50px)] pb-14 pt-6 text-center sm:min-h-[570px] md:items-start md:text-left lg:min-h-[512px] lg:pb-14 lg:pt-5"
+          className="relative z-10 flex min-h-[520px] w-full flex-col items-center px-6 pb-12 pt-5 text-center sm:min-h-[545px] md:items-start md:text-left lg:min-h-[492px] lg:px-8 lg:pb-12 lg:pt-5"
         >
-          <div className="mx-auto max-w-[560px] md:mx-0 md:max-w-[46vw] lg:max-w-[42vw] xl:max-w-[560px]">
+          <div className="mx-auto max-w-[520px] md:mx-0 md:max-w-[43vw] xl:max-w-[520px]">
             <motion.h1
               variants={fadeUp}
               transition={{ duration: 0.78, ease: "easeOut" }}
-              className="font-heading text-[2.05rem] font-bold leading-[1.05] text-[#0A2342] sm:text-[2.45rem] lg:text-[2.72rem]"
+              className="font-heading text-[1.9rem] font-bold leading-[1.05] text-[#0A2342] sm:text-[2.25rem] lg:text-[2.45rem]"
             >
               <span className="block whitespace-nowrap">
                 Your Future Deserves the
@@ -155,7 +155,7 @@ const DreamGlobalHero = () => {
               <span className="text-[#C88A18]">Right Direction.</span>
             </motion.h1>
 
-            <motion.div variants={fadeUp} className="mx-auto mt-5 flex w-full max-w-[20rem] items-center sm:max-w-[25rem] md:mx-0 lg:max-w-[27rem]">
+            <motion.div variants={fadeUp} className="mx-auto mt-4 flex w-full max-w-[18rem] items-center sm:max-w-[22rem] md:mx-0 lg:max-w-[24rem]">
               <span className="h-px flex-1 bg-[#C88A18]" />
               <span className="mx-3 h-2.5 w-2.5 rotate-45 bg-[#C88A18]" />
               <span className="h-px flex-1 bg-[#C88A18]" />
@@ -163,7 +163,7 @@ const DreamGlobalHero = () => {
 
             <motion.p
               variants={fadeUp}
-              className="mx-auto mt-5 max-w-[520px] text-[0.74rem] font-extrabold uppercase tracking-[0.11em] text-[#0A2342] sm:text-[0.86rem] md:mx-0"
+              className="mx-auto mt-4 max-w-[500px] text-[0.68rem] font-extrabold uppercase tracking-[0.1em] text-[#0A2342] sm:text-[0.78rem] md:mx-0"
             >
               Career Counselling{" "}
               <span className="mx-2 text-[#C88A18]">|</span> Psychometric Analysis{" "}
@@ -173,7 +173,7 @@ const DreamGlobalHero = () => {
 
             <motion.ul
               variants={stagger}
-              className="mx-auto mt-2 grid max-w-[520px] gap-2.5 text-left text-[1rem] leading-7 text-[#405067] sm:text-[1.08rem] sm:leading-8 md:mx-0"
+              className="mx-auto mt-2 grid max-w-[500px] gap-2 text-left text-[0.92rem] leading-6 text-[#405067] sm:text-[0.98rem] sm:leading-7 md:mx-0"
             >
               <motion.li
                 variants={fadeUp}
@@ -207,12 +207,12 @@ const DreamGlobalHero = () => {
 
             <motion.div
               variants={stagger}
-              className="mt-9 flex flex-col justify-center gap-4 sm:flex-row sm:gap-5 md:justify-start"
+              className="mt-7 flex flex-col justify-center gap-3 sm:flex-row sm:gap-4 md:justify-start"
             >
               <motion.div variants={fadeUp} whileHover={{ y: -3 }}>
                 <Link
                   to="https://careertest.edumilestones.com/student-dashboard/suitability-registration/login/NDU1Mg==/as11-as12-as13-as14-as204-pt15-grd18"
-                  className="dream-gold-button inline-flex h-12 w-full items-center justify-center gap-2 rounded-md px-5 text-sm font-bold shadow-[0_16px_30px_-17px_rgba(200,138,24,0.8)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_36px_-16px_rgba(200,138,24,0.9)] sm:w-[214px]"
+                  className="dream-gold-button inline-flex h-11 w-full items-center justify-center gap-2 rounded-md px-4 text-[0.82rem] font-bold shadow-[0_16px_30px_-17px_rgba(200,138,24,0.8)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_36px_-16px_rgba(200,138,24,0.9)] sm:w-[190px]"
                 >
                   Take Career Test
                   <ArrowRight size={17} />
@@ -221,7 +221,7 @@ const DreamGlobalHero = () => {
               <motion.div variants={fadeUp} whileHover={{ y: -3 }}>
                 <Link
                   to="https://careertest.edumilestones.com/student-profiler/?channel_id=NDU1Mg=="
-                  className="dream-gold-button inline-flex h-12 w-full items-center justify-center gap-2 rounded-md px-5 text-sm font-bold shadow-[0_16px_30px_-17px_rgba(200,138,24,0.8)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_36px_-16px_rgba(200,138,24,0.9)] sm:w-[258px]"
+                  className="dream-gold-button inline-flex h-11 w-full items-center justify-center gap-2 rounded-md px-4 text-[0.82rem] font-bold shadow-[0_16px_30px_-17px_rgba(200,138,24,0.8)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_36px_-16px_rgba(200,138,24,0.9)] sm:w-[230px]"
                 >
                   Higher Education Profiling
                   <ArrowRight size={17} />
@@ -236,7 +236,7 @@ const DreamGlobalHero = () => {
             <svg
               aria-hidden="true"
               viewBox="0 0 86 430"
-              className="pointer-events-none absolute right-[214px] top-[42px] z-0 hidden h-[462px] w-[86px] xl:right-[228px] lg:block"
+              className="pointer-events-none absolute right-[190px] top-[34px] z-0 hidden h-[420px] w-[78px] xl:right-[204px] lg:block"
               fill="none"
             >
               <path
@@ -267,8 +267,8 @@ const DreamGlobalHero = () => {
                   initial={{ opacity: 0, x: 24 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.45 + index * 0.16, duration: 0.5 }}
-                  className="z-10 flex items-center justify-start gap-3 rounded-lg p-2 text-left lg:absolute lg:right-[34px] lg:w-[258px] xl:right-[48px]"
-                  style={{ top: `${42 + index * 98}px` }}
+                  className="z-10 flex items-center justify-start gap-2.5 rounded-lg p-2 text-left lg:absolute lg:right-[26px] lg:w-[230px] xl:right-[38px]"
+                  style={{ top: `${34 + index * 88}px` }}
                 >
                   <motion.span
                     animate={{ y: [0, -7, 0] }}
@@ -278,15 +278,15 @@ const DreamGlobalHero = () => {
                       repeat: Infinity,
                       delay: index * 0.28,
                     }}
-                    className="inline-flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full bg-[#0A2342] text-[#D6A329] shadow-[0_0_28px_rgba(255,255,255,0.82)]"
+                    className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#0A2342] text-[#D6A329] shadow-[0_0_28px_rgba(255,255,255,0.82)]"
                   >
-                    <Icon size={24} />
+                    <Icon size={21} />
                   </motion.span>
                   <span>
-                    <span className="block text-[0.82rem] font-extrabold uppercase tracking-[0.08em] text-[#C88A18]">
+                    <span className="block text-[0.74rem] font-extrabold uppercase tracking-[0.08em] text-[#C88A18]">
                       {step.title}
                     </span>
-                    <span className="mt-1 block max-w-[178px] text-[0.82rem] font-semibold leading-5 text-[#0A2342]">
+                    <span className="mt-1 block max-w-[160px] text-[0.74rem] font-semibold leading-5 text-[#0A2342]">
                       {step.text}
                     </span>
                   </span>

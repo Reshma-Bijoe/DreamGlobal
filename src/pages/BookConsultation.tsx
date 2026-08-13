@@ -51,6 +51,35 @@ const getNormalizedPhone = (phone: string) => {
     : digits;
 };
 
+const notifyAdmin = async (
+  form: ConsultationForm,
+  normalizedPhone: string
+) => {
+  const { error } = await supabase.functions.invoke(
+    "notify-admin-consultation",
+    {
+      body: {
+        name: form.name.trim(),
+        age: form.age.trim(),
+        grade: form.grade.trim(),
+        location: form.location.trim(),
+        phone: normalizedPhone,
+        email: form.email.trim(),
+        remarks: form.remarks.trim(),
+        preferredDate: form.preferredDate,
+        preferredTime: form.preferredTime,
+      },
+    }
+  );
+
+  if (error) {
+    console.error("Admin notification failed:", error);
+    return false;
+  }
+
+  return true;
+};
+
 const BookConsultation = () => {
   const [form, setForm] = useState<ConsultationForm>(initialForm);
   const [message, setMessage] = useState("");
@@ -147,16 +176,22 @@ const BookConsultation = () => {
       ].join(" | "),
     });
 
-    setIsSubmitting(false);
-
     if (error) {
+      setIsSubmitting(false);
       console.error("Book consultation request failed:", error);
       setMessage("Sorry, we could not submit this right now.");
       return;
     }
 
+    const notificationSent = await notifyAdmin(form, normalizedPhone);
+
+    setIsSubmitting(false);
     setForm(initialForm);
-    setMessage("Request sent. We will contact you soon.");
+    setMessage(
+      notificationSent
+        ? "Request sent. We will contact you soon."
+        : "Request saved. We will contact you soon."
+    );
   };
 
   return (
