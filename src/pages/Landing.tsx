@@ -203,10 +203,13 @@ const founderHighlights = [
 ];
 
 const navItems = [
-  { label: "About", href: "#about" },
   { label: "Services", href: "#services" },
+];
+
+const companyLinks = [
+  { label: "About Us", href: "#about" },
   { label: "Founder", to: "/founder" },
-  { label: "Contact", href: "#contact" },
+  { label: "Contact Us", to: "/book-consultation" },
 ];
 
 const Landing = () => {
@@ -346,11 +349,11 @@ const Landing = () => {
               </span>
             </span>
           </Link>
-          <div className="ml-auto hidden flex-1 items-center justify-end gap-[clamp(0.95rem,1.45vw,1.8rem)] text-sm font-semibold text-[#061D3D] lg:flex">
+          <div className="ml-auto hidden flex-1 items-center justify-end gap-[clamp(0.85rem,1.15vw,1.45rem)] text-base font-semibold text-[#061D3D] lg:flex">
             <div className="group relative">
               <button
                 type="button"
-                className="flex items-center gap-1 text-base transition hover:text-[color:var(--career-primary)]"
+                className="flex items-center gap-1 whitespace-nowrap transition hover:text-[color:var(--career-primary)]"
               >
                 Career Counselling
                 <ChevronDown size={15} />
@@ -365,32 +368,21 @@ const Landing = () => {
                 >
                   Explore Career Counselling
                 </Link>
-                <div className="group/toolkit relative">
-                  <button
-                    type="button"
-                    className="flex w-full items-center justify-between px-4 py-2 text-left text-sm font-bold text-slate-900 transition hover:bg-[#D4A24C]/12"
+                {careerResourceLinks.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    className="block px-4 py-2 text-sm font-bold text-slate-900 transition hover:bg-[#D4A24C]/12"
                   >
-                    Career Toolkit
-                    <ChevronDown size={15} className="-rotate-90 text-[#C88A18]" />
-                  </button>
-                  <div className="invisible absolute left-full top-0 z-50 w-56 overflow-hidden rounded-lg border border-slate-200 bg-white py-2 opacity-0 shadow-xl transition group-hover/toolkit:visible group-hover/toolkit:opacity-100">
-                    {careerResourceLinks.map((link) => (
-                      <a
-                        key={link.href}
-                        href={link.href}
-                        className="block px-4 py-2 text-sm font-bold text-slate-900 transition hover:bg-[#D4A24C]/12"
-                      >
-                        {link.label}
-                      </a>
-                    ))}
-                  </div>
-                </div>
+                    {link.label}
+                  </a>
+                ))}
               </div>
             </div>
             <div className="group relative">
               <button
                 type="button"
-                className="flex items-center gap-1 text-base transition hover:text-[color:var(--career-primary)]"
+                className="flex items-center gap-1 whitespace-nowrap transition hover:text-[color:var(--career-primary)]"
               >
                 Higher Studies
                 <ChevronDown size={15} />
@@ -439,12 +431,45 @@ const Landing = () => {
                 </div>
               </div>
             </div>
+            <div className="group relative">
+              <button
+                type="button"
+                className="flex items-center gap-1 whitespace-nowrap transition hover:text-[color:var(--career-primary)]"
+              >
+                Company
+                <ChevronDown size={15} />
+              </button>
+              <div className="invisible absolute left-1/2 top-full z-50 w-48 -translate-x-1/2 overflow-hidden rounded-lg border border-slate-200 bg-white py-2 opacity-0 shadow-xl transition group-hover:visible group-hover:opacity-100">
+                <p className="px-4 pb-2 pt-1 text-xs font-bold uppercase tracking-widest text-[#C88A18]">
+                  Company
+                </p>
+                {companyLinks.map((item) =>
+                  "to" in item ? (
+                    <Link
+                      key={item.label}
+                      to={item.to}
+                      className="block px-4 py-2 text-sm font-bold text-slate-900 transition hover:bg-[#D4A24C]/12"
+                    >
+                      {item.label}
+                    </Link>
+                  ) : (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      className="block px-4 py-2 text-sm font-bold text-slate-900 transition hover:bg-[#D4A24C]/12"
+                    >
+                      {item.label}
+                    </a>
+                  )
+                )}
+              </div>
+            </div>
             {navItems.map((item) =>
               "to" in item ? (
                 <Link
                   key={item.label}
                   to={item.to}
-                  className="transition hover:text-[color:var(--career-primary)]"
+                  className="whitespace-nowrap transition hover:text-[color:var(--career-primary)]"
                 >
                   {item.label}
                 </Link>
@@ -452,7 +477,7 @@ const Landing = () => {
                 <a
                   key={item.label}
                   href={item.href}
-                  className="transition hover:text-[color:var(--career-primary)]"
+                  className="whitespace-nowrap transition hover:text-[color:var(--career-primary)]"
                 >
                   {item.label}
                 </a>
@@ -520,9 +545,6 @@ const Landing = () => {
                     >
                       Explore Career Counselling
                     </Link>
-                    <p className="px-2 pt-2 text-xs font-extrabold uppercase tracking-[0.12em] text-[#C88A18]">
-                      Career Toolkit
-                    </p>
                     {careerResourceLinks.map((link) => (
                       <a
                         key={link.href}
@@ -605,7 +627,7 @@ const Landing = () => {
                   className="flex w-full items-center justify-between font-bold text-[#061D3D]"
                   aria-expanded={mobileNavOpen === "main"}
                 >
-                  More
+                  Company
                   <ChevronDown
                     size={16}
                     className={`transition ${
@@ -615,7 +637,7 @@ const Landing = () => {
                 </button>
                 {mobileNavOpen === "main" && (
                   <div className="mt-2 grid gap-1">
-                    {navItems.map((item) =>
+                    {companyLinks.map((item) =>
                       "to" in item ? (
                         <Link
                           key={item.label}
@@ -639,6 +661,27 @@ const Landing = () => {
                   </div>
                 )}
               </div>
+              {navItems.map((item) =>
+                "to" in item ? (
+                  <Link
+                    key={item.label}
+                    to={item.to}
+                    onClick={() => setIsMenuOpen(false)}
+                    className="rounded-md border border-[#0A2342]/10 p-3 font-bold text-[#061D3D] transition hover:bg-[#D4A24C]/12"
+                  >
+                    {item.label}
+                  </Link>
+                ) : (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    onClick={() => setIsMenuOpen(false)}
+                    className="rounded-md border border-[#0A2342]/10 p-3 font-bold text-[#061D3D] transition hover:bg-[#D4A24C]/12"
+                  >
+                    {item.label}
+                  </a>
+                )
+              )}
               <Link
                 to="/book-consultation"
                 onClick={() => setIsMenuOpen(false)}

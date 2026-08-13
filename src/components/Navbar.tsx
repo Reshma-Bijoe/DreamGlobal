@@ -21,12 +21,12 @@ const navLinks: { label: string; to: string }[] = [
 const pageLinks: { label: string; to: string }[] = [];
 
 const companyLinks: { label: string; to: string }[] = [
+  { label: "About Us", to: "/#about" },
   { label: "Founder", to: "/founder" },
-  { label: "Contact", to: "/contact" },
+  { label: "Contact Us", to: "/book-consultation" },
 ];
 
 const moreLinks = [
-  { label: "About", href: "#about" },
   { label: "FAQs", to: "/faqs" },
   { label: "Blogs", to: "/blogs" },
   { label: "Privacy Policy", to: "/privacy-policy" },
@@ -71,6 +71,7 @@ const Navbar = () => {
   const desktopNavTextClass = solidNavbar
     ? "text-muted-foreground hover:text-primary"
     : "text-white drop-shadow-sm hover:text-gold";
+  const desktopNavItemClass = `whitespace-nowrap text-base font-semibold transition ${desktopNavTextClass}`;
   const replaySection = (hash: string) => {
     window.dispatchEvent(
       new CustomEvent("dreamglobal:section-replay", { detail: { hash } })
@@ -168,12 +169,12 @@ const Navbar = () => {
         </Link>
 
         {/* DESKTOP MENU */}
-        <div className="ml-auto hidden items-center justify-end gap-4 xl:flex 2xl:gap-5">
+        <div className="ml-auto hidden items-center justify-end gap-5 xl:flex 2xl:gap-6">
           {navLinks.map((link) => (
             <Link
               key={link.to}
               to={link.to}
-              className={`whitespace-nowrap text-[0.7rem] transition 2xl:text-xs ${desktopNavTextClass}`}
+              className={desktopNavItemClass}
             >
               {link.label}
             </Link>
@@ -183,7 +184,7 @@ const Navbar = () => {
             <Link
               key={link.to}
               to={link.to}
-              className={`whitespace-nowrap text-[0.7rem] transition 2xl:text-xs ${desktopNavTextClass}`}
+              className={desktopNavItemClass}
             >
               {link.label}
             </Link>
@@ -197,7 +198,7 @@ const Navbar = () => {
             <button
               type="button"
               onClick={() => setCareerToolkitOpen((current) => !current)}
-              className={`flex items-center gap-1 whitespace-nowrap text-[0.7rem] transition 2xl:text-xs ${desktopNavTextClass}`}
+              className={`flex items-center gap-1 ${desktopNavItemClass}`}
               aria-expanded={careerToolkitOpen}
             >
               Career Counselling
@@ -225,27 +226,16 @@ const Navbar = () => {
                   >
                     Explore Career Counselling
                   </Link>
-                  <div className="group/toolkit relative">
-                    <button
-                      type="button"
-                      className="flex w-full items-center justify-between px-4 py-2 text-left text-sm font-bold text-slate-900 transition hover:bg-yellow-50"
+                  {careerResourceLinks.map((link) => (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setCareerToolkitOpen(false)}
+                      className="block px-4 py-2 text-sm font-bold text-slate-900 transition hover:bg-yellow-50"
                     >
-                      Career Toolkit
-                      <ChevronDown size={15} className="-rotate-90 text-yellow-700" />
-                    </button>
-                    <div className="invisible absolute left-full top-0 z-50 w-56 overflow-hidden rounded-lg border border-slate-200 bg-white py-2 opacity-0 shadow-xl transition group-hover/toolkit:visible group-hover/toolkit:opacity-100">
-                      {careerResourceLinks.map((link) => (
-                        <a
-                          key={link.href}
-                          href={link.href}
-                          onClick={() => setCareerToolkitOpen(false)}
-                          className="block px-4 py-2 text-sm font-bold text-slate-900 transition hover:bg-yellow-50"
-                        >
-                          {link.label}
-                        </a>
-                      ))}
-                    </div>
-                  </div>
+                      {link.label}
+                    </a>
+                  ))}
                 </motion.div>
               )}
             </AnimatePresence>
@@ -259,7 +249,7 @@ const Navbar = () => {
             <button
               type="button"
               onClick={() => setCompanyOpen((current) => !current)}
-              className={`flex items-center gap-1 whitespace-nowrap text-[0.7rem] transition 2xl:text-xs ${desktopNavTextClass}`}
+              className={`flex items-center gap-1 ${desktopNavItemClass}`}
               aria-expanded={companyOpen}
             >
               Company
@@ -303,7 +293,7 @@ const Navbar = () => {
             <button
               type="button"
               onClick={() => setMoreOpen((current) => !current)}
-              className={`flex items-center gap-1 whitespace-nowrap text-[0.7rem] transition 2xl:text-xs ${desktopNavTextClass}`}
+              className={`flex items-center gap-1 ${desktopNavItemClass}`}
               aria-expanded={moreOpen}
             >
               More
@@ -364,7 +354,7 @@ const Navbar = () => {
             <button
               type="button"
               onClick={() => setStudyOptionsOpen((current) => !current)}
-              className={`flex items-center gap-1 whitespace-nowrap text-[0.7rem] transition 2xl:text-xs ${desktopNavTextClass}`}
+              className={`flex items-center gap-1 ${desktopNavItemClass}`}
               aria-expanded={studyOptionsOpen}
             >
               Higher Studies
@@ -625,9 +615,6 @@ const Navbar = () => {
                   >
                     Explore Career Counselling
                   </Link>
-                  <p className="pt-2 text-xs font-bold uppercase tracking-widest text-yellow-600">
-                    Career Toolkit
-                  </p>
                   {careerResourceLinks.map((link) => (
                     <a
                       key={link.href}

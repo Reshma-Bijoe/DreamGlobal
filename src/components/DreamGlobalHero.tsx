@@ -182,8 +182,11 @@ const DreamGlobalHero = () => {
                 <span className="mt-[0.58rem] h-2.5 w-2.5 rounded-full bg-[#C88A18] shadow-[0_0_14px_rgba(200,138,24,0.45)]" />
                 <span>
                   Discover your strengths and ideal career path through
-                  AI-powered psychometric analysis, expert career counselling,
-                  mentoring, and coaching.
+                  <strong className="font-extrabold text-[#0A2342]">
+                    {" "}
+                    AI-powered psychometric analysis
+                  </strong>
+                  , expert career counselling, mentoring, and coaching.
                 </span>
               </motion.li>
               <motion.li
@@ -192,9 +195,12 @@ const DreamGlobalHero = () => {
               >
                 <span className="mt-[0.58rem] h-2.5 w-2.5 rounded-full bg-[#C88A18] shadow-[0_0_14px_rgba(200,138,24,0.45)]" />
                 <span>
-                  DreamGlobal also guides you through higher studies and global
-                  education, from choosing the right course and university to
-                  admissions, visa, travel, and accommodation.
+                  We provide end-to-end{" "}
+                  <strong className="font-extrabold text-[#0A2342]">
+                    Higher Studies and Global Education
+                  </strong>{" "}
+                  solutions for India and abroad, from choosing the right course
+                  and university to admissions, visa, travel, and accommodation.
                 </span>
               </motion.li>
             </motion.ul>
@@ -208,7 +214,7 @@ const DreamGlobalHero = () => {
                   to="https://careertest.edumilestones.com/student-dashboard/suitability-registration/login/NDU1Mg==/as11-as12-as13-as14-as204-pt15-grd18"
                   className="dream-gold-button inline-flex h-[50px] w-full items-center justify-center gap-2 rounded-md px-5 text-sm font-bold shadow-[0_16px_30px_-17px_rgba(200,138,24,0.8)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_36px_-16px_rgba(200,138,24,0.9)] sm:w-[214px]"
                 >
-                  Find Your Career Fit
+                  Take Career Test
                   <ArrowRight size={17} />
                 </Link>
               </motion.div>
@@ -217,7 +223,7 @@ const DreamGlobalHero = () => {
                   to="https://careertest.edumilestones.com/student-profiler/?channel_id=NDU1Mg=="
                   className="dream-gold-button inline-flex h-[50px] w-full items-center justify-center gap-2 rounded-md px-5 text-sm font-bold shadow-[0_16px_30px_-17px_rgba(200,138,24,0.8)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_36px_-16px_rgba(200,138,24,0.9)] sm:w-[258px]"
                 >
-                  Plan Your Higher Studies
+                  Higher Education Profiling
                   <ArrowRight size={17} />
                 </Link>
               </motion.div>
