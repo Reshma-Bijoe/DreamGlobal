@@ -342,15 +342,15 @@ const Landing = () => {
                 DreamGlobal
               </span>
               <span className="dream-gradient-text mt-1 hidden text-[0.68rem] font-extrabold uppercase tracking-[0.08em] sm:block md:text-sm">
-                Career Consulting & Higher Studies Solutions
+                Career Counselling & Higher Studies Solutions
               </span>
             </span>
           </Link>
-          <div className="ml-auto hidden flex-1 items-center justify-end gap-[clamp(0.95rem,1.45vw,1.8rem)] text-base font-semibold text-[#061D3D] lg:flex">
+          <div className="ml-auto hidden flex-1 items-center justify-end gap-[clamp(0.95rem,1.45vw,1.8rem)] text-sm font-semibold text-[#061D3D] lg:flex">
             <div className="group relative">
               <button
                 type="button"
-                className="flex items-center gap-1 transition hover:text-[color:var(--career-primary)]"
+                className="flex items-center gap-1 text-base transition hover:text-[color:var(--career-primary)]"
               >
                 Career Counselling
                 <ChevronDown size={15} />
@@ -390,7 +390,7 @@ const Landing = () => {
             <div className="group relative">
               <button
                 type="button"
-                className="flex items-center gap-1 transition hover:text-[color:var(--career-primary)]"
+                className="flex items-center gap-1 text-base transition hover:text-[color:var(--career-primary)]"
               >
                 Higher Studies
                 <ChevronDown size={15} />

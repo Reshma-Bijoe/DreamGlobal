@@ -34,8 +34,9 @@ export const studentImages = [
 
 export const serviceBand = [
   "Career Counselling",
-  "Stream Selection",
+  "Psychometric Analysis",
   "Higher Studies",
+  "Stream Selection",
   "Study Abroad",
   "University Guidance",
   "Admission Support",

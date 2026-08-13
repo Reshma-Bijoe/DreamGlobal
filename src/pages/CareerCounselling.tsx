@@ -255,14 +255,14 @@ const CareerCounselling = () => {
               <p className="career-eyebrow">
                 Career Guidance
               </p>
-              <h1 className="career-heading mt-5 font-heading text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">
+              <h1 className="career-heading mt-5 font-heading text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl">
                 Your Future Deserves More Than a Guess.
               </h1>
-              <p className="mt-5 text-xl font-semibold text-[color:var(--career-primary-deep)]">
+              <p className="mt-5 text-lg font-semibold text-[color:var(--career-primary-deep)] sm:text-xl">
                 Discover the right career. Choose the right path. Build a
                 future without limits.
               </p>
-              <p className="career-copy mt-5 max-w-2xl text-base leading-8">
+              <p className="career-copy mt-5 max-w-2xl text-sm leading-7 sm:text-base sm:leading-8">
                 DreamGlobal helps students understand their strengths, explore
                 career possibilities and make confident decisions about
                 education and their future through personalised guidance and
@@ -291,7 +291,7 @@ const CareerCounselling = () => {
               initial={{ opacity: 0, y: 28 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1 }}
-              className="relative"
+              className="relative lg:translate-x-8 xl:translate-x-12"
             >
               <div className="career-glass-card relative aspect-[4/5] overflow-hidden rounded-2xl sm:aspect-[5/4]">
                 <motion.img
@@ -305,7 +305,7 @@ const CareerCounselling = () => {
                 />
               </div>
               <div className="career-card absolute -left-3 top-8 rounded-full px-4 py-3 text-sm font-bold text-[color:var(--career-primary-ink)]">
-                7,500+ Students Guided
+                7,500+ Students Mentored
               </div>
               <div className="career-gold-pill absolute -bottom-4 right-4 rounded-full px-4 py-3 text-sm font-bold">
                 30+ Years Experience

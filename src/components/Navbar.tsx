@@ -162,7 +162,7 @@ const Navbar = () => {
               DreamGlobal
             </span>
             <span className="dream-gradient-text mt-1 text-[0.55rem] font-bold uppercase tracking-[0.1em] sm:text-[0.65rem] lg:text-xs">
-              Career Consulting & Higher Studies Solutions
+              Career Counselling & Higher Studies Solutions
             </span>
           </span>
         </Link>
@@ -173,7 +173,7 @@ const Navbar = () => {
             <Link
               key={link.to}
               to={link.to}
-              className={`whitespace-nowrap text-sm transition 2xl:text-base ${desktopNavTextClass}`}
+              className={`whitespace-nowrap text-[0.7rem] transition 2xl:text-xs ${desktopNavTextClass}`}
             >
               {link.label}
             </Link>
@@ -183,7 +183,7 @@ const Navbar = () => {
             <Link
               key={link.to}
               to={link.to}
-              className={`whitespace-nowrap text-sm transition 2xl:text-base ${desktopNavTextClass}`}
+              className={`whitespace-nowrap text-[0.7rem] transition 2xl:text-xs ${desktopNavTextClass}`}
             >
               {link.label}
             </Link>
@@ -197,7 +197,7 @@ const Navbar = () => {
             <button
               type="button"
               onClick={() => setCareerToolkitOpen((current) => !current)}
-              className={`flex items-center gap-1 whitespace-nowrap text-sm transition 2xl:text-base ${desktopNavTextClass}`}
+              className={`flex items-center gap-1 whitespace-nowrap text-[0.7rem] transition 2xl:text-xs ${desktopNavTextClass}`}
               aria-expanded={careerToolkitOpen}
             >
               Career Counselling
@@ -259,7 +259,7 @@ const Navbar = () => {
             <button
               type="button"
               onClick={() => setCompanyOpen((current) => !current)}
-              className={`flex items-center gap-1 whitespace-nowrap text-sm transition 2xl:text-base ${desktopNavTextClass}`}
+              className={`flex items-center gap-1 whitespace-nowrap text-[0.7rem] transition 2xl:text-xs ${desktopNavTextClass}`}
               aria-expanded={companyOpen}
             >
               Company
@@ -303,7 +303,7 @@ const Navbar = () => {
             <button
               type="button"
               onClick={() => setMoreOpen((current) => !current)}
-              className={`flex items-center gap-1 whitespace-nowrap text-sm transition 2xl:text-base ${desktopNavTextClass}`}
+              className={`flex items-center gap-1 whitespace-nowrap text-[0.7rem] transition 2xl:text-xs ${desktopNavTextClass}`}
               aria-expanded={moreOpen}
             >
               More
@@ -364,7 +364,7 @@ const Navbar = () => {
             <button
               type="button"
               onClick={() => setStudyOptionsOpen((current) => !current)}
-              className={`flex items-center gap-1 whitespace-nowrap text-sm transition 2xl:text-base ${desktopNavTextClass}`}
+              className={`flex items-center gap-1 whitespace-nowrap text-[0.7rem] transition 2xl:text-xs ${desktopNavTextClass}`}
               aria-expanded={studyOptionsOpen}
             >
               Higher Studies

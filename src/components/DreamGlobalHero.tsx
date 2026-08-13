@@ -68,7 +68,7 @@ const features = [
 ];
 
 const stats = [
-  { value: "1000+", label: "Students Guided", icon: UsersRound },
+  { value: "7000+", label: "Students Mentored", icon: UsersRound },
   { value: "150+", label: "Career Options Explored", icon: GraduationCap },
   { value: "200+", label: "Universities & Partners", icon: Building2 },
   { value: "25+", label: "Countries of Opportunities", icon: Telescope },
@@ -143,16 +143,15 @@ const DreamGlobalHero = () => {
           variants={stagger}
           className="relative z-10 flex min-h-[560px] w-full flex-col items-center px-[clamp(1rem,3.8vw,58px)] pb-16 pt-7 text-center sm:min-h-[590px] md:items-start md:text-left lg:min-h-[524px] lg:pb-16 lg:pt-5"
         >
-          <div className="mx-auto max-w-[540px] md:mx-0 md:max-w-[45vw] lg:max-w-[37vw] xl:max-w-[540px]">
+          <div className="mx-auto max-w-[560px] md:mx-0 md:max-w-[46vw] lg:max-w-[42vw] xl:max-w-[560px]">
             <motion.h1
               variants={fadeUp}
               transition={{ duration: 0.78, ease: "easeOut" }}
-              className="font-heading text-[clamp(2.7rem,4.35vw,4.35rem)] font-bold leading-[0.96] text-[#0A2342]"
+              className="font-heading text-[clamp(1.55rem,2.65vw,2.85rem)] font-bold leading-[1.05] text-[#0A2342]"
             >
-              Your Future
-              <br />
-              Deserves the
-              <br />
+              <span className="block whitespace-nowrap">
+                Your Future Deserves the
+              </span>
               <span className="text-[#C88A18]">Right Direction.</span>
             </motion.h1>
 
@@ -167,25 +166,46 @@ const DreamGlobalHero = () => {
               className="mx-auto mt-5 max-w-[520px] text-[0.74rem] font-extrabold uppercase tracking-[0.11em] text-[#0A2342] sm:text-[0.86rem] md:mx-0"
             >
               Career Counselling{" "}
+              <span className="mx-2 text-[#C88A18]">|</span> Psychometric Analysis{" "}
               <span className="mx-2 text-[#C88A18]">|</span> Higher Education{" "}
               <span className="mx-2 text-[#C88A18]">|</span> Study Abroad
             </motion.p>
 
-            <motion.p
-              variants={fadeUp}
-              className="mx-auto mt-5 max-w-[480px] text-base leading-7 text-[#405067] sm:text-[1.05rem] sm:leading-8 md:mx-0"
+            <motion.ul
+              variants={stagger}
+              className="mx-auto mt-2 grid max-w-[520px] gap-2.5 text-left text-[1rem] leading-7 text-[#405067] sm:text-[1.08rem] sm:leading-8 md:mx-0"
             >
-              Discover your strengths, explore the right possibilities and build
-              a personalised pathway towards your future.
-            </motion.p>
+              <motion.li
+                variants={fadeUp}
+                className="grid grid-cols-[0.7rem_1fr] items-start gap-3"
+              >
+                <span className="mt-[0.58rem] h-2.5 w-2.5 rounded-full bg-[#C88A18] shadow-[0_0_14px_rgba(200,138,24,0.45)]" />
+                <span>
+                  Discover your strengths and ideal career path through
+                  AI-powered psychometric analysis, expert career counselling,
+                  mentoring, and coaching.
+                </span>
+              </motion.li>
+              <motion.li
+                variants={fadeUp}
+                className="grid grid-cols-[0.7rem_1fr] items-start gap-3"
+              >
+                <span className="mt-[0.58rem] h-2.5 w-2.5 rounded-full bg-[#C88A18] shadow-[0_0_14px_rgba(200,138,24,0.45)]" />
+                <span>
+                  DreamGlobal also guides you through higher studies and global
+                  education, from choosing the right course and university to
+                  admissions, visa, travel, and accommodation.
+                </span>
+              </motion.li>
+            </motion.ul>
 
             <motion.div
               variants={stagger}
-              className="mt-7 flex flex-col justify-center gap-4 sm:flex-row sm:gap-5 md:justify-start"
+              className="mt-9 flex flex-col justify-center gap-4 sm:flex-row sm:gap-5 md:justify-start"
             >
               <motion.div variants={fadeUp} whileHover={{ y: -3 }}>
                 <Link
-                  to="/career-counselling"
+                  to="https://careertest.edumilestones.com/student-dashboard/suitability-registration/login/NDU1Mg==/as11-as12-as13-as14-as204-pt15-grd18"
                   className="dream-gold-button inline-flex h-[50px] w-full items-center justify-center gap-2 rounded-md px-5 text-sm font-bold shadow-[0_16px_30px_-17px_rgba(200,138,24,0.8)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_36px_-16px_rgba(200,138,24,0.9)] sm:w-[214px]"
                 >
                   Find Your Career Fit
@@ -194,10 +214,10 @@ const DreamGlobalHero = () => {
               </motion.div>
               <motion.div variants={fadeUp} whileHover={{ y: -3 }}>
                 <Link
-                  to="/higher-studies"
+                  to="https://careertest.edumilestones.com/student-profiler/?channel_id=NDU1Mg=="
                   className="dream-gold-button inline-flex h-[50px] w-full items-center justify-center gap-2 rounded-md px-5 text-sm font-bold shadow-[0_16px_30px_-17px_rgba(200,138,24,0.8)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_36px_-16px_rgba(200,138,24,0.9)] sm:w-[258px]"
                 >
-                  Plan Your Study Abroad
+                  Plan Your Higher Studies
                   <ArrowRight size={17} />
                 </Link>
               </motion.div>
