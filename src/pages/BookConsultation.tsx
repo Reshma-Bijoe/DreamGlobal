@@ -16,6 +16,7 @@ import {
   PHONE_NUMBER,
   WHATSAPP_URL,
 } from "@/lib/careerCounsellingData";
+import { notifyAdminOfConsultation } from "@/lib/consultationNotifications";
 import { supabase } from "../../supabaseClient";
 
 type ConsultationForm = {
@@ -49,35 +50,6 @@ const getNormalizedPhone = (phone: string) => {
   return digits.length === 12 && digits.startsWith("91")
     ? digits.slice(2)
     : digits;
-};
-
-const notifyAdmin = async (
-  form: ConsultationForm,
-  normalizedPhone: string
-) => {
-  const { error } = await supabase.functions.invoke(
-    "notify-admin-consultation",
-    {
-      body: {
-        name: form.name.trim(),
-        age: form.age.trim(),
-        grade: form.grade.trim(),
-        location: form.location.trim(),
-        phone: normalizedPhone,
-        email: form.email.trim(),
-        remarks: form.remarks.trim(),
-        preferredDate: form.preferredDate,
-        preferredTime: form.preferredTime,
-      },
-    }
-  );
-
-  if (error) {
-    console.error("Admin notification failed:", error);
-    return false;
-  }
-
-  return true;
 };
 
 const BookConsultation = () => {
@@ -183,7 +155,10 @@ const BookConsultation = () => {
       return;
     }
 
-    const notificationSent = await notifyAdmin(form, normalizedPhone);
+    const notificationSent = await notifyAdminOfConsultation({
+      ...form,
+      phone: normalizedPhone,
+    });
 
     setIsSubmitting(false);
     setForm(initialForm);
@@ -232,6 +207,9 @@ const BookConsultation = () => {
                 <input className={fieldClass} placeholder="Location" required value={form.location} onChange={updateField("location")} />
                 <input className={fieldClass} placeholder="10-digit Phone Number" type="tel" inputMode="tel" autoComplete="tel" required value={form.phone} onChange={updateField("phone")} />
                 <input className={fieldClass} placeholder="Email" type="email" autoComplete="email" required value={form.email} onChange={updateField("email")} />
+                <p className="text-xs font-semibold text-[color:var(--career-muted)] md:col-span-2">
+                  Fields marked with <span className="font-bold text-[#C88A18]">*</span> are optional.
+                </p>
                 {/*
                 <select className={fieldClass} value={form.intent} onChange={updateField("intent")}>
                   {intentOptions.map((intent) => (
@@ -242,15 +220,30 @@ const BookConsultation = () => {
                 </select>
                 */}
                 <label className="grid gap-2 text-sm font-semibold text-[color:var(--career-primary-ink)]">
-                  Preferred consultation date
+                  <span>
+                    <span className="text-[#C88A18]">*</span> Preferred consultation date{" "}
+                    <span className="font-medium text-[color:var(--career-muted)]">
+                      (optional)
+                    </span>
+                  </span>
                   <input className={fieldClass} type="date" value={form.preferredDate} onChange={updateField("preferredDate")} />
                 </label>
                 <label className="grid gap-2 text-sm font-semibold text-[color:var(--career-primary-ink)]">
-                  Preferred consultation time
+                  <span>
+                    <span className="text-[#C88A18]">*</span> Preferred consultation time{" "}
+                    <span className="font-medium text-[color:var(--career-muted)]">
+                      (optional)
+                    </span>
+                  </span>
                   <input className={fieldClass} type="time" value={form.preferredTime} onChange={updateField("preferredTime")} />
                 </label>
                 <label className="grid gap-2 text-sm font-semibold text-[color:var(--career-primary-ink)] md:col-span-2">
-                  Tell us about yourself (optional)
+                  <span>
+                    <span className="text-[#C88A18]">*</span> Tell us about yourself{" "}
+                    <span className="font-medium text-[color:var(--career-muted)]">
+                      (optional)
+                    </span>
+                  </span>
                   <textarea
                     className="min-h-28 w-full rounded-lg border border-[color:var(--career-border)] bg-white px-3 py-3 text-sm text-[color:var(--career-primary-ink)] outline-none transition placeholder:text-slate-400 focus:border-[color:var(--career-primary)] focus:shadow-[0_0_0_3px_hsl(var(--gold)/0.18)]"
                     placeholder="Share anything useful, like your goals, current confusion, preferred country, course interests, or parent/student concerns."
@@ -260,7 +253,7 @@ const BookConsultation = () => {
                 </label>
               </div>
 
-              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+              <div className="mt-6 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
                 <button
                   type="button"
                   onClick={sendWhatsAppRequest}
@@ -269,6 +262,9 @@ const BookConsultation = () => {
                   <MessageCircle size={17} />
                   Send via WhatsApp
                 </button>
+                <span className="text-center text-xs font-bold uppercase tracking-[0.18em] text-[color:var(--career-muted)]">
+                  or
+                </span>
                 <button
                   type="submit"
                   disabled={isSubmitting}

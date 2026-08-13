@@ -115,7 +115,7 @@ const DreamGlobalHero = () => {
   return (
     <section id="hero" className="relative isolate overflow-hidden bg-[#FCF9F3]">
       <div
-        className="relative min-h-[auto] overflow-hidden pt-[72px] md:pt-[78px] lg:min-h-[570px]"
+        className="relative min-h-[auto] overflow-hidden pt-[102px] md:pt-[108px] lg:min-h-[600px]"
         style={{
           background:
             "linear-gradient(90deg, #fcf8f0 0%, #faf8f2 28%, #f4f7f7 43%, #e7f3fb 65%, #dceeff 100%)",
@@ -125,14 +125,14 @@ const DreamGlobalHero = () => {
           initial={{ opacity: 0, scale: 1.04 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, ease: "easeOut" }}
-          className="absolute bottom-0 left-0 right-0 top-[72px] md:top-[78px]"
+          className="absolute bottom-0 left-0 right-0 top-[102px] md:top-[108px]"
         >
           <img
             src={heroBgLand}
             alt="Student with backpack standing before an international university"
-            className="h-full w-full object-cover object-[58%_center] md:object-center"
+            className="h-full w-full object-cover object-[54%_top] opacity-35 sm:object-[58%_center] sm:opacity-100 md:object-center"
           />
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,#fcf8f0_0%,rgba(252,248,240,0.98)_19%,rgba(252,248,240,0.74)_36%,rgba(252,248,240,0.2)_49%,rgba(252,248,240,0)_60%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(252,248,240,0.96)_0%,rgba(252,248,240,0.9)_42%,rgba(252,248,240,0.58)_72%,rgba(252,248,240,0.82)_100%)] sm:bg-[linear-gradient(90deg,#fcf8f0_0%,rgba(252,248,240,0.98)_19%,rgba(252,248,240,0.74)_36%,rgba(252,248,240,0.2)_49%,rgba(252,248,240,0)_60%)]" />
           <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-[#f8fbff]/70 to-transparent" />
           <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#071F41]/38 to-transparent" />
         </motion.div>

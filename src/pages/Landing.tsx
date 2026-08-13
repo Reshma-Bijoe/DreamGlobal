@@ -9,6 +9,7 @@ import {
   ChevronDown,
   Compass,
   GraduationCap,
+  Mail,
   MapPinned,
   Menu,
   MessageCircle,
@@ -333,6 +334,24 @@ const Landing = () => {
     <div className="career-theme min-h-screen">
       <main className="career-hero-surface relative min-h-screen overflow-hidden">
       <header className="fixed left-0 right-0 top-0 z-50 border-b border-[#0A2342]/10 bg-[linear-gradient(90deg,#fffdf8_0%,#f8fbff_55%,#eaf5ff_100%)] shadow-[0_1px_16px_rgba(10,35,66,0.06)]">
+        <div className="bg-[#071F41] px-4 py-1.5 text-white">
+          <div className="mx-auto flex max-w-7xl flex-col items-center justify-center gap-1 text-[0.72rem] font-semibold sm:flex-row sm:justify-end sm:gap-5">
+            <a
+              href="mailto:dreamglobalin@gmail.com"
+              className="inline-flex items-center gap-1.5 transition hover:text-[#D6A329]"
+            >
+              <Mail size={13} className="text-[#D6A329]" />
+              dreamglobalin@gmail.com
+            </a>
+            <a
+              href="tel:+918848674757"
+              className="inline-flex items-center gap-1.5 transition hover:text-[#D6A329]"
+            >
+              <Phone size={13} className="text-[#D6A329]" />
+              +91 88486 74757
+            </a>
+          </div>
+        </div>
         <div className="flex h-[72px] w-full items-center gap-3 px-6 md:h-[78px] lg:px-8">
           <Link to="/" className="flex items-center gap-2.5">
             <img
