@@ -114,18 +114,12 @@ const MantraCard = ({ className = "" }: { className?: string }) => (
 const DreamGlobalHero = () => {
   return (
     <section id="hero" className="relative isolate overflow-hidden bg-[#FCF9F3]">
-      <div
-        className="relative min-h-[auto] overflow-hidden pt-[102px] md:pt-[108px] lg:min-h-[600px]"
-        style={{
-          background:
-            "linear-gradient(90deg, #fcf8f0 0%, #faf8f2 28%, #f4f7f7 43%, #e7f3fb 65%, #dceeff 100%)",
-        }}
-      >
+      <div className="career-hero-surface relative min-h-[auto] overflow-hidden pt-[132px] md:pt-[116px] lg:min-h-[600px]">
         <motion.div
           initial={{ opacity: 0, scale: 1.04 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, ease: "easeOut" }}
-          className="absolute bottom-0 left-0 right-0 top-[102px] md:top-[108px]"
+          className="absolute bottom-0 left-0 right-0 top-[132px] hidden lg:block md:top-[116px]"
         >
           <img
             src={heroBgLand}

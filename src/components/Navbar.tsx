@@ -60,9 +60,12 @@ const Navbar = () => {
   const isHigherStudiesPage = location.pathname === "/higher-studies";
   const isCareerCounsellingPage = location.pathname === "/career-counselling";
   const isFounderPage = location.pathname === "/founder";
-  const isCareerPage = ["/career-counselling", "/founder", "/contact"].includes(
-    location.pathname
-  );
+  const isCareerPage = [
+    "/career-counselling",
+    "/founder",
+    "/contact",
+    "/book-consultation",
+  ].includes(location.pathname);
   const showAdmissionBanner = !isCareerCounsellingPage && !isFounderPage;
   const solidNavbar = scrolled || isCareerPage;
   const activeNavLinks = pageLinks;

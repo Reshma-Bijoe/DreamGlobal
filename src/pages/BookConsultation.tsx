@@ -1,5 +1,4 @@
 import { ChangeEvent, FormEvent, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
 import {
   CalendarCheck,
   Globe,
@@ -10,8 +9,8 @@ import {
   Phone,
   Send,
 } from "lucide-react";
-import DreamGlobalLogo from "@/assets/DreamGlobalLogo.jpeg";
 import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
 import {
   PHONE_NUMBER,
   WHATSAPP_URL,
@@ -171,22 +170,9 @@ const BookConsultation = () => {
 
   return (
     <div className="career-theme min-h-screen bg-[linear-gradient(180deg,#f8fbff_0%,#fffdf8_52%,#ffffff_100%)]">
-      <header className="border-b border-[#0A2342]/10 bg-white/88 px-4 py-4 shadow-[0_1px_16px_rgba(10,35,66,0.06)] backdrop-blur">
-        <div className="container mx-auto flex items-center gap-4">
-          <Link to="/" className="flex items-center gap-3">
-            <img
-              src={DreamGlobalLogo}
-              alt="DreamGlobal Logo"
-              className="h-12 w-12 rounded-full object-cover"
-            />
-            <span className="dream-gradient-text text-2xl font-bold">
-              DreamGlobal
-            </span>
-          </Link>
-        </div>
-      </header>
+      <Navbar />
 
-      <main className="px-4 py-12 md:py-16">
+      <main className="px-4 pb-12 pt-44 md:pb-16 md:pt-48">
         <div className="container mx-auto grid max-w-6xl gap-8 lg:grid-cols-[1.08fr_0.92fr]">
           <section className="career-card rounded-2xl p-5 md:p-8">
             <p className="career-eyebrow">Book Free Consultation</p>

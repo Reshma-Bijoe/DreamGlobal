@@ -334,20 +334,20 @@ const Landing = () => {
     <div className="career-theme min-h-screen">
       <main className="career-hero-surface relative min-h-screen overflow-hidden">
       <header className="fixed left-0 right-0 top-0 z-50 border-b border-[#0A2342]/10 bg-[linear-gradient(90deg,#fffdf8_0%,#f8fbff_55%,#eaf5ff_100%)] shadow-[0_1px_16px_rgba(10,35,66,0.06)]">
-        <div className="bg-[#071F41] px-4 py-1.5 text-white">
-          <div className="mx-auto flex max-w-7xl flex-col items-center justify-center gap-1 text-[0.72rem] font-semibold sm:flex-row sm:justify-end sm:gap-5">
+        <div className="border-b border-white/10 bg-secondary py-2 text-white">
+          <div className="container mx-auto flex flex-col items-center gap-2 px-4 text-xs font-semibold text-white/80 sm:text-sm md:flex-row md:justify-end md:gap-6">
             <a
               href="mailto:dreamglobalin@gmail.com"
-              className="inline-flex items-center gap-1.5 transition hover:text-[#D6A329]"
+              className="inline-flex items-center gap-2 transition hover:text-[#D6A329]"
             >
-              <Mail size={13} className="text-[#D6A329]" />
+              <Mail size={14} className="text-[#D6A329]" />
               dreamglobalin@gmail.com
             </a>
             <a
               href="tel:+918848674757"
-              className="inline-flex items-center gap-1.5 transition hover:text-[#D6A329]"
+              className="inline-flex items-center gap-2 transition hover:text-[#D6A329]"
             >
-              <Phone size={13} className="text-[#D6A329]" />
+              <Phone size={14} className="text-[#D6A329]" />
               +91 88486 74757
             </a>
           </div>
@@ -804,32 +804,87 @@ const Landing = () => {
 
       <section id="about" className="px-4 py-16">
         <div className="container mx-auto max-w-7xl">
-          <div className="mx-auto max-w-3xl text-center">
+          <div className="mx-auto max-w-4xl">
             <SectionDivider label="DreamGlobal Purpose" />
-            <h2 className="career-heading mt-4 font-heading text-3xl font-bold sm:text-5xl">
-              Our Mission
+            <h2 className="career-heading mt-4 text-center font-heading text-3xl font-bold sm:text-5xl">
+              About DreamGlobal
             </h2>
-            <p className="mt-4 font-heading text-xl italic text-[color:var(--career-primary-deep)]">
-              "Enabling Global Talent" is our mantra.
-            </p>
             <p className="career-copy mt-6 text-base leading-8">
-              At DreamGlobal, we are dedicated to holistic well-being and
-              professional success through personalised solutions. We offer a
-              comprehensive platform for career planning, higher education
-              guidance, and professional development.
+              <strong className="text-[color:var(--career-primary-ink)]">
+                DreamGlobal
+              </strong>{" "}
+              was founded with a clear purpose:{" "}
+              <strong className="text-[color:var(--career-primary-ink)]">
+                to help students discover their true potential, make informed
+                career and education decisions, and prepare for success in an
+                increasingly dynamic and interconnected world.
+              </strong>
             </p>
             <p className="career-copy mt-4 text-base leading-8">
-              Our specialists guide students through choosing subjects,
-              selecting universities, exploring job roles, and setting long-term
-              career goals. Whether it is undergraduate, postgraduate, diploma,
-              or pathway programs abroad, we simplify every step with clarity
-              and confidence.
+              At DreamGlobal, we provide a comprehensive and structured
+              approach to student success through career planning, career
+              architecting,{" "}
+              <strong className="text-[color:var(--career-primary-ink)]">
+                psychometric assessments
+              </strong>
+              , coaching, mentoring, higher education guidance, and{" "}
+              <strong className="text-[color:var(--career-primary-ink)]">
+                budget-friendly education solutions abroad and in Indian
+                universities.
+              </strong>
+            </p>
+            <div className="career-gold-card mt-7 rounded-2xl border bg-white/85 p-5 text-center shadow-[var(--career-shadow-soft)]">
+              <p className="career-eyebrow">Our Mantra</p>
+              <p className="mt-3 font-heading text-2xl font-bold leading-tight text-[color:var(--career-primary-ink)]">
+                "Transforming Talent and Potential into Success and Prosperity,
+                Building Futures Beyond Borders."
+              </p>
+            </div>
+            <p className="career-copy mt-4 text-base leading-8">
+              By leveraging best-in-class psychometric assessment tools and
+              industry-recognised frameworks, we help students gain deeper
+              insights into their interests, personality traits, aptitudes,
+              strengths, motivations, and career potential.
             </p>
             <p className="career-copy mt-4 text-base leading-8">
-              Every student's success matters deeply to us. We provide
-              personalised counselling, mentoring, and dedicated end-to-end
-              support with individual attention at every step.
+              These insights enable students to make confident and informed
+              decisions regarding academic streams, career options, higher
+              education pathways, and study-abroad opportunities.
             </p>
+            <p className="career-copy mt-4 text-base leading-8">
+              Our approach combines scientific assessments, personalised
+              counselling, industry insights, global education expertise, and
+              real-world mentoring. This helps students build meaningful careers
+              aligned with their strengths, aspirations, and future
+              opportunities.
+            </p>
+          </div>
+
+          <div className="mt-10 grid gap-5 md:grid-cols-2">
+            <article className="career-card rounded-2xl p-6">
+              <p className="career-eyebrow">Our Philosophy</p>
+              <h3 className="career-heading mt-3 font-heading text-2xl font-bold">
+                Every student has unique talents and untapped potential.
+              </h3>
+              <p className="career-copy mt-4 text-sm leading-7">
+                At DreamGlobal, we believe that every student possesses unique
+                talents and untapped potential. When education and career
+                decisions are aligned with individual strengths, aspirations,
+                and future opportunities, they create a strong foundation for
+                prosperity, personal fulfilment, and global leadership.
+              </p>
+            </article>
+            <article className="career-card rounded-2xl p-6">
+              <p className="career-eyebrow">Our Mission</p>
+              <h3 className="career-heading mt-3 font-heading text-2xl font-bold">
+                Confident decisions. Opportunities without borders.
+              </h3>
+              <p className="career-copy mt-4 text-sm leading-7">
+                Our mission is to empower students and families to make
+                confident and informed decisions that unlock potential, create
+                opportunities, and build futures without borders.
+              </p>
+            </article>
           </div>
 
           <div className="mx-auto mt-14 max-w-3xl text-center">

@@ -15,7 +15,7 @@ const Founder = () => {
     <div className="career-theme min-h-screen overflow-x-hidden">
       <Navbar />
 
-      <main className="career-hero-surface overflow-x-hidden pt-36 md:pt-40">
+      <main className="career-hero-surface relative isolate overflow-x-hidden pt-36 md:pt-40">
         <section className="px-4 py-16">
           <div className="container mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1fr_0.9fr]">
             <motion.div
