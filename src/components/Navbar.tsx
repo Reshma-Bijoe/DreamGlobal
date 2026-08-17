@@ -27,6 +27,7 @@ const companyLinks: { label: string; to: string }[] = [
 ];
 
 const moreLinks = [
+  { label: "Testimonials", to: "/testimonials" },
   { label: "FAQs", to: "/faqs" },
   { label: "Blogs", to: "/blogs" },
   { label: "Privacy Policy", to: "/privacy-policy" },
@@ -61,14 +62,20 @@ const Navbar = () => {
   const isCareerCounsellingPage = location.pathname === "/career-counselling";
   const isBookConsultationPage = location.pathname === "/book-consultation";
   const isFounderPage = location.pathname === "/founder";
+  const isFaqsPage = location.pathname === "/faqs";
+  const isBlogPage =
+    location.pathname === "/blogs" || location.pathname.startsWith("/blogs/");
+  const isTestimonialsPage = location.pathname === "/testimonials";
+  const lightSurfacePage = isFaqsPage || isBlogPage || isTestimonialsPage;
   const isCareerPage = [
     "/career-counselling",
     "/founder",
     "/contact",
     "/book-consultation",
   ].includes(location.pathname);
-  const showAdmissionBanner = !isCareerCounsellingPage && !isFounderPage;
-  const solidNavbar = scrolled || isCareerPage;
+  const showAdmissionBanner =
+    !isCareerCounsellingPage && !isFounderPage && !lightSurfacePage;
+  const solidNavbar = scrolled || isCareerPage || lightSurfacePage;
   const activeNavLinks = pageLinks;
   const sectionHref = (href: string) =>
     isHigherStudiesPage ? href : `/higher-studies${href}`;
@@ -163,7 +170,7 @@ const Navbar = () => {
               DreamGlobal
             </span>
             {!isBookConsultationPage && (
-              <span className="dream-gradient-text mt-1 text-[0.55rem] font-bold uppercase tracking-[0.1em] sm:text-[0.65rem] lg:text-xs">
+              <span className="dream-gradient-text mt-1 hidden text-[0.55rem] font-bold uppercase tracking-[0.1em] sm:text-[0.65rem] xl:block xl:text-xs">
                 Career Counselling & Higher Education Solutions
               </span>
             )}
@@ -176,7 +183,7 @@ const Navbar = () => {
             <Link
               key={link.to}
               to={link.to}
-              className={desktopNavItemClass}
+              className={`${desktopNavItemClass} order-1`}
             >
               {link.label}
             </Link>
@@ -186,14 +193,14 @@ const Navbar = () => {
             <Link
               key={link.to}
               to={link.to}
-              className={desktopNavItemClass}
+              className={`${desktopNavItemClass} order-1`}
             >
               {link.label}
             </Link>
           ))}
 
           <div
-            className="relative"
+            className="relative order-2"
             onMouseEnter={() => setCareerToolkitOpen(true)}
             onMouseLeave={() => setCareerToolkitOpen(false)}
           >
@@ -244,7 +251,7 @@ const Navbar = () => {
           </div>
 
           <div
-            className="relative"
+            className="relative order-4"
             onMouseEnter={() => setCompanyOpen(true)}
             onMouseLeave={() => setCompanyOpen(false)}
           >
@@ -287,8 +294,8 @@ const Navbar = () => {
             </AnimatePresence>
           </div>
 
-          {!isCareerPage && <div
-            className="relative"
+          <div
+            className="relative order-5"
             onMouseEnter={() => setMoreOpen(true)}
             onMouseLeave={() => setMoreOpen(false)}
           >
@@ -311,10 +318,10 @@ const Navbar = () => {
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 8 }}
-                  className="absolute left-1/2 top-full z-50 w-52 -translate-x-1/2 overflow-hidden rounded-lg border border-slate-200 bg-white py-2 shadow-xl"
+                  className="absolute left-1/2 top-full z-50 w-64 -translate-x-1/2 overflow-hidden rounded-lg border border-slate-200 bg-white py-2 shadow-xl"
                 >
                   <p className="px-4 pb-2 pt-1 text-xs font-bold uppercase tracking-widest text-yellow-600">
-                    Explore
+                    More
                   </p>
                   {moreLinks.map((link) => (
                     <Link
@@ -329,10 +336,10 @@ const Navbar = () => {
                 </motion.div>
               )}
             </AnimatePresence>
-          </div>}
+          </div>
 
           <div
-            className="relative"
+            className="relative order-3"
             onMouseEnter={() => setStudyOptionsOpen(true)}
             onMouseLeave={() => {
               setStudyOptionsOpen(false);
@@ -442,7 +449,7 @@ const Navbar = () => {
             </AnimatePresence>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="order-6 flex items-center gap-2">
             {isCareerPage ? (
               <Link
                 to="/book-consultation"
@@ -553,6 +560,7 @@ const Navbar = () => {
                 <Link
                   key={link.to}
                   to={link.to}
+                  className="order-1 text-foreground"
                   onClick={() => {
                     setMobileOpen(false);
                   }}
@@ -566,13 +574,13 @@ const Navbar = () => {
                   key={link.to}
                   to={link.to}
                   onClick={() => setMobileOpen(false)}
-                  className="text-foreground"
+                  className="order-1 text-foreground"
                 >
                   {link.label}
                 </Link>
               ))}
 
-              <div>
+              <div className="order-4">
                 <p className="mb-2 text-xs font-bold uppercase tracking-widest text-yellow-600">
                   Company
                 </p>
@@ -590,7 +598,7 @@ const Navbar = () => {
                 </div>
               </div>
 
-              <div>
+              <div className="order-2">
                 <p className="mb-2 text-xs font-bold uppercase tracking-widest text-yellow-600">
                   Career Counselling
                 </p>
@@ -615,25 +623,36 @@ const Navbar = () => {
                 </div>
               </div>
 
-              {!isCareerPage && <div>
-                <p className="mb-2 text-xs font-bold uppercase tracking-widest text-yellow-600">
-                  Explore
-                </p>
-                <div className="grid gap-2">
-                  {moreLinks.map((link) => (
-                    <Link
-                      key={link.to}
-                      to={link.to}
-                      onClick={() => setMobileOpen(false)}
-                      className="text-foreground"
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
-                </div>
-              </div>}
+              <div className="order-5">
+                <button
+                  type="button"
+                  onClick={() => setMoreOpen((current) => !current)}
+                  className="flex w-full items-center justify-between font-bold text-foreground"
+                  aria-expanded={moreOpen}
+                >
+                  More
+                  <ChevronDown
+                    size={16}
+                    className={`transition ${moreOpen ? "rotate-180" : ""}`}
+                  />
+                </button>
+                {moreOpen && (
+                  <div className="mt-2 grid gap-2">
+                    {moreLinks.map((link) => (
+                      <Link
+                        key={link.to}
+                        to={link.to}
+                        onClick={() => setMobileOpen(false)}
+                        className="text-foreground"
+                      >
+                        {link.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
 
-              <div>
+              <div className="order-3">
                 <p className="mb-2 text-xs font-bold uppercase tracking-widest text-yellow-600">
                   Higher Studies
                 </p>
@@ -678,14 +697,14 @@ const Navbar = () => {
                   onClick={() => {
                     setMobileOpen(false);
                   }}
-                  className="gold-gradient-bg text-primary-foreground px-5 py-2.5 rounded-md text-center"
+                  className="order-6 gold-gradient-bg text-primary-foreground px-5 py-2.5 rounded-md text-center"
                 >
                   Book Free Counselling
                 </Link>
               ) : (
                 <a
                   href="https://dreamglobal.edumilestones.com/"
-                  className="gold-gradient-bg text-primary-foreground px-5 py-2.5 rounded-md text-center"
+                  className="order-6 gold-gradient-bg text-primary-foreground px-5 py-2.5 rounded-md text-center"
                 >
                   Start Your Journey
                 </a>

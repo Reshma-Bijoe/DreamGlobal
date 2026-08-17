@@ -569,7 +569,7 @@ const FloatingContactTabs = () => {
                     current === tab.id ? null : tab.id
                   )
                 }
-                className={`flex h-12 w-10 items-center justify-center transition hover:brightness-105 sm:h-14 sm:w-12 ${
+                className={`flex h-9 w-8 items-center justify-center transition hover:brightness-105 sm:h-14 sm:w-12 ${
                   activeTab === tab.id ? "brightness-110" : ""
                 } ${tab.className}`}
                 aria-label={tab.label}

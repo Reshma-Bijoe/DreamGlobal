@@ -1,9 +1,10 @@
 import { ChangeEvent, FormEvent, useMemo, useState } from "react";
 import {
+  AtSign,
   CalendarCheck,
+  Facebook,
   Globe,
   Instagram,
-  Linkedin,
   Mail,
   MessageCircle,
   Phone,
@@ -335,8 +336,21 @@ const BookConsultation = () => {
               </p>
               <div className="mt-3 flex gap-3">
                 {[
-                  { label: "Instagram", href: "#", icon: Instagram },
-                  { label: "LinkedIn", href: "#", icon: Linkedin },
+                  {
+                    label: "Facebook",
+                    href: "https://www.facebook.com/share/1C5Pv8xJy5/?mibextid=wwXIfr",
+                    icon: Facebook,
+                  },
+                  {
+                    label: "Instagram",
+                    href: "https://www.instagram.com/dreamglobal.in?utm_source=qr",
+                    icon: Instagram,
+                  },
+                  {
+                    label: "Threads",
+                    href: "https://www.threads.com/@dreamglobal.in?invite=0",
+                    icon: AtSign,
+                  },
                   { label: "Website", href: "https://dreamglobal.edumilestones.com/", icon: Globe },
                 ].map((item) => {
                   const Icon = item.icon;
@@ -345,6 +359,8 @@ const BookConsultation = () => {
                     <a
                       key={item.label}
                       href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#0A2342]/12 bg-white text-[#0A2342] transition hover:border-[#C88A18] hover:text-[#C88A18]"
                       aria-label={item.label}
                     >

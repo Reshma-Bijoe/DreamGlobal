@@ -11,15 +11,15 @@ const BlogPost = () => {
 
   if (!post) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="career-theme min-h-screen">
         <Navbar />
-        <main className="container mx-auto px-4 pb-20 pt-52 text-center sm:pt-48">
-          <h1 className="font-heading text-3xl font-bold text-foreground">
+        <main className="career-hero-surface relative min-h-[50vh] overflow-hidden px-4 pb-20 pt-36 text-center md:pt-32">
+          <h1 className="career-heading font-heading text-3xl font-bold">
             Blog not found
           </h1>
           <Link
             to="/blogs"
-            className="mt-6 inline-flex rounded-md bg-secondary px-5 py-3 text-sm font-semibold text-white"
+            className="mt-6 inline-flex rounded-md bg-[color:var(--career-primary-ink)] px-5 py-3 text-sm font-semibold text-white"
           >
             Back to blogs
           </Link>
@@ -30,35 +30,35 @@ const BlogPost = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="career-theme min-h-screen">
       <Navbar />
 
-      <main className="px-4 pb-16 pt-52 sm:pt-48">
+      <main className="career-hero-surface relative overflow-hidden px-4 pb-16 pt-36 md:pt-32">
         <article className="container mx-auto max-w-3xl">
           <Link
             to="/blogs"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-primary"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-[color:var(--career-primary-deep)]"
           >
             <ArrowLeft size={16} />
             Back to blogs
           </Link>
 
-          <p className="mt-8 text-sm font-bold uppercase tracking-[0.18em] text-primary">
+          <p className="career-eyebrow mt-8">
             {post.category}
           </p>
-          <h1 className="mt-4 font-heading text-4xl font-bold leading-tight text-foreground sm:text-5xl">
+          <h1 className="career-heading mt-4 font-heading text-4xl font-bold leading-tight sm:text-5xl">
             {post.title}
           </h1>
-          <p className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground">
+          <p className="career-copy mt-5 inline-flex items-center gap-2 text-sm font-semibold">
             <Clock3 size={16} className="text-primary" />
             {post.readTime}
           </p>
 
-          <div className="mt-10 space-y-6 rounded-lg border border-border bg-card p-5 shadow-sm sm:p-7">
+          <div className="career-card mt-10 space-y-6 rounded-lg p-5 sm:p-7">
             {post.content.map((paragraph) => (
               <p
                 key={paragraph}
-                className="text-base leading-8 text-muted-foreground"
+                className="career-copy text-base leading-8"
               >
                 {paragraph}
               </p>

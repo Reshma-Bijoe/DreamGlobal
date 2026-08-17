@@ -93,7 +93,7 @@ const MantraCard = ({ className = "" }: { className?: string }) => (
     variants={fadeUp}
     className={`w-full max-w-[500px] rounded-lg border border-white/85 bg-white/88 p-4 shadow-[0_20px_50px_-30px_rgba(10,35,66,0.52)] sm:p-5 ${className}`}
   >
-    <div className="grid gap-4 sm:grid-cols-[6rem_1fr] sm:items-center">
+    <div className="grid gap-2 sm:grid-cols-[5rem_1fr] sm:items-center">
       <div className="flex items-center gap-3 sm:block">
         <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#C88A18]/12 text-[#C88A18]">
           <Sparkles size={21} />
@@ -145,7 +145,7 @@ const DreamGlobalHero = () => {
               transition={{ duration: 0.78, ease: "easeOut" }}
               className="font-heading text-[1.9rem] font-bold leading-[1.05] text-[#061D3D] drop-shadow-[0_1px_0_rgba(255,255,255,0.82)] sm:text-[2.25rem] lg:text-[2.45rem]"
             >
-              <span className="block whitespace-nowrap">
+              <span className="block whitespace-normal sm:whitespace-nowrap">
                 Your Future Deserves the
               </span>
               <span className="text-[#A66E00]">Right Direction.</span>

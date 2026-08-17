@@ -23,10 +23,13 @@ import DreamGlobalLogo from "@/assets/DreamGlobalLogo.jpeg";
 import founder from "@/assets/founder.jpeg";
 import DreamGlobalHero from "@/components/DreamGlobalHero";
 import Footer from "@/components/Footer";
+import FaqAccordion from "@/components/FaqAccordion";
+import TestimonialCarousel from "@/components/TestimonialCarousel";
 import { countryDestinations } from "@/data/countryDestinations";
 import { supabase } from "../../supabaseClient";
 import {
   CAREER_TEST_URL,
+  careerTestimonials,
   FOUNDER_NAME,
   WHATSAPP_URL,
   intentOptions,
@@ -84,12 +87,14 @@ const getNormalizedPhone = (phone: string) => {
 };
 
 const SectionDivider = ({ label }: { label: string }) => (
-  <div className="flex items-center justify-center gap-3">
-    <span className="h-px w-12 bg-[color:var(--career-primary)]" />
+  <div className="mx-auto flex w-full max-w-[24rem] items-center justify-center gap-2 sm:max-w-[34rem] sm:gap-3">
+    <span className="h-px min-w-6 flex-1 bg-[color:var(--career-primary)]" />
     <span className="h-2 w-2 rounded-full bg-[color:var(--career-primary)]" />
-    <p className="career-eyebrow">{label}</p>
+    <p className="career-eyebrow w-[8.5rem] shrink-0 text-center leading-[1.35] sm:w-auto sm:whitespace-nowrap">
+      {label}
+    </p>
     <span className="h-2 w-2 rounded-full bg-[color:var(--career-primary)]" />
-    <span className="h-px w-12 bg-[color:var(--career-primary)]" />
+    <span className="h-px min-w-6 flex-1 bg-[color:var(--career-primary)]" />
   </div>
 );
 
@@ -196,6 +201,34 @@ const guidanceSteps = [
   },
 ];
 
+const landingFaqs = [
+  {
+    question: "What does career counselling include?",
+    answer:
+      "Career counselling can include strength and interest discovery, psychometric assessment, stream and course planning, career exploration, and a practical action roadmap.",
+  },
+  {
+    question: "Who should consider career counselling?",
+    answer:
+      "Students choosing subjects, exploring career options, preparing for higher education, or feeling unsure about their next step can all benefit from structured guidance.",
+  },
+  {
+    question: "Can DreamGlobal help me choose the right course?",
+    answer:
+      "Yes. We compare your strengths, interests, academic profile, budget, aspirations, and future opportunities before helping you shortlist suitable courses and pathways.",
+  },
+  {
+    question: "Do you help with study abroad applications?",
+    answer:
+      "Yes. Support can cover destination and university shortlisting, profile building, applications, scholarships, visa preparation, and pre-departure planning.",
+  },
+  {
+    question: "When should students start planning?",
+    answer:
+      "Starting early gives students more time to understand their options, strengthen their profile, prepare documents, compare pathways, and make decisions without last-minute pressure.",
+  },
+];
+
 const founderHighlights = [
   "Chief Career Architect and Global Career Strategist",
   "Former Fortune 100 technology leader",
@@ -203,8 +236,10 @@ const founderHighlights = [
   "International education and student-success specialist",
 ];
 
-const navItems = [
+const moreLinks = [
   { label: "Services", href: "#services" },
+  { label: "Testimonials", to: "/testimonials" },
+  { label: "FAQs", to: "/faqs" },
 ];
 
 const companyLinks = [
@@ -217,7 +252,7 @@ const Landing = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState<
-    "career" | "higher" | "main" | null
+    "career" | "higher" | "main" | "more" | null
   >(null);
   const [form, setForm] = useState<ConsultationForm>(initialForm);
   const [message, setMessage] = useState("");
@@ -363,13 +398,19 @@ const Landing = () => {
               <span className="dream-gradient-text text-[1.45rem] font-bold md:text-[1.9rem]">
                 DreamGlobal
               </span>
-              <span className="dream-gradient-text mt-1 hidden text-[0.62rem] font-extrabold uppercase tracking-[0.08em] sm:block md:text-[0.68rem]">
+              <span className="dream-gradient-text mt-1 hidden text-[0.62rem] font-extrabold uppercase tracking-[0.08em] lg:block lg:text-[0.68rem]">
                 Career Counselling & Higher Education Solutions
               </span>
             </span>
           </Link>
           <div className="ml-auto hidden flex-1 items-center justify-end gap-5 text-sm font-semibold text-[#061D3D] lg:flex">
-            <div className="group relative">
+            <Link
+              to="/"
+              className="order-1 whitespace-nowrap transition hover:text-[color:var(--career-primary)]"
+            >
+              Home
+            </Link>
+            <div className="group relative order-2">
               <button
                 type="button"
                 className="flex items-center gap-1 whitespace-nowrap transition hover:text-[color:var(--career-primary)]"
@@ -398,7 +439,7 @@ const Landing = () => {
                 ))}
               </div>
             </div>
-            <div className="group relative">
+            <div className="group relative order-3">
               <button
                 type="button"
                 className="flex items-center gap-1 whitespace-nowrap transition hover:text-[color:var(--career-primary)]"
@@ -450,7 +491,7 @@ const Landing = () => {
                 </div>
               </div>
             </div>
-            <div className="group relative">
+            <div className="group relative order-4">
               <button
                 type="button"
                 className="flex items-center gap-1 whitespace-nowrap transition hover:text-[color:var(--career-primary)]"
@@ -483,25 +524,39 @@ const Landing = () => {
                 )}
               </div>
             </div>
-            {navItems.map((item) =>
-              "to" in item ? (
-                <Link
-                  key={item.label}
-                  to={item.to}
-                  className="whitespace-nowrap transition hover:text-[color:var(--career-primary)]"
-                >
-                  {item.label}
-                </Link>
-              ) : (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className="whitespace-nowrap transition hover:text-[color:var(--career-primary)]"
-                >
-                  {item.label}
-                </a>
-              )
-            )}
+            <div className="group relative order-5">
+              <button
+                type="button"
+                className="flex items-center gap-1 whitespace-nowrap transition hover:text-[color:var(--career-primary)]"
+              >
+                More
+                <ChevronDown size={15} />
+              </button>
+              <div className="invisible absolute left-1/2 top-full z-50 w-64 -translate-x-1/2 overflow-hidden rounded-lg border border-slate-200 bg-white py-2 opacity-0 shadow-xl transition group-hover:visible group-hover:opacity-100">
+                <p className="px-4 pb-2 pt-1 text-xs font-bold uppercase tracking-widest text-[#C88A18]">
+                  More
+                </p>
+                {moreLinks.map((item) =>
+                  "to" in item ? (
+                    <Link
+                      key={item.label}
+                      to={item.to}
+                      className="block px-4 py-2 text-sm font-bold text-slate-900 transition hover:bg-[#D4A24C]/12"
+                    >
+                      {item.label}
+                    </Link>
+                  ) : (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      className="block px-4 py-2 text-sm font-bold text-slate-900 transition hover:bg-[#D4A24C]/12"
+                    >
+                      {item.label}
+                    </a>
+                  )
+                )}
+              </div>
+            </div>
           </div>
           <div className="ml-auto flex items-center gap-3 lg:ml-0">
             <a
@@ -536,7 +591,14 @@ const Landing = () => {
         {isMenuOpen && (
           <div className="border-t border-[#0A2342]/10 bg-white/95 px-4 py-4 shadow-[0_18px_36px_-30px_rgba(10,35,66,0.55)] backdrop-blur lg:hidden">
             <nav className="grid gap-2 text-sm font-bold text-[#061D3D]">
-              <div className="rounded-md border border-[#0A2342]/10 p-3">
+              <Link
+                to="/"
+                onClick={() => setIsMenuOpen(false)}
+                className="rounded-md border border-[#0A2342]/10 p-3 font-bold text-[#061D3D] transition hover:bg-[#D4A24C]/12"
+              >
+                Home
+              </Link>
+              <div className="order-2 rounded-md border border-[#0A2342]/10 p-3">
                 <button
                   type="button"
                   onClick={() =>
@@ -577,7 +639,7 @@ const Landing = () => {
                   </div>
                 )}
               </div>
-              <div className="rounded-md border border-[#0A2342]/10 p-3">
+              <div className="order-3 rounded-md border border-[#0A2342]/10 p-3">
                 <button
                   type="button"
                   onClick={() =>
@@ -635,7 +697,7 @@ const Landing = () => {
                   </div>
                 )}
               </div>
-              <div className="rounded-md border border-[#0A2342]/10 p-3">
+              <div className="order-4 rounded-md border border-[#0A2342]/10 p-3">
                 <button
                   type="button"
                   onClick={() =>
@@ -680,31 +742,55 @@ const Landing = () => {
                   </div>
                 )}
               </div>
-              {navItems.map((item) =>
-                "to" in item ? (
-                  <Link
-                    key={item.label}
-                    to={item.to}
-                    onClick={() => setIsMenuOpen(false)}
-                    className="rounded-md border border-[#0A2342]/10 p-3 font-bold text-[#061D3D] transition hover:bg-[#D4A24C]/12"
-                  >
-                    {item.label}
-                  </Link>
-                ) : (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    onClick={() => setIsMenuOpen(false)}
-                    className="rounded-md border border-[#0A2342]/10 p-3 font-bold text-[#061D3D] transition hover:bg-[#D4A24C]/12"
-                  >
-                    {item.label}
-                  </a>
-                )
-              )}
+              <div className="order-5 rounded-md border border-[#0A2342]/10 p-3">
+                <button
+                  type="button"
+                  onClick={() =>
+                    setMobileNavOpen((current) =>
+                      current === "more" ? null : "more"
+                    )
+                  }
+                  className="flex w-full items-center justify-between font-bold text-[#061D3D]"
+                  aria-expanded={mobileNavOpen === "more"}
+                >
+                  More
+                  <ChevronDown
+                    size={16}
+                    className={`transition ${
+                      mobileNavOpen === "more" ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+                {mobileNavOpen === "more" && (
+                  <div className="mt-2 grid gap-1">
+                    {moreLinks.map((item) =>
+                      "to" in item ? (
+                        <Link
+                          key={item.label}
+                          to={item.to}
+                          onClick={() => setIsMenuOpen(false)}
+                          className="rounded px-2 py-1.5 text-sm font-semibold text-slate-700 transition hover:bg-[#D4A24C]/12"
+                        >
+                          {item.label}
+                        </Link>
+                      ) : (
+                        <a
+                          key={item.label}
+                          href={item.href}
+                          onClick={() => setIsMenuOpen(false)}
+                          className="rounded px-2 py-1.5 text-sm font-semibold text-slate-700 transition hover:bg-[#D4A24C]/12"
+                        >
+                          {item.label}
+                        </a>
+                      )
+                    )}
+                  </div>
+                )}
+              </div>
               <Link
                 to="/book-consultation"
                 onClick={() => setIsMenuOpen(false)}
-                className="dream-gold-button mt-2 rounded-md px-3 py-3 text-left transition"
+                className="order-6 dream-gold-button mt-2 rounded-md px-3 py-3 text-left transition"
               >
                 Book a Consultation
               </Link>
@@ -966,10 +1052,10 @@ const Landing = () => {
           </div>
 
           <div className="flex flex-col justify-center">
-            <div className="flex justify-start">
+            <div className="flex justify-center">
               <SectionDivider label="Meet The Founder" />
             </div>
-            <h2 className="career-heading mt-4 font-heading text-3xl font-bold sm:text-5xl">
+            <h2 className="career-heading mt-4 text-center font-heading text-3xl font-bold sm:text-5xl">
               Guidance built on experience, clarity, and student potential.
             </h2>
             <p className="career-copy mt-5 text-base leading-8">
@@ -1004,7 +1090,26 @@ const Landing = () => {
         </div>
       </section>
 
-      <section className="px-4 py-16">
+      <section className="px-4 py-10 md:py-12">
+        <div className="container mx-auto w-full max-w-7xl">
+          <div className="text-center">
+            <SectionDivider label="Student Stories" />
+            <h2 className="career-heading mt-4 font-heading text-3xl font-bold sm:text-5xl">
+              Clarity students and parents can feel.
+            </h2>
+            <p className="career-copy mx-auto mt-4 max-w-2xl text-sm leading-7">
+              Real guidance should leave families calmer, more focused, and ready
+              for the next decision.
+            </p>
+          </div>
+          <TestimonialCarousel
+            items={careerTestimonials}
+            ariaLabel="Career counselling testimonials"
+          />
+        </div>
+      </section>
+
+      <section className="px-4 py-10 md:py-12">
         <div className="container mx-auto max-w-6xl rounded-2xl bg-[color:var(--career-primary-ink)] p-8 text-center text-white shadow-xl shadow-[#18324a]/20">
           <MapPinned className="mx-auto text-[color:var(--career-primary)]" size={34} />
           <h2 className="mt-4 font-heading text-3xl font-bold sm:text-5xl">
@@ -1020,17 +1125,37 @@ const Landing = () => {
         </div>
       </section>
 
-      <section id="contact" className="px-4 py-16">
+      <section className="px-4 py-10 md:py-12">
+        <div className="container mx-auto w-full max-w-7xl rounded-2xl border border-[color:var(--career-border)] bg-white p-4 shadow-[var(--career-shadow-soft)] sm:p-6 md:p-8">
+          <div className="space-y-6">
+            <div className="text-center">
+              <div className="flex justify-center">
+                <SectionDivider label="Questions, answered" />
+              </div>
+              <h2 className="career-heading mt-3 font-heading text-3xl font-bold sm:text-4xl">
+                Start with the questions families ask most.
+              </h2>
+              <p className="career-copy mx-auto mt-3 max-w-2xl text-sm leading-7">
+                Explore practical answers about career counselling, higher
+                studies, admissions, and studying abroad.
+              </p>
+            </div>
+            <FaqAccordion items={landingFaqs} />
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" className="px-4 py-10 md:py-12">
         <div className="container mx-auto max-w-6xl rounded-2xl border border-[color:var(--career-border)] bg-white p-6 shadow-[var(--career-shadow-soft)] md:p-8">
           <div className="grid gap-6 md:grid-cols-[1fr_auto] md:items-center">
             <div>
-              <div className="flex justify-start">
+              <div className="flex justify-center">
                 <SectionDivider label="Start Your Journey" />
               </div>
-              <h2 className="career-heading mt-3 font-heading text-3xl font-bold">
+              <h2 className="career-heading mt-3 text-center font-heading text-3xl font-bold">
                 Speak with DreamGlobal today.
               </h2>
-              <p className="career-copy mt-3 max-w-2xl text-sm leading-6">
+              <p className="career-copy mx-auto mt-3 max-w-2xl text-center text-sm leading-6">
                 Get help choosing the right career path, course, country,
                 university, and admission plan. Start with one conversation and
                 leave with a clearer direction.

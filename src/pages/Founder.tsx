@@ -15,9 +15,9 @@ const Founder = () => {
     <div className="career-theme min-h-screen overflow-x-hidden">
       <Navbar />
 
-      <main className="career-hero-surface relative isolate overflow-x-hidden pt-36 md:pt-40">
+      <main className="career-hero-surface relative isolate overflow-x-hidden pt-36 md:pt-32">
         <section className="px-4 py-16">
-          <div className="container mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1fr_0.9fr]">
+          <div className="container mx-auto grid max-w-[96rem] items-center gap-12 lg:grid-cols-[1fr_0.9fr]">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
@@ -85,7 +85,7 @@ const Founder = () => {
         </section>
 
         <section className="px-4 py-16">
-          <div className="container mx-auto grid max-w-7xl gap-6 md:grid-cols-2">
+          <div className="container mx-auto grid max-w-[96rem] gap-6 md:grid-cols-2">
             <InfoBlock
               title="Global Experience, Student-Focused Guidance"
               text="With three decades across global technology leadership, academic collaboration, career mentoring, and international education, Mr. Bijoe brings real industry insight into every counselling conversation."
@@ -98,7 +98,7 @@ const Founder = () => {
         </section>
 
         <section className="px-4 py-16">
-          <div className="container mx-auto grid max-w-7xl gap-6 lg:grid-cols-3">
+          <div className="container mx-auto grid max-w-[96rem] gap-6 lg:grid-cols-3">
             <CredentialBlock
               icon={Award}
               title="Professional Certifications"
@@ -132,7 +132,7 @@ const Founder = () => {
         </section>
 
         <section className="px-4 py-16">
-          <div className="container mx-auto max-w-7xl">
+          <div className="container mx-auto max-w-[96rem]">
             <p className="career-eyebrow">
               Areas of Expertise
             </p>
@@ -168,9 +168,11 @@ const Founder = () => {
               parents feel informed and students feel inspired to move forward.
             </p>
             <blockquote className="mt-6 border-l-4 border-[color:var(--career-primary)] pl-5 text-base font-semibold leading-8 text-[color:var(--career-primary-ink)]">
+              Every student possesses unique talents and untapped potential.
               When career and education choices are aligned with individual
-              strengths and future opportunities, they create the foundation
-              for fulfilment, prosperity, and global leadership.
+              strengths, aspirations, and future opportunities, they create the
+              foundation for ultimate prosperity, personal fulfilment, and global
+              leadership.
             </blockquote>
           </div>
         </section>

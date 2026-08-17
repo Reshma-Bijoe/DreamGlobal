@@ -94,6 +94,45 @@ export const blogPosts = [
       "Students should not wait until the last minute. Early counselling helps identify realistic scholarship options and avoid missing important deadlines.",
     ],
   },
+  {
+    slug: "career-counselling-for-confident-decisions",
+    title: "How career counselling helps students make confident decisions",
+    category: "Career Counselling",
+    readTime: "4 min read",
+    excerpt:
+      "A practical look at how structured counselling can turn uncertainty about streams, courses, and careers into a clear next step.",
+    content: [
+      "Career counselling gives students a structured space to understand their strengths, interests, learning preferences, and aspirations before choosing a direction.",
+      "Instead of treating one exam score or one popular course as the complete answer, a counsellor helps compare subjects, pathways, work environments, and future opportunities that fit the student's profile.",
+      "The process also helps families have more useful conversations. With a shared plan, students can move forward with confidence while parents understand the reasoning behind each option.",
+    ],
+  },
+  {
+    slug: "how-psychometric-assessment-supports-career-planning",
+    title: "How psychometric assessment supports career planning",
+    category: "Career Counselling",
+    readTime: "5 min read",
+    excerpt:
+      "Learn how aptitude, personality, and interest insights can support better conversations about a student's future.",
+    content: [
+      "A well-designed psychometric assessment can reveal patterns in aptitude, interests, personality, and preferred ways of working. These insights help students describe what comes naturally to them and what motivates them.",
+      "Assessment results are most useful when they are discussed with a qualified counsellor. The conversation connects the findings with academic performance, lived experience, family context, and realistic education pathways.",
+      "The goal is not to assign a student one fixed career. It is to open better options, identify development areas, and create a practical plan for exploring the next stage.",
+    ],
+  },
+  {
+    slug: "choosing-streams-and-courses-with-clarity",
+    title: "Choosing streams and courses with clarity",
+    category: "Career Planning",
+    readTime: "4 min read",
+    excerpt:
+      "Questions students can ask when comparing subjects, degree options, and the kind of future they want to build.",
+    content: [
+      "Choosing a stream or course becomes easier when students compare more than titles. Look at the subjects involved, the skills they build, the learning environment, admission requirements, and the kinds of work they may lead to.",
+      "It is also worth separating genuine interest from short-term pressure. A course should be challenging enough to develop the student while still connecting with their strengths and long-term goals.",
+      "A counselling conversation can turn this comparison into a shortlist with clear actions: subjects to strengthen, experiences to try, people to speak with, and deadlines to track.",
+    ],
+  },
 ];
 
 export const getBlogPost = (slug: string | undefined) =>

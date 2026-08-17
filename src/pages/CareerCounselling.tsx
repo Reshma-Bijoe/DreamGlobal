@@ -318,7 +318,7 @@ const CareerCounselling = () => {
                 />
               </div>
               <div className="career-card absolute -left-3 top-8 rounded-full px-4 py-3 text-sm font-bold text-[color:var(--career-primary-ink)]">
-                7,500+ Students Mentored
+                7,500+ Candidates Mentored
               </div>
               <div className="career-gold-pill absolute -bottom-4 right-4 rounded-full px-4 py-3 text-sm font-bold">
                 30+ Years Experience
