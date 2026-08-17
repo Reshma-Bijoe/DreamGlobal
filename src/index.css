@@ -259,7 +259,7 @@
     --career-gold-shadow: hsl(var(--gold-dark) / 0.42);
     --career-primary-soft: hsl(var(--gold) / 0.12);
     --career-primary-tint: hsl(var(--gold) / 0.07);
-    --career-muted: oklch(0.55 0.035 245);
+    --career-muted: #22334C;
     --career-border: oklch(0.915 0.02 234);
     --career-hero: linear-gradient(
       180deg,

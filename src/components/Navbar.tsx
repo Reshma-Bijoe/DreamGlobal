@@ -1,32 +1,27 @@
-import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   ChevronDown,
   Mail,
-  Megaphone,
   Menu,
   MessageCircle,
   Phone,
   X,
 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 import DreamGlobalLogo from "@/assets/DreamGlobalLogo.jpeg";
 import { countryDestinations } from "@/data/countryDestinations";
 import { WHATSAPP_URL } from "@/lib/careerCounsellingData";
 
-const navLinks: { label: string; to: string }[] = [
-  { label: "Home", to: "/" },
-];
+type MobileNavSection = "career" | "higher" | "company" | "more" | null;
 
-const pageLinks: { label: string; to: string }[] = [];
-
-const companyLinks: { label: string; to: string }[] = [
+const companyLinks = [
   { label: "About Us", to: "/#about" },
   { label: "Founder", to: "/founder" },
   { label: "Contact Us", to: "/book-consultation" },
 ];
 
 const moreLinks = [
+  { label: "Services", to: "/#services" },
   { label: "Testimonials", to: "/testimonials" },
   { label: "FAQs", to: "/faqs" },
   { label: "Blogs", to: "/blogs" },
@@ -48,673 +43,354 @@ const careerResourceLinks = [
   },
 ];
 
+const dropdownItemClass =
+  "block px-4 py-2 text-sm font-bold text-slate-900 transition hover:bg-[#D4A24C]/12";
+const mobileItemClass =
+  "rounded px-2 py-1.5 text-sm font-semibold text-slate-700 transition hover:bg-[#D4A24C]/12";
+
 const Navbar = () => {
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [studyOptionsOpen, setStudyOptionsOpen] = useState(false);
-  const [countriesOpen, setCountriesOpen] = useState(false);
-  const [companyOpen, setCompanyOpen] = useState(false);
-  const [careerToolkitOpen, setCareerToolkitOpen] = useState(false);
-  const [moreOpen, setMoreOpen] = useState(false);
-  const [showChatTip, setShowChatTip] = useState(true);
-  const location = useLocation();
-  const isHigherStudiesPage = location.pathname === "/higher-studies";
-  const isCareerCounsellingPage = location.pathname === "/career-counselling";
-  const isBookConsultationPage = location.pathname === "/book-consultation";
-  const isFounderPage = location.pathname === "/founder";
-  const isFaqsPage = location.pathname === "/faqs";
-  const isBlogPage =
-    location.pathname === "/blogs" || location.pathname.startsWith("/blogs/");
-  const isTestimonialsPage = location.pathname === "/testimonials";
-  const lightSurfacePage = isFaqsPage || isBlogPage || isTestimonialsPage;
-  const isCareerPage = [
-    "/career-counselling",
-    "/founder",
-    "/contact",
-    "/book-consultation",
-  ].includes(location.pathname);
-  const showAdmissionBanner =
-    !isCareerCounsellingPage && !isFounderPage && !lightSurfacePage;
-  const solidNavbar = scrolled || isCareerPage || lightSurfacePage;
-  const activeNavLinks = pageLinks;
-  const sectionHref = (href: string) =>
-    isHigherStudiesPage ? href : `/higher-studies${href}`;
-  const desktopNavTextClass = solidNavbar
-    ? "text-muted-foreground hover:text-primary"
-    : "text-white drop-shadow-sm hover:text-gold";
-  const desktopNavItemClass = `whitespace-nowrap text-base font-semibold transition ${desktopNavTextClass}`;
-  const replaySection = (hash: string) => {
-    window.dispatchEvent(
-      new CustomEvent("dreamglobal:section-replay", { detail: { hash } })
-    );
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [mobileNavOpen, setMobileNavOpen] = useState<MobileNavSection>(null);
+
+  const closeMobileMenu = () => {
+    setIsMenuOpen(false);
+    setMobileNavOpen(null);
   };
-  useEffect(() => {
-    const getHeroScrollLimit = () => {
-      if (isCareerPage) return 12;
 
-      const firstSection = document.querySelector("main section");
-
-      if (!(firstSection instanceof HTMLElement)) return 40;
-
-      return firstSection.offsetTop + firstSection.offsetHeight - 120;
-    };
-
-    const onScroll = () => setScrolled(window.scrollY > getHeroScrollLimit());
-    onScroll();
-    window.addEventListener("scroll", onScroll);
-    window.addEventListener("resize", onScroll);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
-  }, [isCareerPage, location.pathname]);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setShowChatTip(false), 3000);
-    return () => clearTimeout(timer);
-  }, []);
+  const toggleMobileSection = (section: Exclude<MobileNavSection, null>) => {
+    setMobileNavOpen((current) => (current === section ? null : section));
+  };
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        solidNavbar ? "bg-white shadow-md" : "bg-transparent"
-      }`}
-    >
-      {showAdmissionBanner && (
-        <div className="gold-gradient-bg text-primary-foreground">
-          <div className="container mx-auto flex items-center justify-center gap-2 px-4 py-2 text-center text-xs font-bold uppercase tracking-[0.12em] sm:text-sm">
-            <Megaphone size={16} />
-            <span>
-              Multiple university admission intakes are open. Contact us now and hurry
-              to secure your seat ! Free Counselling !!
-            </span>
-          </div>
-        </div>
-      )}
-
-      {/* TOP BAR */}
-      <div className="bg-secondary py-2 border-b border-white/10">
-        <div className="container mx-auto flex flex-col items-center gap-2 px-4 text-xs text-white/80 sm:text-sm md:flex-row md:justify-end md:gap-6">
+    <header className="fixed left-0 right-0 top-0 z-50 border-b border-[#0A2342]/10 bg-[linear-gradient(90deg,#fffdf8_0%,#f8fbff_55%,#eaf5ff_100%)] shadow-[0_1px_16px_rgba(10,35,66,0.06)]">
+      <div className="border-b border-white/10 bg-secondary py-2 text-white">
+        <div className="container mx-auto flex flex-col items-center gap-2 px-4 text-xs font-semibold text-white/80 sm:text-sm md:flex-row md:justify-end md:gap-6">
           <a
             href="mailto:dreamglobalin@gmail.com"
-            className="flex items-center gap-2 hover:text-gold transition-colors"
+            className="inline-flex items-center gap-2 transition hover:text-[#D6A329]"
           >
-            <Mail size={14} className="text-gold" />
-            <span>dreamglobalin@gmail.com</span>
+            <Mail size={14} className="text-[#D6A329]" />
+            dreamglobalin@gmail.com
           </a>
-
           <a
             href="tel:+918848674757"
-            className="flex items-center gap-2 hover:text-gold transition-colors"
+            className="inline-flex items-center gap-2 transition hover:text-[#D6A329]"
           >
-            <Phone size={14} className="text-gold" />
-            <span>+91 88486 74757</span>
+            <Phone size={14} className="text-[#D6A329]" />
+            +91 88486 74757
           </a>
         </div>
       </div>
 
-      {/* MAIN NAVBAR */}
-      <div className="container relative mx-auto flex items-center justify-between px-4 py-3 sm:py-4">
-        {/* LOGO */}
-        <Link
-          to="/"
-          className="flex shrink-0 items-center gap-3 font-bold tracking-wide"
-        >
+      <div className="flex h-[72px] w-full items-center gap-3 px-6 md:h-[78px] lg:px-8">
+        <Link to="/" className="flex items-center gap-2.5">
           <img
             src={DreamGlobalLogo}
-            alt="Dream Global Logo"
-            className="h-10 w-10 sm:h-12 sm:w-12 lg:h-14 lg:w-14 rounded-full"
+            alt="DreamGlobal Logo"
+            className="h-11 w-11 rounded-full object-cover md:h-12 md:w-12"
           />
           <span className="flex flex-col leading-none">
-            <span className="dream-gradient-text text-2xl font-bold sm:text-4xl">
+            <span className="dream-gradient-text text-[1.45rem] font-bold md:text-[1.9rem]">
               DreamGlobal
             </span>
-            {!isBookConsultationPage && (
-              <span className="dream-gradient-text mt-1 hidden text-[0.55rem] font-bold uppercase tracking-[0.1em] sm:text-[0.65rem] xl:block xl:text-xs">
-                Career Counselling & Higher Education Solutions
-              </span>
-            )}
+            <span className="dream-gradient-text mt-1 hidden text-[0.62rem] font-extrabold uppercase tracking-[0.08em] lg:block lg:text-[0.68rem]">
+              Career Counselling & Higher Education Solutions
+            </span>
           </span>
         </Link>
 
-        {/* DESKTOP MENU */}
-        <div className="ml-auto hidden items-center justify-end gap-5 xl:flex 2xl:gap-6">
-          {navLinks.map((link) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              className={`${desktopNavItemClass} order-1`}
-            >
-              {link.label}
-            </Link>
-          ))}
-
-          {activeNavLinks.map((link) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              className={`${desktopNavItemClass} order-1`}
-            >
-              {link.label}
-            </Link>
-          ))}
-
-          <div
-            className="relative order-2"
-            onMouseEnter={() => setCareerToolkitOpen(true)}
-            onMouseLeave={() => setCareerToolkitOpen(false)}
+        <div className="ml-auto hidden flex-1 items-center justify-end gap-5 text-sm font-semibold text-[#061D3D] lg:flex">
+          <Link
+            to="/"
+            className="order-1 whitespace-nowrap transition hover:text-[color:var(--career-primary)]"
           >
+            Home
+          </Link>
+
+          <div className="group relative order-2">
             <button
               type="button"
-              onClick={() => setCareerToolkitOpen((current) => !current)}
-              className={`flex items-center gap-1 ${desktopNavItemClass}`}
-              aria-expanded={careerToolkitOpen}
+              className="flex items-center gap-1 whitespace-nowrap transition hover:text-[color:var(--career-primary)]"
             >
               Career Counselling
-              <ChevronDown
-                size={16}
-                className={`transition ${careerToolkitOpen ? "rotate-180" : ""}`}
-              />
+              <ChevronDown size={15} />
             </button>
-
-            <AnimatePresence>
-              {careerToolkitOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 8 }}
-                  className="absolute left-1/2 top-full z-50 w-64 -translate-x-1/2 rounded-lg border border-slate-200 bg-white py-2 shadow-xl"
-                >
-                  <p className="px-4 pb-2 pt-1 text-xs font-bold uppercase tracking-widest text-yellow-600">
-                    Career Counselling
-                  </p>
-                  <Link
-                    to="/career-counselling"
-                    onClick={() => setCareerToolkitOpen(false)}
-                    className="block border-b border-slate-100 px-4 py-2 text-sm font-bold text-slate-900 transition hover:bg-yellow-50"
-                  >
-                    Explore Career Counselling
-                  </Link>
-                  {careerResourceLinks.map((link) => (
-                    <a
-                      key={link.href}
-                      href={link.href}
-                      onClick={() => setCareerToolkitOpen(false)}
-                      className="block px-4 py-2 text-sm font-bold text-slate-900 transition hover:bg-yellow-50"
-                    >
-                      {link.label}
-                    </a>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-
-          <div
-            className="relative order-4"
-            onMouseEnter={() => setCompanyOpen(true)}
-            onMouseLeave={() => setCompanyOpen(false)}
-          >
-            <button
-              type="button"
-              onClick={() => setCompanyOpen((current) => !current)}
-              className={`flex items-center gap-1 ${desktopNavItemClass}`}
-              aria-expanded={companyOpen}
-            >
-              Company
-              <ChevronDown
-                size={16}
-                className={`transition ${companyOpen ? "rotate-180" : ""}`}
-              />
-            </button>
-
-            <AnimatePresence>
-              {companyOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 8 }}
-                  className="absolute left-1/2 top-full z-50 w-48 -translate-x-1/2 overflow-hidden rounded-lg border border-slate-200 bg-white py-2 shadow-xl"
-                >
-                  <p className="px-4 pb-2 pt-1 text-xs font-bold uppercase tracking-widest text-yellow-600">
-                    Company
-                  </p>
-                  {companyLinks.map((link) => (
-                    <Link
-                      key={link.to}
-                      to={link.to}
-                      onClick={() => setCompanyOpen(false)}
-                      className="block px-4 py-2 text-sm font-bold text-slate-900 transition hover:bg-yellow-50"
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-
-          <div
-            className="relative order-5"
-            onMouseEnter={() => setMoreOpen(true)}
-            onMouseLeave={() => setMoreOpen(false)}
-          >
-            <button
-              type="button"
-              onClick={() => setMoreOpen((current) => !current)}
-              className={`flex items-center gap-1 ${desktopNavItemClass}`}
-              aria-expanded={moreOpen}
-            >
-              More
-              <ChevronDown
-                size={16}
-                className={`transition ${moreOpen ? "rotate-180" : ""}`}
-              />
-            </button>
-
-            <AnimatePresence>
-              {moreOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 8 }}
-                  className="absolute left-1/2 top-full z-50 w-64 -translate-x-1/2 overflow-hidden rounded-lg border border-slate-200 bg-white py-2 shadow-xl"
-                >
-                  <p className="px-4 pb-2 pt-1 text-xs font-bold uppercase tracking-widest text-yellow-600">
-                    More
-                  </p>
-                  {moreLinks.map((link) => (
-                    <Link
-                      key={link.to}
-                      to={link.to}
-                      onClick={() => setMoreOpen(false)}
-                      className="block px-4 py-2 text-sm font-bold text-slate-900 transition hover:bg-yellow-50"
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-
-          <div
-            className="relative order-3"
-            onMouseEnter={() => setStudyOptionsOpen(true)}
-            onMouseLeave={() => {
-              setStudyOptionsOpen(false);
-              setCountriesOpen(false);
-            }}
-          >
-            <button
-              type="button"
-              onClick={() => setStudyOptionsOpen((current) => !current)}
-              className={`flex items-center gap-1 ${desktopNavItemClass}`}
-              aria-expanded={studyOptionsOpen}
-            >
-              Higher Studies
-              <ChevronDown
-                size={16}
-                className={`transition ${
-                  studyOptionsOpen ? "rotate-180" : ""
-                }`}
-              />
-            </button>
-
-            <AnimatePresence>
-              {studyOptionsOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 8 }}
-                  className="absolute left-1/2 top-full z-50 w-60 -translate-x-1/2 rounded-lg border border-slate-200 bg-white py-2 shadow-xl"
-                >
-                  <p className="px-4 pb-2 pt-1 text-xs font-bold uppercase tracking-widest text-yellow-600">
-                    Higher Studies
-                  </p>
-                  <Link
-                    to="/higher-studies"
-                    onClick={() => {
-                      setStudyOptionsOpen(false);
-                      setCountriesOpen(false);
-                    }}
-                    className="block border-b border-slate-100 px-4 py-2 text-sm font-bold text-slate-900 transition hover:bg-yellow-50"
-                  >
-                    Explore Higher Studies
-                  </Link>
-                  <Link
-                    to="/mbbs"
-                    onClick={() => {
-                      setStudyOptionsOpen(false);
-                      setCountriesOpen(false);
-                    }}
-                    className="block border-b border-slate-100 px-4 py-2 text-sm font-bold text-slate-900 transition hover:bg-yellow-50"
-                  >
-                    MBBS
-                  </Link>
-
-                  <div
-                    className="relative"
-                    onMouseEnter={() => setCountriesOpen(true)}
-                    onMouseLeave={() => setCountriesOpen(false)}
-                  >
-                    <button
-                      type="button"
-                      className="flex w-full items-center justify-between px-4 py-2 text-left text-sm font-bold text-slate-900 transition hover:bg-yellow-50"
-                    >
-                      Countries
-                      <ChevronDown
-                        size={15}
-                        className="-rotate-90 text-yellow-700"
-                      />
-                    </button>
-
-                    <AnimatePresence>
-                      {countriesOpen && (
-                        <motion.div
-                          initial={{ opacity: 0, x: 8 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          exit={{ opacity: 0, x: 8 }}
-                          className="absolute left-full top-0 z-50 w-56 overflow-hidden rounded-lg border border-slate-200 bg-white py-2 shadow-xl"
-                        >
-                          <Link
-                            to="/countries"
-                            onClick={() => {
-                              setStudyOptionsOpen(false);
-                              setCountriesOpen(false);
-                            }}
-                            className="block border-b border-slate-100 px-4 py-2 text-sm font-bold text-slate-900 transition hover:bg-yellow-50"
-                          >
-                            All countries
-                          </Link>
-                          {countryDestinations.map((country) => (
-                            <Link
-                              key={country.id}
-                              to={country.route}
-                              onClick={() => {
-                                setStudyOptionsOpen(false);
-                                setCountriesOpen(false);
-                              }}
-                              className="block px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-yellow-50 hover:text-slate-950"
-                            >
-                              {country.name}
-                            </Link>
-                          ))}
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-
-          <div className="order-6 flex items-center gap-2">
-            {isCareerPage ? (
+            <div className="invisible absolute left-1/2 top-full z-50 w-64 -translate-x-1/2 rounded-lg border border-slate-200 bg-white py-2 opacity-0 shadow-xl transition group-hover:visible group-hover:opacity-100">
+              <p className="px-4 pb-2 pt-1 text-xs font-bold uppercase tracking-widest text-[#C88A18]">
+                Career Counselling
+              </p>
               <Link
-                to="/book-consultation"
-                className="gold-gradient-bg whitespace-nowrap rounded-md px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90"
+                to="/career-counselling"
+                className={`${dropdownItemClass} border-b border-slate-100`}
               >
-                Book Free Counselling
+                Explore Career Counselling
               </Link>
-            ) : (
-              <a
-                href="https://dreamglobal.edumilestones.com/"
-                className="gold-gradient-bg whitespace-nowrap rounded-md px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90"
-              >
-                Start Your Journey
-              </a>
-            )}
-
-            <div className="relative ml-2 flex items-center justify-center">
-              <AnimatePresence>
-                {showChatTip && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -6 }}
-                    className="absolute right-0 top-full z-50 -translate-x-1/2 whitespace-nowrap rounded-lg bg-gray-900 px-3 py-2 text-sm text-white shadow-lg"
-                  >
-                    Chat with us
-                    <div className="absolute bottom-full right-4 border-b-4 border-l-4 border-r-4 border-transparent border-b-gray-900" />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-
-              <span className="absolute h-12 w-12 rounded-full bg-green-400 opacity-30 animate-ping " />
-
-              <motion.a
-                href={WHATSAPP_URL}
-                className="relative flex h-12 w-12 items-center justify-center rounded-full bg-green-500 text-white shadow-lg "
-                animate={{ scale: [1, 1.05, 1] }}
-                transition={{ duration: 2.5, repeat: Infinity }}
-                whileHover={{ scale: 1.12 }}
-                aria-label="Chat on WhatsApp"
-              >
-                <MessageCircle size={24} />
-              </motion.a>
+              {careerResourceLinks.map((link) => (
+                <a key={link.href} href={link.href} className={dropdownItemClass}>
+                  {link.label}
+                </a>
+              ))}
             </div>
           </div>
-        </div>
 
-        {/* MOBILE ACTIONS */}
-        <div className="flex items-center gap-2 xl:hidden">
-          <motion.a
-            href={WHATSAPP_URL}
-            className="relative inline-flex h-10 w-10 items-center justify-center rounded-full bg-green-500 text-white shadow-lg shadow-green-900/20"
-            animate={{ scale: [1, 1.05, 1] }}
-            transition={{ duration: 2.5, repeat: Infinity }}
-            whileTap={{ scale: 0.94 }}
-            aria-label="Chat on WhatsApp"
-          >
-            <span className="absolute h-10 w-10 rounded-full bg-green-400 opacity-25 animate-ping" />
-            <MessageCircle size={21} className="relative" />
-          </motion.a>
-
-          <button
-            type="button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-border bg-background/80 text-foreground"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label={mobileOpen ? "Close menu" : "Open menu"}
-          >
-            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-
-      </div>
-
-      {/* MOBILE MENU */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[70] bg-slate-950/35 backdrop-blur-[2px] xl:hidden"
-            onClick={() => setMobileOpen(false)}
-          >
-            <motion.aside
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", stiffness: 320, damping: 32 }}
-              className="ml-auto flex h-full w-[min(22rem,88vw)] flex-col overflow-y-auto border-l border-slate-200 bg-white p-5 shadow-2xl"
-              onClick={(event) => event.stopPropagation()}
+          <div className="group relative order-3">
+            <button
+              type="button"
+              className="flex items-center gap-1 whitespace-nowrap transition hover:text-[color:var(--career-primary)]"
             >
-              <div className="mb-6 flex items-center justify-between gap-4">
-                <span className="font-heading text-xl font-bold text-slate-950">
-                  Menu
-                </span>
+              Higher Studies
+              <ChevronDown size={15} />
+            </button>
+            <div className="invisible absolute left-1/2 top-full z-50 w-64 -translate-x-1/2 rounded-lg border border-slate-200 bg-white py-2 opacity-0 shadow-xl transition group-hover:visible group-hover:opacity-100">
+              <p className="px-4 pb-2 pt-1 text-xs font-bold uppercase tracking-widest text-[#C88A18]">
+                Higher Studies
+              </p>
+              <Link
+                to="/higher-studies"
+                className={`${dropdownItemClass} border-b border-slate-100`}
+              >
+                Explore Higher Studies
+              </Link>
+              <Link
+                to="/mbbs"
+                className={`${dropdownItemClass} border-b border-slate-100`}
+              >
+                MBBS
+              </Link>
+              <div className="group/countries relative">
                 <button
                   type="button"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-slate-200 text-slate-800 transition hover:bg-slate-50"
-                  onClick={() => setMobileOpen(false)}
-                  aria-label="Close menu"
+                  className="flex w-full items-center justify-between border-b border-slate-100 px-4 py-2 text-left text-sm font-bold text-slate-900 transition hover:bg-[#D4A24C]/12"
                 >
-                  <X size={21} />
+                  Countries
+                  <ChevronDown size={15} className="-rotate-90 text-[#C88A18]" />
                 </button>
-              </div>
-
-            <div className="flex flex-col gap-4">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.to}
-                  to={link.to}
-                  className="order-1 text-foreground"
-                  onClick={() => {
-                    setMobileOpen(false);
-                  }}
-                >
-                  {link.label}
-                </Link>
-              ))}
-
-              {activeNavLinks.map((link) => (
-                <Link
-                  key={link.to}
-                  to={link.to}
-                  onClick={() => setMobileOpen(false)}
-                  className="order-1 text-foreground"
-                >
-                  {link.label}
-                </Link>
-              ))}
-
-              <div className="order-4">
-                <p className="mb-2 text-xs font-bold uppercase tracking-widest text-yellow-600">
-                  Company
-                </p>
-                <div className="grid gap-2">
-                  {companyLinks.map((link) => (
-                    <Link
-                      key={link.to}
-                      to={link.to}
-                      onClick={() => setMobileOpen(false)}
-                      className="text-foreground"
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-
-              <div className="order-2">
-                <p className="mb-2 text-xs font-bold uppercase tracking-widest text-yellow-600">
-                  Career Counselling
-                </p>
-                <div className="grid gap-2">
-                  <Link
-                    to="/career-counselling"
-                    onClick={() => setMobileOpen(false)}
-                    className="font-semibold text-foreground"
-                  >
-                    Explore Career Counselling
-                  </Link>
-                  {careerResourceLinks.map((link) => (
-                    <a
-                      key={link.href}
-                      href={link.href}
-                      onClick={() => setMobileOpen(false)}
-                      className="text-foreground"
-                    >
-                      {link.label}
-                    </a>
-                  ))}
-                </div>
-              </div>
-
-              <div className="order-5">
-                <button
-                  type="button"
-                  onClick={() => setMoreOpen((current) => !current)}
-                  className="flex w-full items-center justify-between font-bold text-foreground"
-                  aria-expanded={moreOpen}
-                >
-                  More
-                  <ChevronDown
-                    size={16}
-                    className={`transition ${moreOpen ? "rotate-180" : ""}`}
-                  />
-                </button>
-                {moreOpen && (
-                  <div className="mt-2 grid gap-2">
-                    {moreLinks.map((link) => (
-                      <Link
-                        key={link.to}
-                        to={link.to}
-                        onClick={() => setMobileOpen(false)}
-                        className="text-foreground"
-                      >
-                        {link.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              <div className="order-3">
-                <p className="mb-2 text-xs font-bold uppercase tracking-widest text-yellow-600">
-                  Higher Studies
-                </p>
-                <div className="grid gap-2">
-                  <Link
-                    to="/higher-studies"
-                    onClick={() => setMobileOpen(false)}
-                    className="font-semibold text-foreground"
-                  >
-                    Explore Higher Studies
-                  </Link>
-                  <Link
-                    to="/mbbs"
-                    onClick={() => setMobileOpen(false)}
-                    className="font-semibold text-foreground"
-                  >
-                    MBBS 
-                  </Link>
+                <div className="invisible absolute left-full top-0 z-50 w-56 overflow-hidden rounded-lg border border-slate-200 bg-white py-2 opacity-0 shadow-xl transition group-hover/countries:visible group-hover/countries:opacity-100">
                   <Link
                     to="/countries"
-                    onClick={() => setMobileOpen(false)}
-                    className="font-semibold text-foreground"
+                    className={`${dropdownItemClass} border-b border-slate-100`}
                   >
-                    All countries
+                    All Countries
                   </Link>
                   {countryDestinations.map((country) => (
                     <Link
                       key={country.id}
                       to={country.route}
-                      onClick={() => setMobileOpen(false)}
-                      className="text-foreground"
+                      className="block px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-[#D4A24C]/12 hover:text-slate-950"
                     >
                       {country.name}
                     </Link>
                   ))}
                 </div>
               </div>
+            </div>
+          </div>
 
-              {isCareerPage ? (
-                <Link
-                  to="/book-consultation"
-                  onClick={() => {
-                    setMobileOpen(false);
-                  }}
-                  className="order-6 gold-gradient-bg text-primary-foreground px-5 py-2.5 rounded-md text-center"
-                >
-                  Book Free Counselling
+          <div className="group relative order-4">
+            <button
+              type="button"
+              className="flex items-center gap-1 whitespace-nowrap transition hover:text-[color:var(--career-primary)]"
+            >
+              Company
+              <ChevronDown size={15} />
+            </button>
+            <div className="invisible absolute left-1/2 top-full z-50 w-48 -translate-x-1/2 overflow-hidden rounded-lg border border-slate-200 bg-white py-2 opacity-0 shadow-xl transition group-hover:visible group-hover:opacity-100">
+              <p className="px-4 pb-2 pt-1 text-xs font-bold uppercase tracking-widest text-[#C88A18]">
+                Company
+              </p>
+              {companyLinks.map((link) => (
+                <Link key={link.to} to={link.to} className={dropdownItemClass}>
+                  {link.label}
                 </Link>
-              ) : (
-                <a
-                  href="https://dreamglobal.edumilestones.com/"
-                  className="order-6 gold-gradient-bg text-primary-foreground px-5 py-2.5 rounded-md text-center"
-                >
-                  Start Your Journey
-                </a>
+              ))}
+            </div>
+          </div>
+
+          <div className="group relative order-5">
+            <button
+              type="button"
+              className="flex items-center gap-1 whitespace-nowrap transition hover:text-[color:var(--career-primary)]"
+            >
+              More
+              <ChevronDown size={15} />
+            </button>
+            <div className="invisible absolute left-1/2 top-full z-50 w-64 -translate-x-1/2 overflow-hidden rounded-lg border border-slate-200 bg-white py-2 opacity-0 shadow-xl transition group-hover:visible group-hover:opacity-100">
+              <p className="px-4 pb-2 pt-1 text-xs font-bold uppercase tracking-widest text-[#C88A18]">
+                More
+              </p>
+              {moreLinks.map((link) => (
+                <Link key={link.to} to={link.to} className={dropdownItemClass}>
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="ml-auto flex items-center gap-3 lg:ml-0">
+          <a
+            href={WHATSAPP_URL}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#24C65A] text-white shadow-[0_10px_22px_-12px_rgba(36,198,90,0.85)] transition hover:bg-[#1FB04F]"
+            aria-label="Chat on WhatsApp"
+          >
+            <MessageCircle size={22} />
+          </a>
+          <Link
+            to="/book-consultation"
+            className="dream-gold-button hidden h-9 items-center justify-center rounded-md px-4 text-[0.82rem] font-bold shadow-[0_14px_28px_-18px_rgba(200,138,24,0.9)] transition sm:inline-flex"
+          >
+            Book a Consultation
+          </Link>
+          <button
+            type="button"
+            onClick={() => {
+              setIsMenuOpen((current) => {
+                if (current) setMobileNavOpen(null);
+                return !current;
+              });
+            }}
+            className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-[#0A2342]/15 bg-white/70 text-[#0A2342] shadow-sm backdrop-blur transition hover:border-[#C88A18] hover:text-[#C88A18] lg:hidden"
+            aria-label="Toggle navigation menu"
+            aria-expanded={isMenuOpen}
+          >
+            {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
+      </div>
+
+      {isMenuOpen && (
+        <div className="border-t border-[#0A2342]/10 bg-white/95 px-4 py-4 shadow-[0_18px_36px_-30px_rgba(10,35,66,0.55)] backdrop-blur lg:hidden">
+          <nav className="grid gap-2 text-sm font-bold text-[#061D3D]">
+            <Link
+              to="/"
+              onClick={closeMobileMenu}
+              className="rounded-md border border-[#0A2342]/10 p-3 font-bold text-[#061D3D] transition hover:bg-[#D4A24C]/12"
+            >
+              Home
+            </Link>
+            <div className="order-2 rounded-md border border-[#0A2342]/10 p-3">
+              <button
+                type="button"
+                onClick={() => toggleMobileSection("career")}
+                className="flex w-full items-center justify-between font-bold text-[#061D3D]"
+                aria-expanded={mobileNavOpen === "career"}
+              >
+                Career Counselling
+                <ChevronDown
+                  size={16}
+                  className={`transition ${mobileNavOpen === "career" ? "rotate-180" : ""}`}
+                />
+              </button>
+              {mobileNavOpen === "career" && (
+                <div className="mt-2 grid gap-1">
+                  <Link to="/career-counselling" onClick={closeMobileMenu} className={mobileItemClass}>
+                    Explore Career Counselling
+                  </Link>
+                  {careerResourceLinks.map((link) => (
+                    <a key={link.href} href={link.href} onClick={closeMobileMenu} className={mobileItemClass}>
+                      {link.label}
+                    </a>
+                  ))}
+                </div>
               )}
             </div>
-            </motion.aside>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </nav>
+            <div className="order-3 rounded-md border border-[#0A2342]/10 p-3">
+              <button
+                type="button"
+                onClick={() => toggleMobileSection("higher")}
+                className="flex w-full items-center justify-between font-bold text-[#061D3D]"
+                aria-expanded={mobileNavOpen === "higher"}
+              >
+                Higher Studies
+                <ChevronDown
+                  size={16}
+                  className={`transition ${mobileNavOpen === "higher" ? "rotate-180" : ""}`}
+                />
+              </button>
+              {mobileNavOpen === "higher" && (
+                <div className="mt-2 grid gap-1">
+                  <Link to="/higher-studies" onClick={closeMobileMenu} className={mobileItemClass}>
+                    Explore Higher Studies
+                  </Link>
+                  <Link to="/mbbs" onClick={closeMobileMenu} className={mobileItemClass}>
+                    MBBS
+                  </Link>
+                  <p className="px-2 pt-2 text-xs font-extrabold uppercase tracking-[0.12em] text-[#C88A18]">
+                    Countries
+                  </p>
+                  <Link to="/countries" onClick={closeMobileMenu} className={mobileItemClass}>
+                    All Countries
+                  </Link>
+                  {countryDestinations.map((country) => (
+                    <Link
+                      key={country.id}
+                      to={country.route}
+                      onClick={closeMobileMenu}
+                      className="rounded px-2 py-1.5 text-sm font-medium text-slate-700 transition hover:bg-[#D4A24C]/12"
+                    >
+                      {country.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+            <div className="order-4 rounded-md border border-[#0A2342]/10 p-3">
+              <button
+                type="button"
+                onClick={() => toggleMobileSection("company")}
+                className="flex w-full items-center justify-between font-bold text-[#061D3D]"
+                aria-expanded={mobileNavOpen === "company"}
+              >
+                Company
+                <ChevronDown
+                  size={16}
+                  className={`transition ${mobileNavOpen === "company" ? "rotate-180" : ""}`}
+                />
+              </button>
+              {mobileNavOpen === "company" && (
+                <div className="mt-2 grid gap-1">
+                  {companyLinks.map((link) => (
+                    <Link key={link.to} to={link.to} onClick={closeMobileMenu} className={mobileItemClass}>
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+            <div className="order-5 rounded-md border border-[#0A2342]/10 p-3">
+              <button
+                type="button"
+                onClick={() => toggleMobileSection("more")}
+                className="flex w-full items-center justify-between font-bold text-[#061D3D]"
+                aria-expanded={mobileNavOpen === "more"}
+              >
+                More
+                <ChevronDown
+                  size={16}
+                  className={`transition ${mobileNavOpen === "more" ? "rotate-180" : ""}`}
+                />
+              </button>
+              {mobileNavOpen === "more" && (
+                <div className="mt-2 grid gap-1">
+                  {moreLinks.map((link) => (
+                    <Link key={link.to} to={link.to} onClick={closeMobileMenu} className={mobileItemClass}>
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+            <Link
+              to="/book-consultation"
+              onClick={closeMobileMenu}
+              className="order-6 dream-gold-button mt-2 rounded-md px-3 py-3 text-left transition"
+            >
+              Book a Consultation
+            </Link>
+          </nav>
+        </div>
+      )}
+    </header>
   );
 };
 
