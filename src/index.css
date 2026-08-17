@@ -344,6 +344,61 @@
     opacity: 0.9;
   }
 
+  @media (max-width: 1023px) {
+    .career-hero-clean {
+      background: linear-gradient(
+        135deg,
+        #fff8e8 0%,
+        #f7fbff 42%,
+        #e3f4ff 72%,
+        #f6e8c2 100%
+      );
+    }
+
+    .mobile-journey-panel {
+      background: linear-gradient(
+        135deg,
+        rgba(255, 248, 232, 0.92) 0%,
+        rgba(247, 251, 255, 0.84) 48%,
+        rgba(227, 244, 255, 0.82) 74%,
+        rgba(246, 232, 194, 0.88) 100%
+      );
+    }
+
+    .mobile-journey-image {
+      opacity: 0.84;
+      mix-blend-mode: multiply;
+      -webkit-mask-image: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(0, 0, 0, 0.24) 14%,
+        #000 29%,
+        #000 75%,
+        rgba(0, 0, 0, 0.54) 91%,
+        transparent 100%
+      );
+      mask-image: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(0, 0, 0, 0.24) 14%,
+        #000 29%,
+        #000 75%,
+        rgba(0, 0, 0, 0.54) 91%,
+        transparent 100%
+      );
+    }
+
+    .mobile-journey-veil {
+      background: linear-gradient(
+        90deg,
+        rgba(255, 248, 232, 0.7) 0%,
+        rgba(247, 251, 255, 0.2) 42%,
+        rgba(227, 244, 255, 0.16) 76%,
+        rgba(246, 232, 194, 0.52) 100%
+      );
+    }
+  }
+
   @media (min-width: 1024px) {
     .career-hero-clean {
       background: linear-gradient(

@@ -237,13 +237,14 @@ const DreamGlobalHero = () => {
             <MantraCard className="mt-6 hidden md:block" />
           </div>
 
-          <div className="pointer-events-none relative z-20 mt-6 grid w-full gap-4 overflow-hidden rounded-xl border border-white/80 bg-white/90 p-3 shadow-[0_18px_42px_-28px_rgba(10,35,66,0.48)] sm:grid-cols-2 lg:absolute lg:inset-0 lg:mt-0 lg:block lg:overflow-visible lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none">
+          <div className="mobile-journey-panel pointer-events-none relative z-20 mt-6 grid w-full gap-4 overflow-hidden rounded-xl border border-[#D6A329]/30 p-3 shadow-[0_18px_42px_-28px_rgba(10,35,66,0.48)] sm:grid-cols-2 lg:absolute lg:inset-0 lg:mt-0 lg:block lg:overflow-visible lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none">
             <img
               src={heroBgLand}
               alt=""
               aria-hidden="true"
-              className="absolute inset-y-0 right-0 z-0 h-full w-[68%] object-contain object-center opacity-60 [mask-image:linear-gradient(90deg,transparent_0%,black_28%,black_82%,transparent_100%)] sm:w-[58%] lg:hidden"
+              className="mobile-journey-image absolute inset-y-0 right-0 z-0 h-full w-[68%] object-contain object-center sm:w-[58%] lg:hidden"
             />
+            <div aria-hidden="true" className="mobile-journey-veil pointer-events-none absolute inset-0 z-[1] lg:hidden" />
             <svg
               aria-hidden="true"
               viewBox="0 0 86 430"
