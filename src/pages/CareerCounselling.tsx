@@ -1,5 +1,12 @@
-import { ChangeEvent, FormEvent, useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import {
+  ChangeEvent,
+  FormEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   ArrowRight,
   Brain,
@@ -98,28 +105,35 @@ const SectionDivider = ({ label }: { label: string }) => (
 );
 
 const CareerCounselling = () => {
+  const navigate = useNavigate();
   const [form, setForm] = useState<CounsellingForm>(initialForm);
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [heroImageIndex, setHeroImageIndex] = useState(0);
 
+  const openBookConsultation = useCallback(() => {
+    navigate("/book-consultation", {
+      replace: window.location.hash === "#counselling-form",
+    });
+  }, [navigate]);
+
   useEffect(() => {
-    const openHashedForm = () => {
+    const redirectHashedForm = () => {
       if (window.location.hash === "#counselling-form") {
-        setIsFormOpen(true);
+        openBookConsultation();
       }
     };
 
-    openHashedForm();
-    window.addEventListener("hashchange", openHashedForm);
-    window.addEventListener("dreamglobal:open-counselling-form", openForm);
+    redirectHashedForm();
+    window.addEventListener("hashchange", redirectHashedForm);
+    window.addEventListener("dreamglobal:open-counselling-form", openBookConsultation);
 
     return () => {
-      window.removeEventListener("hashchange", openHashedForm);
-      window.removeEventListener("dreamglobal:open-counselling-form", openForm);
+      window.removeEventListener("hashchange", redirectHashedForm);
+      window.removeEventListener("dreamglobal:open-counselling-form", openBookConsultation);
     };
-  }, []);
+  }, [openBookConsultation]);
 
   useEffect(() => {
     const timer = window.setInterval(() => {
@@ -276,14 +290,13 @@ const CareerCounselling = () => {
                   Take Career Test
                   <ArrowRight size={17} />
                 </a>
-                <button
-                  type="button"
-                  onClick={openForm}
+                <Link
+                  to="/book-consultation"
                   className="career-primary-button inline-flex items-center justify-center gap-2 rounded-md px-6 py-3 text-sm font-bold transition"
                 >
                   <CalendarCheck size={17} />
                   Book Free Consultation
-                </button>
+                </Link>
               </div>
             </motion.div>
 
@@ -426,14 +439,13 @@ const CareerCounselling = () => {
             </div>
 
             <div className="mt-10 flex justify-center">
-              <button
-                type="button"
-                onClick={openForm}
+              <Link
+                to="/book-consultation"
                 className="career-primary-button inline-flex items-center justify-center gap-2 rounded-md px-6 py-3 text-sm font-bold transition"
               >
                 <CalendarCheck size={17} />
                 Book Free Consultation
-              </button>
+              </Link>
             </div>
           </div>
         </section>
@@ -585,13 +597,12 @@ const CareerCounselling = () => {
                 Take the Career Test
                 <ArrowRight size={17} />
               </a>
-              <button
-                type="button"
-                onClick={openForm}
+              <Link
+                to="/book-consultation"
                 className="career-primary-button inline-flex items-center justify-center gap-2 rounded-md px-6 py-3 text-sm font-bold transition"
               >
                 Book Free Consultation
-              </button>
+              </Link>
             </div>
           </div>
         </section>

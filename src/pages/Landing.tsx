@@ -33,7 +33,7 @@ import {
 } from "@/lib/careerCounsellingData";
 
 const STUDENT_PROFILER_URL =
-  "https://careertest.edumilestones.com/student-profiler/?channel_id=NDU1Mg==";
+  "https://dreamglobal.edumilestones.com/login/global-admissions/";
 
 const careerResourceLinks = [
   {
@@ -364,7 +364,7 @@ const Landing = () => {
                 DreamGlobal
               </span>
               <span className="dream-gradient-text mt-1 hidden text-[0.62rem] font-extrabold uppercase tracking-[0.08em] sm:block md:text-[0.68rem]">
-                Career Counselling & Higher Studies Solutions
+                Career Counselling & Higher Education Solutions
               </span>
             </span>
           </Link>

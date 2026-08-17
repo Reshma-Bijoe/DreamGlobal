@@ -7,6 +7,7 @@ export type ConsultationNotification = {
   location: string;
   phone: string;
   email: string;
+  interest?: string;
   remarks: string;
   preferredDate: string;
   preferredTime: string;
@@ -25,6 +26,7 @@ export const notifyAdminOfConsultation = async (
         location: consultation.location.trim(),
         phone: consultation.phone.trim(),
         email: consultation.email.trim(),
+        interest: consultation.interest?.trim() || "Book consultation",
         remarks: consultation.remarks.trim(),
         preferredDate: consultation.preferredDate,
         preferredTime: consultation.preferredTime,

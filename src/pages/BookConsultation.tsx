@@ -12,6 +12,7 @@ import {
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import {
+  consultationInterestOptions,
   PHONE_NUMBER,
   WHATSAPP_URL,
 } from "@/lib/careerCounsellingData";
@@ -25,6 +26,7 @@ type ConsultationForm = {
   location: string;
   phone: string;
   email: string;
+  interest: string;
   remarks: string;
   preferredDate: string;
   preferredTime: string;
@@ -37,6 +39,7 @@ const initialForm: ConsultationForm = {
   location: "",
   phone: "",
   email: "",
+  interest: consultationInterestOptions[0],
   remarks: "",
   preferredDate: "",
   preferredTime: "",
@@ -67,6 +70,7 @@ const BookConsultation = () => {
           `Location: ${form.location}`,
           `Phone: ${getNormalizedPhone(form.phone) || form.phone}`,
           `Email: ${form.email}`,
+          `Interest: ${form.interest}`,
           `Remarks: ${form.remarks || "Not shared"}`,
           `Preferred Date: ${form.preferredDate || "Flexible"}`,
           `Preferred Time: ${form.preferredTime || "Flexible"}`,
@@ -137,6 +141,7 @@ const BookConsultation = () => {
       email: form.email.trim(),
       interest: [
         "Book consultation",
+        `Interest: ${form.interest}`,
         `Age: ${form.age.trim()}`,
         `Grade/Class: ${form.grade.trim()}`,
         `Location: ${form.location.trim()}`,
@@ -193,6 +198,13 @@ const BookConsultation = () => {
                 <input className={fieldClass} placeholder="Location" required value={form.location} onChange={updateField("location")} />
                 <input className={fieldClass} placeholder="10-digit Phone Number" type="tel" inputMode="tel" autoComplete="tel" required value={form.phone} onChange={updateField("phone")} />
                 <input className={fieldClass} placeholder="Email" type="email" autoComplete="email" required value={form.email} onChange={updateField("email")} />
+                <select className={`${fieldClass} md:col-span-2`} value={form.interest} onChange={updateField("interest")}>
+                  {consultationInterestOptions.map((interest) => (
+                    <option key={interest} value={interest}>
+                      {interest}
+                    </option>
+                  ))}
+                </select>
                 <p className="text-xs font-semibold text-[color:var(--career-muted)] md:col-span-2">
                   Fields marked with <span className="font-bold text-[#C88A18]">*</span> are optional.
                 </p>

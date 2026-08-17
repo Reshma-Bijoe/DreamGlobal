@@ -181,7 +181,7 @@ const Founder = () => {
               Ready to Find Your Direction?
             </h2>
             <Link
-              to="/career-counselling#counselling-form"
+              to="/book-consultation"
               className="career-primary-button mt-7 inline-flex items-center gap-2 rounded-md px-6 py-3 text-sm font-bold transition"
             >
               Book Free Counselling

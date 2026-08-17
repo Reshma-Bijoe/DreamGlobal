@@ -1,13 +1,35 @@
-import { FormEvent, useState } from "react";
-import { CalendarClock, Mail, Phone, X } from "lucide-react";
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
+import { CalendarClock, Mail, MessageCircle, Phone, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useLocation } from "react-router-dom";
 import { supabase } from "../../supabaseClient";
+import {
+  consultationInterestOptions,
+  WHATSAPP_URL,
+} from "@/lib/careerCounsellingData";
+import { notifyAdminOfConsultation } from "@/lib/consultationNotifications";
 
 type ActiveTab = "call" | "callback" | "email" | null;
 type FormErrors = {
   name?: string;
+  age?: string;
+  grade?: string;
+  location?: string;
   phone?: string;
   email?: string;
+};
+
+type CallbackForm = {
+  name: string;
+  age: string;
+  grade: string;
+  location: string;
+  phone: string;
+  email: string;
+  interest: string;
+  preferredDate: string;
+  preferredTime: string;
+  remarks: string;
 };
 
 const phoneNumber = "+91 88486 74757";
@@ -16,6 +38,22 @@ const email = "dreamglobalin@gmail.com";
 const emailComposeHref = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`;
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const phonePattern = /^[0-9\s-]+$/;
+
+const initialCallbackForm: CallbackForm = {
+  name: "",
+  age: "",
+  grade: "",
+  location: "",
+  phone: "",
+  email: "",
+  interest: consultationInterestOptions[0],
+  preferredDate: "",
+  preferredTime: "",
+  remarks: "",
+};
+
+const callbackFieldClass =
+  "w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none transition focus:border-primary";
 
 const tabs = [
   {
@@ -87,24 +125,83 @@ const contentVariants = {
 };
 
 const FloatingContactTabs = () => {
+  const location = useLocation();
+  const contactTabsRef = useRef<HTMLDivElement | null>(null);
   const [activeTab, setActiveTab] = useState<ActiveTab>(null);
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [callbackEmail, setCallbackEmail] = useState("");
+  const [callbackForm, setCallbackForm] = useState<CallbackForm>(
+    initialCallbackForm
+  );
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState("");
   const [formErrors, setFormErrors] = useState<FormErrors>({});
   const activeTabIndex = tabs.findIndex((tab) => tab.id === activeTab);
   const connectorOffset = activeTabIndex >= 0 ? activeTabIndex - 1 : 0;
 
+  useEffect(() => {
+    setActiveTab(null);
+  }, [location.pathname, location.search, location.hash]);
+
+  useEffect(() => {
+    if (!activeTab) {
+      return;
+    }
+
+    const closeOnOutsidePointer = (event: PointerEvent) => {
+      if (
+        contactTabsRef.current &&
+        !contactTabsRef.current.contains(event.target as Node)
+      ) {
+        setActiveTab(null);
+      }
+    };
+
+    document.addEventListener("pointerdown", closeOnOutsidePointer);
+
+    return () => {
+      document.removeEventListener("pointerdown", closeOnOutsidePointer);
+    };
+  }, [activeTab]);
+
+  const updateCallbackField =
+    (field: keyof CallbackForm) =>
+    (
+      event: ChangeEvent<
+        HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+      >
+    ) => {
+      setCallbackForm((current) => ({ ...current, [field]: event.target.value }));
+      setFormErrors((current) => ({ ...current, [field]: undefined }));
+      setSubmitMessage("");
+    };
+
   const validateForm = () => {
     const nextErrors: FormErrors = {};
-    const fullName = name.trim();
-    const phoneNumber = phone.trim();
-    const emailAddress = callbackEmail.trim();
+    const fullName = callbackForm.name.trim();
+    const ageValue = callbackForm.age.trim();
+    const gradeValue = callbackForm.grade.trim();
+    const locationValue = callbackForm.location.trim();
+    const phoneNumber = callbackForm.phone.trim();
+    const emailAddress = callbackForm.email.trim();
 
     if (!fullName) {
       nextErrors.name = "Please enter your full name.";
+    }
+
+    if (!ageValue) {
+      nextErrors.age = "Please enter the student's age.";
+    } else {
+      const age = Number(ageValue);
+      if (!Number.isInteger(age) || age < 5 || age > 80) {
+        nextErrors.age = "Please enter a valid age.";
+      }
+    }
+
+    if (!gradeValue) {
+      nextErrors.grade = "Please enter grade or class.";
+    }
+
+    if (!locationValue) {
+      nextErrors.location = "Please enter your location.";
     }
 
     if (!phoneNumber) {
@@ -134,31 +231,74 @@ const FloatingContactTabs = () => {
     }
 
     setIsSubmitting(true);
+    const normalizedPhone = callbackForm.phone.replace(/\D/g, "");
 
     const { error } = await supabase.from("leads").insert({
-      name: name.trim(),
-      phone: phone.trim(),
-      email: callbackEmail.trim(),
-      interest: "General counselling callback",
+      name: callbackForm.name.trim(),
+      phone: normalizedPhone,
+      email: callbackForm.email.trim(),
+      interest: [
+        "Floating callback",
+        `Interest: ${callbackForm.interest}`,
+        `Age: ${callbackForm.age.trim()}`,
+        `Grade/Class: ${callbackForm.grade.trim()}`,
+        `Location: ${callbackForm.location.trim()}`,
+        `Remarks: ${callbackForm.remarks.trim() || "Not shared"}`,
+        `Preferred schedule: ${callbackForm.preferredDate || "Flexible date"} ${
+          callbackForm.preferredTime || "Flexible time"
+        }`,
+      ].join(" | "),
     });
 
-    setIsSubmitting(false);
-
     if (error) {
+      setIsSubmitting(false);
       setSubmitMessage("Sorry, we could not send this right now.");
       console.error("Callback request failed:", error);
       return;
     }
 
-    setName("");
-    setPhone("");
-    setCallbackEmail("");
+    await notifyAdminOfConsultation({
+      ...callbackForm,
+      phone: normalizedPhone,
+    });
+
+    setIsSubmitting(false);
+    setCallbackForm(initialCallbackForm);
     setSubmitMessage("Request sent. We will call you soon.");
+  };
+
+  const sendCallbackViaWhatsApp = () => {
+    setSubmitMessage("");
+
+    if (!validateForm()) {
+      return;
+    }
+
+    const whatsappText = encodeURIComponent(
+      [
+        "DreamGlobal callback request",
+        `Name: ${callbackForm.name}`,
+        `Age: ${callbackForm.age}`,
+        `Grade/Class: ${callbackForm.grade}`,
+        `Location: ${callbackForm.location}`,
+        `Phone: ${callbackForm.phone.replace(/\D/g, "") || callbackForm.phone}`,
+        `Email: ${callbackForm.email}`,
+        `Interest: ${callbackForm.interest}`,
+        `Remarks: ${callbackForm.remarks || "Not shared"}`,
+        `Preferred Date: ${callbackForm.preferredDate || "Flexible"}`,
+        `Preferred Time: ${callbackForm.preferredTime || "Flexible"}`,
+      ].join("\n")
+    );
+
+    window.location.href = `${WHATSAPP_URL}?text=${whatsappText}`;
   };
 
   return (
     <>
-      <div className="fixed right-0 top-[58%] z-50 -translate-y-1/2 sm:top-1/2">
+      <div
+        ref={contactTabsRef}
+        className="fixed right-0 top-[58%] z-50 -translate-y-1/2 sm:top-1/2"
+      >
         <AnimatePresence>
           {activeTab && (
             <motion.div
@@ -171,7 +311,7 @@ const FloatingContactTabs = () => {
                 transformOrigin: "right center",
                 transformPerspective: 900,
               }}
-              className="absolute right-full top-1/2 mr-3 w-[calc(100vw-4.5rem)] max-w-72 rounded-lg border border-white/60 bg-card/95 p-4 text-card-foreground shadow-2xl shadow-secondary/20 backdrop-blur-md sm:p-5"
+              className="absolute right-full top-1/2 mr-3 max-h-[calc(100vh-2rem)] w-[calc(100vw-4.5rem)] max-w-96 overflow-y-auto rounded-lg border border-white/60 bg-card/95 p-4 text-card-foreground shadow-2xl shadow-secondary/20 backdrop-blur-md sm:p-5"
           >
             <motion.span
               initial={{ scale: 0, opacity: 0 }}
@@ -233,12 +373,9 @@ const FloatingContactTabs = () => {
                 <input
                   id="callback-full-name"
                   name="name"
-                  value={name}
-                  onChange={(event) => {
-                    setName(event.target.value);
-                    setFormErrors((current) => ({ ...current, name: undefined }));
-                  }}
-                  className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none transition focus:border-primary"
+                  value={callbackForm.name}
+                  onChange={updateCallbackField("name")}
+                  className={callbackFieldClass}
                   placeholder="Full name"
                   type="text"
                   autoComplete="name"
@@ -249,15 +386,65 @@ const FloatingContactTabs = () => {
                     {formErrors.name}
                   </p>
                 )}
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <div>
+                    <input
+                      id="callback-age"
+                      name="age"
+                      value={callbackForm.age}
+                      onChange={updateCallbackField("age")}
+                      className={callbackFieldClass}
+                      placeholder="Age"
+                      type="number"
+                      min="5"
+                      max="80"
+                      aria-invalid={Boolean(formErrors.age)}
+                    />
+                    {formErrors.age && (
+                      <p className="mt-1 text-xs leading-4 text-destructive">
+                        {formErrors.age}
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    <input
+                      id="callback-grade"
+                      name="grade"
+                      value={callbackForm.grade}
+                      onChange={updateCallbackField("grade")}
+                      className={callbackFieldClass}
+                      placeholder="Grade/Class"
+                      type="text"
+                      aria-invalid={Boolean(formErrors.grade)}
+                    />
+                    {formErrors.grade && (
+                      <p className="mt-1 text-xs leading-4 text-destructive">
+                        {formErrors.grade}
+                      </p>
+                    )}
+                  </div>
+                </div>
+                <input
+                  id="callback-location"
+                  name="location"
+                  value={callbackForm.location}
+                  onChange={updateCallbackField("location")}
+                  className={callbackFieldClass}
+                  placeholder="Location"
+                  type="text"
+                  aria-invalid={Boolean(formErrors.location)}
+                />
+                {formErrors.location && (
+                  <p className="text-xs leading-4 text-destructive">
+                    {formErrors.location}
+                  </p>
+                )}
                 <input
                   id="callback-phone"
                   name="phone"
-                  value={phone}
-                  onChange={(event) => {
-                    setPhone(event.target.value);
-                    setFormErrors((current) => ({ ...current, phone: undefined }));
-                  }}
-                  className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none transition focus:border-primary"
+                  value={callbackForm.phone}
+                  onChange={updateCallbackField("phone")}
+                  className={callbackFieldClass}
                   placeholder="Phone number"
                   type="tel"
                   autoComplete="tel"
@@ -271,12 +458,9 @@ const FloatingContactTabs = () => {
                 <input
                   id="callback-email"
                   name="email"
-                  value={callbackEmail}
-                  onChange={(event) => {
-                    setCallbackEmail(event.target.value);
-                    setFormErrors((current) => ({ ...current, email: undefined }));
-                  }}
-                  className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none transition focus:border-primary"
+                  value={callbackForm.email}
+                  onChange={updateCallbackField("email")}
+                  className={callbackFieldClass}
                   placeholder="Email address"
                   type="email"
                   autoComplete="email"
@@ -287,12 +471,64 @@ const FloatingContactTabs = () => {
                     {formErrors.email}
                   </p>
                 )}
+                <select
+                  id="callback-interest"
+                  name="interest"
+                  value={callbackForm.interest}
+                  onChange={updateCallbackField("interest")}
+                  className={callbackFieldClass}
+                >
+                  {consultationInterestOptions.map((interest) => (
+                    <option key={interest} value={interest}>
+                      {interest}
+                    </option>
+                  ))}
+                </select>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <input
+                    id="callback-date"
+                    name="preferredDate"
+                    value={callbackForm.preferredDate}
+                    onChange={updateCallbackField("preferredDate")}
+                    className={callbackFieldClass}
+                    type="date"
+                  />
+                  <input
+                    id="callback-time"
+                    name="preferredTime"
+                    value={callbackForm.preferredTime}
+                    onChange={updateCallbackField("preferredTime")}
+                    className={callbackFieldClass}
+                    type="time"
+                  />
+                </div>
+                <textarea
+                  id="callback-remarks"
+                  name="remarks"
+                  value={callbackForm.remarks}
+                  onChange={updateCallbackField("remarks")}
+                  className={`${callbackFieldClass} min-h-20 resize-y`}
+                  placeholder="Tell us about yourself"
+                />
                 <button
                   type="submit"
                   disabled={isSubmitting}
                   className="w-full rounded-md gold-gradient-bg px-4 py-3 text-sm font-semibold text-primary-foreground transition hover:opacity-90"
                 >
                   {isSubmitting ? "Sending..." : "Send Request"}
+                </button>
+                <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                  <span className="h-px flex-1 bg-border" />
+                  or
+                  <span className="h-px flex-1 bg-border" />
+                </div>
+                <button
+                  type="button"
+                  onClick={sendCallbackViaWhatsApp}
+                  className="flex w-full items-center justify-center gap-2 rounded-md bg-green-500 px-4 py-3 text-sm font-semibold text-white transition hover:bg-green-600"
+                >
+                  <MessageCircle size={16} />
+                  Send in WhatsApp
                 </button>
                 {submitMessage && (
                   <p className="text-sm leading-5 text-muted-foreground">

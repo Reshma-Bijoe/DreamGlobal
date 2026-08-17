@@ -64,6 +64,13 @@ export const intentOptions = [
   "General Guidance",
 ];
 
+export const consultationInterestOptions = [
+  "Career Consultation",
+  "Higher Studies India",
+  "Higher Studies Abroad",
+  "MBBS",
+];
+
 export const assessmentPaths = [
   {
     category: "Career Analysis",

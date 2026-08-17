@@ -4,6 +4,7 @@ import {
   ArrowRight,
   BookOpenCheck,
   Building2,
+  CalendarCheck,
   Compass,
   GraduationCap,
   Handshake,
@@ -68,7 +69,7 @@ const features = [
 ];
 
 const stats = [
-  { value: "7000+", label: "Students Mentored", icon: UsersRound },
+  { value: "7000+", label: "Candidates Mentored", icon: UsersRound },
   { value: "150+", label: "Career Options Explored", icon: GraduationCap },
   { value: "200+", label: "Universities & Partners", icon: Building2 },
   { value: "25+", label: "Countries of Opportunities", icon: Telescope },
@@ -90,20 +91,20 @@ const stagger = {
 const MantraCard = ({ className = "" }: { className?: string }) => (
   <motion.div
     variants={fadeUp}
-    className={`w-full max-w-[500px] rounded-lg border border-white/70 bg-white/62 p-4 shadow-[0_20px_50px_-34px_rgba(10,35,66,0.42)] backdrop-blur-xl sm:p-5 ${className}`}
+    className={`w-full max-w-[500px] rounded-lg border border-white/85 bg-white/88 p-4 shadow-[0_20px_50px_-30px_rgba(10,35,66,0.52)] sm:p-5 ${className}`}
   >
     <div className="grid gap-4 sm:grid-cols-[6rem_1fr] sm:items-center">
       <div className="flex items-center gap-3 sm:block">
         <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#C88A18]/12 text-[#C88A18]">
           <Sparkles size={21} />
         </span>
-        <p className="text-[0.68rem] font-bold uppercase leading-4 tracking-[0.2em] text-[#0A2342] sm:mt-3">
+        <p className="text-[0.68rem] font-bold uppercase leading-4 tracking-[0.2em] text-[#061D3D] sm:mt-3">
           Our
           <br />
           Mantra
         </p>
       </div>
-      <p className="font-heading text-[1.18rem] font-semibold leading-tight text-[#0A2342] sm:text-[1.34rem]">
+      <p className="font-heading text-[1.18rem] font-semibold leading-tight text-[#061D3D] sm:text-[1.34rem]">
         Transforming Talent & Potential into Success and Prosperity. Building
         Futures <span className="text-[#C88A18]">Beyond Borders.</span>
       </p>
@@ -114,21 +115,22 @@ const MantraCard = ({ className = "" }: { className?: string }) => (
 const DreamGlobalHero = () => {
   return (
     <section id="hero" className="relative isolate overflow-hidden bg-[#FCF9F3]">
-      <div className="career-hero-surface relative min-h-[auto] overflow-hidden pt-[132px] md:pt-[116px] lg:min-h-[600px]">
+      <div className="career-hero-surface career-hero-clean relative min-h-[auto] overflow-hidden pt-[132px] md:pt-[116px] lg:min-h-[600px]">
         <motion.div
           initial={{ opacity: 0, scale: 1.04 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, ease: "easeOut" }}
-          className="absolute bottom-0 left-0 right-0 top-[132px] hidden lg:block md:top-[116px]"
+          className="absolute bottom-0 left-0 right-0 top-[132px] z-0 hidden lg:block md:top-[116px]"
         >
           <img
             src={heroBgLand}
             alt="Student with backpack standing before an international university"
-            className="h-full w-full object-cover object-[54%_top] opacity-35 sm:object-[58%_center] sm:opacity-100 md:object-center"
+            className="career-hero-image-fade h-full w-full object-cover object-[54%_top] opacity-100 sm:object-[58%_center] md:object-[46%_center]"
+            loading="eager"
+            style={{ width: "calc(100% + 2cm)", transform: "translateX(-2cm)" }}
           />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(252,248,240,0.96)_0%,rgba(252,248,240,0.9)_42%,rgba(252,248,240,0.58)_72%,rgba(252,248,240,0.82)_100%)] sm:bg-[linear-gradient(90deg,#fcf8f0_0%,rgba(252,248,240,0.98)_19%,rgba(252,248,240,0.74)_36%,rgba(252,248,240,0.2)_49%,rgba(252,248,240,0)_60%)]" />
-          <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-[#f8fbff]/70 to-transparent" />
-          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#071F41]/38 to-transparent" />
+          <div className="career-hero-edge-wash absolute inset-y-0 right-0 z-[1] w-[32%]" />
+          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#071F41]/24 to-transparent" />
         </motion.div>
 
         <motion.div
@@ -141,42 +143,42 @@ const DreamGlobalHero = () => {
             <motion.h1
               variants={fadeUp}
               transition={{ duration: 0.78, ease: "easeOut" }}
-              className="font-heading text-[1.9rem] font-bold leading-[1.05] text-[#0A2342] sm:text-[2.25rem] lg:text-[2.45rem]"
+              className="font-heading text-[1.9rem] font-bold leading-[1.05] text-[#061D3D] drop-shadow-[0_1px_0_rgba(255,255,255,0.82)] sm:text-[2.25rem] lg:text-[2.45rem]"
             >
               <span className="block whitespace-nowrap">
                 Your Future Deserves the
               </span>
-              <span className="text-[#C88A18]">Right Direction.</span>
+              <span className="text-[#A66E00]">Right Direction.</span>
             </motion.h1>
 
             <motion.div variants={fadeUp} className="mx-auto mt-4 flex w-full max-w-[18rem] items-center sm:max-w-[22rem] md:mx-0 lg:max-w-[24rem]">
-              <span className="h-px flex-1 bg-[#C88A18]" />
-              <span className="mx-3 h-2.5 w-2.5 rotate-45 bg-[#C88A18]" />
-              <span className="h-px flex-1 bg-[#C88A18]" />
+              <span className="h-px flex-1 bg-[#A66E00]" />
+              <span className="mx-3 h-2.5 w-2.5 rotate-45 bg-[#A66E00]" />
+              <span className="h-px flex-1 bg-[#A66E00]" />
             </motion.div>
 
             <motion.p
               variants={fadeUp}
-              className="mx-auto mt-4 max-w-[500px] text-[0.68rem] font-extrabold uppercase tracking-[0.1em] text-[#0A2342] sm:text-[0.78rem] md:mx-0"
+              className="mx-auto mt-4 max-w-[500px] text-[0.68rem] font-extrabold uppercase tracking-[0.1em] text-[#061D3D] sm:text-[0.78rem] md:mx-0"
             >
               Career Counselling{" "}
-              <span className="mx-2 text-[#C88A18]">|</span> Psychometric Analysis{" "}
-              <span className="mx-2 text-[#C88A18]">|</span> Higher Education{" "}
-              <span className="mx-2 text-[#C88A18]">|</span> Study Abroad
+              <span className="mx-2 text-[#A66E00]">|</span> Psychometric Analysis{" "}
+              <span className="mx-2 text-[#A66E00]">|</span> Higher Education{" "}
+              <span className="mx-2 text-[#A66E00]">|</span> Study Abroad
             </motion.p>
 
             <motion.ul
               variants={stagger}
-              className="mx-auto mt-2 grid max-w-[500px] gap-2 text-left text-[0.92rem] leading-6 text-[#405067] sm:text-[0.98rem] sm:leading-7 md:mx-0"
+              className="mx-auto mt-2 grid max-w-[500px] gap-2 text-left text-[0.92rem] font-medium leading-6 text-[#22334C] sm:text-[0.98rem] sm:leading-7 md:mx-0"
             >
               <motion.li
                 variants={fadeUp}
                 className="grid grid-cols-[0.7rem_1fr] items-start gap-3"
               >
-                <span className="mt-[0.58rem] h-2.5 w-2.5 rounded-full bg-[#C88A18] shadow-[0_0_14px_rgba(200,138,24,0.45)]" />
+                <span className="mt-[0.58rem] h-2.5 w-2.5 rounded-full bg-[#A66E00] shadow-[0_0_14px_rgba(200,138,24,0.45)]" />
                 <span>
                   Discover your strengths and ideal career path through
-                  <strong className="font-extrabold text-[#0B5CAD]">
+                  <strong className="font-extrabold text-[#075699]">
                     {" "}
                     AI-powered psychometric analysis
                   </strong>
@@ -187,10 +189,10 @@ const DreamGlobalHero = () => {
                 variants={fadeUp}
                 className="grid grid-cols-[0.7rem_1fr] items-start gap-3"
               >
-                <span className="mt-[0.58rem] h-2.5 w-2.5 rounded-full bg-[#C88A18] shadow-[0_0_14px_rgba(200,138,24,0.45)]" />
+                <span className="mt-[0.58rem] h-2.5 w-2.5 rounded-full bg-[#A66E00] shadow-[0_0_14px_rgba(200,138,24,0.45)]" />
                 <span>
                   We provide end-to-end{" "}
-                  <strong className="font-extrabold text-[#0B5CAD]">
+                  <strong className="font-extrabold text-[#075699]">
                     Higher Studies and Global Education
                   </strong>{" "}
                   solutions for India and abroad, from choosing the right course
@@ -203,6 +205,15 @@ const DreamGlobalHero = () => {
               variants={stagger}
               className="mt-7 flex flex-col justify-center gap-3 sm:flex-row sm:gap-4 md:justify-start"
             >
+              <motion.div variants={fadeUp} whileHover={{ y: -3 }} className="sm:hidden">
+                <Link
+                  to="/book-consultation"
+                  className="dream-gold-button inline-flex h-11 w-full items-center justify-center gap-2 rounded-md px-4 text-[0.82rem] font-bold shadow-[0_16px_30px_-17px_rgba(200,138,24,0.8)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_36px_-16px_rgba(200,138,24,0.9)]"
+                >
+                  Book Free Consultation
+                  <CalendarCheck size={17} />
+                </Link>
+              </motion.div>
               <motion.div variants={fadeUp} whileHover={{ y: -3 }}>
                 <Link
                   to="https://careertest.edumilestones.com/student-dashboard/suitability-registration/login/NDU1Mg==/as11-as12-as13-as14-as204-pt15-grd18"
@@ -214,7 +225,7 @@ const DreamGlobalHero = () => {
               </motion.div>
               <motion.div variants={fadeUp} whileHover={{ y: -3 }}>
                 <Link
-                  to="https://careertest.edumilestones.com/student-profiler/?channel_id=NDU1Mg=="
+                  to="https://dreamglobal.edumilestones.com/login/global-admissions/"
                   className="dream-gold-button inline-flex h-11 w-full items-center justify-center gap-2 rounded-md px-4 text-[0.82rem] font-bold shadow-[0_16px_30px_-17px_rgba(200,138,24,0.8)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_36px_-16px_rgba(200,138,24,0.9)] sm:w-[230px]"
                 >
                   Higher Education Profiling
@@ -226,7 +237,13 @@ const DreamGlobalHero = () => {
             <MantraCard className="mt-6 hidden md:block" />
           </div>
 
-          <div className="pointer-events-none relative z-20 mt-6 grid w-full gap-4 sm:grid-cols-2 lg:absolute lg:inset-0 lg:mt-0 lg:block">
+          <div className="pointer-events-none relative z-20 mt-6 grid w-full gap-4 overflow-hidden rounded-xl border border-white/80 bg-white/90 p-3 shadow-[0_18px_42px_-28px_rgba(10,35,66,0.48)] sm:grid-cols-2 lg:absolute lg:inset-0 lg:mt-0 lg:block lg:overflow-visible lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none">
+            <img
+              src={heroBgLand}
+              alt=""
+              aria-hidden="true"
+              className="absolute inset-y-0 right-0 z-0 h-full w-[68%] object-contain object-center opacity-60 [mask-image:linear-gradient(90deg,transparent_0%,black_28%,black_82%,transparent_100%)] sm:w-[58%] lg:hidden"
+            />
             <svg
               aria-hidden="true"
               viewBox="0 0 86 430"
@@ -301,11 +318,11 @@ const DreamGlobalHero = () => {
           aria-hidden="true"
         >
           <path
-            d="M0 132 C176 98 320 97 482 116 C672 138 826 155 1035 125 C1214 99 1354 55 1440 4 L1440 170 L0 170 Z"
+            d="M0 132 C176 104 320 103 482 118 C672 138 826 151 1035 132 C1214 116 1354 95 1440 62 L1440 170 L0 170 Z"
             fill="#071F41"
           />
           <path
-            d="M0 114 C176 80 320 79 482 98 C672 120 826 137 1035 107 C1214 81 1354 37 1440 -14"
+            d="M0 114 C176 86 320 85 482 100 C672 120 826 133 1035 114 C1214 98 1354 77 1440 44"
             stroke="#D6A329"
             strokeWidth="3"
             fill="none"

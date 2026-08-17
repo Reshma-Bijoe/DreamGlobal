@@ -59,6 +59,7 @@ const Navbar = () => {
   const location = useLocation();
   const isHigherStudiesPage = location.pathname === "/higher-studies";
   const isCareerCounsellingPage = location.pathname === "/career-counselling";
+  const isBookConsultationPage = location.pathname === "/book-consultation";
   const isFounderPage = location.pathname === "/founder";
   const isCareerPage = [
     "/career-counselling",
@@ -80,10 +81,6 @@ const Navbar = () => {
       new CustomEvent("dreamglobal:section-replay", { detail: { hash } })
     );
   };
-  const openCounsellingForm = () => {
-    window.dispatchEvent(new CustomEvent("dreamglobal:open-counselling-form"));
-  };
-
   useEffect(() => {
     const getHeroScrollLimit = () => {
       if (isCareerPage) return 12;
@@ -165,9 +162,11 @@ const Navbar = () => {
             <span className="dream-gradient-text text-2xl font-bold sm:text-4xl">
               DreamGlobal
             </span>
-            <span className="dream-gradient-text mt-1 text-[0.55rem] font-bold uppercase tracking-[0.1em] sm:text-[0.65rem] lg:text-xs">
-              Career Counselling & Higher Studies Solutions
-            </span>
+            {!isBookConsultationPage && (
+              <span className="dream-gradient-text mt-1 text-[0.55rem] font-bold uppercase tracking-[0.1em] sm:text-[0.65rem] lg:text-xs">
+                Career Counselling & Higher Education Solutions
+              </span>
+            )}
           </span>
         </Link>
 
@@ -317,30 +316,16 @@ const Navbar = () => {
                   <p className="px-4 pb-2 pt-1 text-xs font-bold uppercase tracking-widest text-yellow-600">
                     Explore
                   </p>
-                  {moreLinks.map((link) =>
-                    "href" in link ? (
-                      <a
-                        key={link.href}
-                        href={sectionHref(link.href)}
-                        onClick={() => {
-                          replaySection(link.href);
-                          setMoreOpen(false);
-                        }}
-                        className="block px-4 py-2 text-sm font-bold text-slate-900 transition hover:bg-yellow-50"
-                      >
-                        {link.label}
-                      </a>
-                    ) : (
-                      <Link
-                        key={link.to}
-                        to={link.to}
-                        onClick={() => setMoreOpen(false)}
-                        className="block px-4 py-2 text-sm font-bold text-slate-900 transition hover:bg-yellow-50"
-                      >
-                        {link.label}
-                      </Link>
-                    )
-                  )}
+                  {moreLinks.map((link) => (
+                    <Link
+                      key={link.to}
+                      to={link.to}
+                      onClick={() => setMoreOpen(false)}
+                      className="block px-4 py-2 text-sm font-bold text-slate-900 transition hover:bg-yellow-50"
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
                 </motion.div>
               )}
             </AnimatePresence>
@@ -460,8 +445,7 @@ const Navbar = () => {
           <div className="flex items-center gap-2">
             {isCareerPage ? (
               <Link
-                to="/career-counselling#counselling-form"
-                onClick={openCounsellingForm}
+                to="/book-consultation"
                 className="gold-gradient-bg whitespace-nowrap rounded-md px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90"
               >
                 Book Free Counselling
@@ -636,30 +620,16 @@ const Navbar = () => {
                   Explore
                 </p>
                 <div className="grid gap-2">
-                  {moreLinks.map((link) =>
-                    "href" in link ? (
-                      <a
-                        key={link.href}
-                        href={sectionHref(link.href)}
-                        onClick={() => {
-                          replaySection(link.href);
-                          setMobileOpen(false);
-                        }}
-                        className="text-foreground"
-                      >
-                        {link.label}
-                      </a>
-                    ) : (
-                      <Link
-                        key={link.to}
-                        to={link.to}
-                        onClick={() => setMobileOpen(false)}
-                        className="text-foreground"
-                      >
-                        {link.label}
-                      </Link>
-                    )
-                  )}
+                  {moreLinks.map((link) => (
+                    <Link
+                      key={link.to}
+                      to={link.to}
+                      onClick={() => setMobileOpen(false)}
+                      className="text-foreground"
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
                 </div>
               </div>}
 
@@ -704,9 +674,8 @@ const Navbar = () => {
 
               {isCareerPage ? (
                 <Link
-                  to="/career-counselling#counselling-form"
+                  to="/book-consultation"
                   onClick={() => {
-                    openCounsellingForm();
                     setMobileOpen(false);
                   }}
                   className="gold-gradient-bg text-primary-foreground px-5 py-2.5 rounded-md text-center"
