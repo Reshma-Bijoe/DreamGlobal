@@ -127,7 +127,7 @@ const DreamGlobalHero = () => {
             alt="Student with backpack standing before an international university"
             className="career-hero-image-fade h-full w-full object-cover object-[54%_top] opacity-100 sm:object-[58%_center] md:object-[46%_center]"
             loading="eager"
-            style={{ width: "calc(100% + 2cm)", transform: "translateX(-2cm)" }}
+            style={{ width: "calc(100% + 2cm)", transform: "translateX(0)" }}
           />
           <div className="career-hero-edge-wash absolute inset-y-0 right-0 z-[1] w-[32%]" />
           <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#071F41]/24 to-transparent" />
