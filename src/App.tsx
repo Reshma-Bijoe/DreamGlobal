@@ -5,6 +5,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import FloatingContactTabs from "./components/FloatingContactTabs.tsx";
+import RouteSchema from "./components/RouteSchema.tsx";
 import ScrollManager from "./components/ScrollManager.tsx";
 import Admin from "./pages/Admin.tsx";
 import BookConsultation from "./pages/BookConsultation.tsx";
@@ -61,6 +62,7 @@ const App = () => (
       >
         <ScrollManager />
         <SameTabLinkHandler />
+        <RouteSchema />
         <FloatingContactTabs />
         <Routes>
           <Route path="/" element={<Landing />} />
