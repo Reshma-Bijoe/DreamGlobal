@@ -10,6 +10,7 @@ import {
   Phone,
   Send,
 } from "lucide-react";
+import { toast } from "sonner";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import {
@@ -167,10 +168,19 @@ const BookConsultation = () => {
 
     setIsSubmitting(false);
     setForm(initialForm);
-    setMessage(
+    const confirmationMessage = notificationSent
+      ? "Thank you for submitting the request. We will call you soon."
+      : "Thank you for submitting the request. We saved your details and will call you soon.";
+
+    setMessage(confirmationMessage);
+    toast.success(
       notificationSent
-        ? "Request sent. We will contact you soon."
-        : "Request saved. We will contact you soon."
+        ? "Consultation request sent"
+        : "Consultation request saved",
+      {
+        description: confirmationMessage,
+        duration: 2600,
+      }
     );
   };
 

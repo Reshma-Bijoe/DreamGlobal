@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import type { FormEvent } from "react";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { toast } from "sonner";
 import {
   ArrowRight,
   CheckCircle2,
@@ -214,10 +215,10 @@ const CallbackLanding = () => {
       email: form.email.trim(),
       interest,
     });
-    setSubmitting(false);
 
     if (error) {
       console.error("Ad callback request failed:", error);
+      setSubmitting(false);
       setMessage("Sorry, we could not send this right now.");
       return;
     }
@@ -232,14 +233,23 @@ const CallbackLanding = () => {
         : "General callback request",
     });
 
-    setMessage(
-      notificationSent
-        ? `Request sent. Taking you to ${selected?.name || "our destinations"}...`
-        : `Request saved. Taking you to ${selected?.name || "our destinations"}...`
-    );
+    const destinationName = selected?.name || "our destinations";
+    const destinationRoute = selected?.route || "/countries";
+    const confirmationMessage = notificationSent
+      ? `Thank you for submitting the request. We will call you soon. Check out ${destinationName} while we prepare your callback.`
+      : `Thank you for submitting the request. We will call you soon. Check out ${destinationName} while we save your callback details.`;
+
+    setSubmitting(false);
+    setMobileCallbackOpen(false);
+    setMessage(confirmationMessage);
+    toast.success("Callback request sent", {
+      description: confirmationMessage,
+      duration: 2400,
+    });
+
     window.setTimeout(() => {
-      navigate(selected?.route || "/countries");
-    }, 1200);
+      navigate(destinationRoute);
+    }, 2200);
   };
 
   const renderCallbackForm = (isModal = false) => (

@@ -73,7 +73,7 @@ const routeDetails: Record<string, { name: string; description: string }> = {
     name: "Privacy Policy | DreamGlobal",
     description: "Read the DreamGlobal privacy policy and information handling practices.",
   },
-  "/callback": {
+  "/higher-studies/callback": {
     name: "Request a Callback | DreamGlobal",
     description:
       "Request a callback from DreamGlobal for career counselling, higher studies and study abroad guidance.",

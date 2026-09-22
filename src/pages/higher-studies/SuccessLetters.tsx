@@ -342,7 +342,7 @@ const SuccessLetters = () => {
               Let us help you make the next success story yours.
             </h2>
             <Link
-              to="/callback/mbbs"
+              to="/higher-studies/callback/mbbs"
               className="mt-6 inline-flex items-center justify-center gap-2 rounded-md bg-secondary px-5 py-3 text-sm font-bold text-white transition hover:bg-accent"
             >
               Request a Callback

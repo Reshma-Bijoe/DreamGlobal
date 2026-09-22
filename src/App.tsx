@@ -1,6 +1,12 @@
 import { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+  useParams,
+} from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -28,6 +34,21 @@ import SuccessLetters from "./pages/higher-studies/SuccessLetters.tsx";
 import Testimonials from "./pages/Testimonials.tsx";
 
 const queryClient = new QueryClient();
+
+const CallbackRedirect = () => {
+  const { countryId } = useParams();
+
+  return (
+    <Navigate
+      to={
+        countryId
+          ? `/higher-studies/callback/${countryId}`
+          : "/higher-studies/callback"
+      }
+      replace
+    />
+  );
+};
 
 const SameTabLinkHandler = () => {
   useEffect(() => {
@@ -70,8 +91,8 @@ const App = () => (
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/blogs/:slug" element={<BlogPost />} />
           <Route path="/book-consultation" element={<BookConsultation />} />
-          <Route path="/callback" element={<CallbackLanding />} />
-          <Route path="/callback/:countryId" element={<CallbackLanding />} />
+          <Route path="/callback" element={<CallbackRedirect />} />
+          <Route path="/callback/:countryId" element={<CallbackRedirect />} />
           <Route path="/career-counselling" element={<CareerCounselling />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/countries" element={<Countries />} />
@@ -79,6 +100,8 @@ const App = () => (
           <Route path="/faqs" element={<FAQs />} />
           <Route path="/founder" element={<Founder />} />
           <Route path="/higher-studies" element={<Index />} />
+          <Route path="/higher-studies/callback" element={<CallbackLanding />} />
+          <Route path="/higher-studies/callback/:countryId" element={<CallbackLanding />} />
           <Route path="/mbbs" element={<MBBS />} />
           <Route path="/mbbs/guide" element={<MBBSGuide />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
