@@ -25,6 +25,7 @@ import {
   mbbsCallbackOption,
   mbbsInterestOptions,
 } from "@/data/callbackLanding";
+import { notifyAdminOfConsultation } from "@/lib/consultationNotifications";
 import { supabase } from "../../../supabaseClient";
 
 type CallbackForm = {
@@ -221,7 +222,21 @@ const CallbackLanding = () => {
       return;
     }
 
-    setMessage(`Request sent. Taking you to ${selected?.name || "our destinations"}...`);
+    const notificationSent = await notifyAdminOfConsultation({
+      name: form.name,
+      phone: form.phone,
+      email: form.email,
+      interest,
+      remarks: selected
+        ? `Callback request for ${selected.name}`
+        : "General callback request",
+    });
+
+    setMessage(
+      notificationSent
+        ? `Request sent. Taking you to ${selected?.name || "our destinations"}...`
+        : `Request saved. Taking you to ${selected?.name || "our destinations"}...`
+    );
     window.setTimeout(() => {
       navigate(selected?.route || "/countries");
     }, 1200);
