@@ -121,7 +121,7 @@ const SuccessLetters = () => {
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <a
-                  href="https://dreamglobal.edumilestones.com/"
+                  href="https://dreamglobal.edumilestones.com/login/global-admissions/"
                   className="gold-gradient-bg inline-flex items-center justify-center gap-2 rounded-md px-5 py-3 text-sm font-bold text-primary-foreground transition hover:opacity-90"
                 >
                   Start Your Journey

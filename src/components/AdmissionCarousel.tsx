@@ -13,7 +13,8 @@ import {
   type CountryDestination,
 } from "@/data/countryDestinations";
 import { australiaUniversities } from "@/data/universities/Australia";
-import type { University } from "@/types/universities";
+
+type University = (typeof australiaUniversities)[number];
 
 export default function AdmissionCarousel() {
   const [selectedCountry, setSelectedCountry] =

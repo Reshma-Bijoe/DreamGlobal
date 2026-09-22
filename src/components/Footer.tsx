@@ -94,7 +94,7 @@ const Footer = () => {
             </li>
             <li>
               <a
-                href="https://dreamglobal.edumilestones.com/"
+                href="https://dreamglobal.edumilestones.com/login/global-admissions/"
                 className="text-sm text-white/70 transition-colors hover:text-gold"
               >
                 Start Your Journey
