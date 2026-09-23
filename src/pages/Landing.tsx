@@ -200,7 +200,7 @@ const landingFaqs = [
   {
     question: "Do you help with study abroad applications?",
     answer:
-      "Yes. Support can cover destination and university shortlisting, profile building, applications, scholarships, visa preparation, and pre-departure planning.",
+      "Yes. Support can cover destination and university shortlisting, profile building, applications, scholarships, document preparation, and pre-departure planning.",
   },
   {
     question: "When should students start planning?",

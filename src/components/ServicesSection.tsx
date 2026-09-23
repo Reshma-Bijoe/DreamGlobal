@@ -21,7 +21,7 @@ const services = [
   { icon: CalendarClock, title: "Application Strategy & Timeline", desc: "Strategic planning to meet every deadline with confidence." },
   { icon: GraduationCap, title: "Scholarship & Financial Aid", desc: "Unlock funding opportunities to make your dream affordable." },
   { icon: ClipboardCheck, title: "Test Prep Recommendations", desc: "Guidance on IELTS, TOEFL, GRE, GMAT, and other required tests." },
-  { icon: Plane, title: "Visa & Pre-Departure Assistance", desc: "Smooth transitions with visa processing, accommodation, and orientation." },
+  { icon: Plane, title: "Document & Pre-Departure Assistance", desc: "Smooth transitions with accommodation, and orientation." },
   { icon: Ticket, title: "Travel Booking & Ticketing", desc: "End-to-end travel arrangements for a hassle-free journey." },
 ];
 

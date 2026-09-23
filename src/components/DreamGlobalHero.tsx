@@ -196,7 +196,7 @@ const DreamGlobalHero = () => {
                     Higher Studies and Global Education
                   </strong>{" "}
                   solutions for India and abroad, from choosing the right course
-                  and university to admissions, visa, travel, and accommodation.
+                  and university to admissions, documents, travel, and accommodation.
                 </span>
               </motion.li>
             </motion.ul>

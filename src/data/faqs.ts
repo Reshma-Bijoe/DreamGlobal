@@ -17,7 +17,7 @@ export const genericFaqs = [
   {
     question: "When should I start my study abroad application?",
     answer:
-      "Starting 8 to 12 months before your target intake is ideal because it gives enough time for shortlisting, documents, tests, applications, visa steps, and financial planning.",
+      "Starting 8 to 12 months before your target intake is ideal because it gives enough time for shortlisting, documents, tests, applications and financial planning.",
   },
   {
     question: "What documents are usually needed?",
@@ -27,12 +27,12 @@ export const genericFaqs = [
   {
     question: "Can I apply if my IELTS or PTE is not ready yet?",
     answer:
-      "In many cases, you can begin counselling and shortlisting before the test is complete. Final university and visa requirements depend on the destination and institution.",
+      "In many cases, you can begin counselling and shortlisting before the test is complete. Final university and document requirements depend on the destination and institution.",
   },
   {
     question: "Do you guide students after admission?",
     answer:
-      "Yes. Guidance can include offer acceptance, visa documentation, pre-departure preparation, accommodation pointers, and next-step planning.",
+      "Yes. Guidance can include offer acceptance, documentation, pre-departure preparation, accommodation pointers, and next-step planning.",
   },
   {
     question: "How do I check my eligibility?",
@@ -77,7 +77,7 @@ export const blogPosts = [
       "September, January, and smaller intake cycles explained in plain language so students can plan with less stress.",
     content: [
       "An intake is the period when a university starts a new academic batch. September is usually the biggest intake across many destinations, while January and other smaller intakes depend on country, university, and course availability.",
-      "Applying early gives you better time for shortlisting, documents, admission decisions, scholarships, visa steps, and travel planning.",
+      "Applying early gives you better time for shortlisting, documents, admission decisions, scholarships and travel planning.",
       "If you miss one intake, it does not always mean your plans are over. The right next step depends on your course, documents, and how flexible you are with country and institution choices.",
     ],
   },

@@ -548,7 +548,7 @@ const CallbackLanding = () => {
               ],
               [
                 "Stay guided",
-                "One counsellor-led path from enquiry to shortlist, application, and visa preparation.",
+                "One counsellor-led path from enquiry to shortlist, application, and document preparation.",
               ],
             ].map(([title, detail]) => (
               <div
