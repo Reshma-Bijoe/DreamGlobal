@@ -141,27 +141,27 @@ const HeroSection = () => {
             />
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#061D3D] via-[#061D3D]/76 to-transparent p-4 pt-20 text-white sm:p-6">
               <div className="w-full rounded-xl border border-white/15 bg-[#061D3D]/78 p-4 shadow-2xl shadow-[#061D3D]/35 backdrop-blur-md sm:p-5">
-                <p className="text-[0.68rem] font-extrabold uppercase tracking-[0.18em] text-[color:var(--career-primary)]">
+                <p className="text-[0.58rem] font-extrabold uppercase tracking-[0.16em] text-[color:var(--career-primary)] sm:text-[0.64rem]">
                   Global pathway
                 </p>
-                <h2 className="mt-2 font-heading text-xl font-bold leading-tight text-white sm:text-2xl md:text-3xl">
+                <h2 className="mt-2 font-heading text-base font-bold leading-tight text-white sm:text-lg md:text-xl">
                   {activeSlide.title}
                 </h2>
-                <p className="mt-2 text-sm font-semibold leading-6 text-white/90 md:text-base">
+                <p className="mt-2 text-[0.7rem] font-semibold leading-4 text-white/90 sm:text-xs sm:leading-5">
                   {activeSlide.text}
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="career-card absolute -left-3 top-3 whitespace-nowrap rounded-full px-3 py-2 text-[0.72rem] font-bold text-[color:var(--career-primary-ink)] sm:top-8 sm:px-4 sm:py-3 sm:text-sm">
+          <div className="career-card absolute -left-3 top-3 whitespace-nowrap rounded-full px-3 py-2 text-[0.72rem] font-bold text-[color:var(--career-primary-ink)] sm:top-8 sm:px-4 sm:py-3 sm:text-sm lg:top-3">
             <Globe2
               className="mr-2 inline-block text-[color:var(--career-primary)]"
               size={15}
             />
             25+ Countries of Opportunities
           </div>
-          <div className="career-gold-pill relative z-10 -mt-4 ml-4 w-fit rounded-full px-4 py-3 text-sm font-bold sm:absolute sm:bottom-4 sm:right-4 sm:ml-0 sm:mt-0">
+          <div className="career-gold-pill relative z-10 -mt-4 ml-4 w-fit rounded-full px-4 py-3 text-sm font-bold sm:absolute sm:bottom-4 sm:right-4 sm:ml-0 sm:mt-0 lg:-bottom-3">
             <MapPinned className="mr-2 inline-block" size={17} />
             Profile-Led Admissions
           </div>
