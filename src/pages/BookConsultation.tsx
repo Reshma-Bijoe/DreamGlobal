@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import Footer from "@/components/Footer";
+import LocationMap, { DREAMGLOBAL_ADDRESS } from "@/components/LocationMap";
 import Navbar from "@/components/Navbar";
 import {
   consultationInterestOptions,
@@ -391,7 +392,20 @@ const BookConsultation = () => {
                 team will suggest the earliest suitable consultation time.
               </p>
             </div>
+
+            <div className="mt-5 rounded-lg border border-[#0A2342]/10 bg-white p-4 text-[#0A2342]">
+              <p className="text-xs font-bold uppercase tracking-[0.12em] text-[#C88A18]">
+                Visit Us
+              </p>
+              <p className="mt-2 text-sm font-semibold leading-6">
+                {DREAMGLOBAL_ADDRESS}
+              </p>
+            </div>
           </aside>
+        </div>
+
+        <div className="container mx-auto mt-8 max-w-6xl">
+          <LocationMap className="min-h-[340px]" />
         </div>
       </main>
 

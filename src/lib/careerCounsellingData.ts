@@ -2,6 +2,9 @@ import StudentOne from "../assets/student-1.jpg";
 import StudentTwo from "../assets/student-2.jpg";
 import StudentThree from "../assets/student-3.jpg";
 import StudentFour from "../assets/student-4.jpg";
+import CcaBadge from "../assets/certificates/logos/cca-logo.png";
+import CccisBadge from "../assets/certificates/logos/ccis-logo.png";
+import IcccUkBadge from "../assets/certificates/logos/iccc-uk-logo.png";
 
 export const CAREER_TEST_URL =
   "https://careertest.edumilestones.com/student-dashboard/suitability-registration/login/NDU1Mg==/as11-as12-as13-as14-as204-pt15-grd18";
@@ -42,6 +45,55 @@ export const serviceBand = [
   "Admission Support",
   "Parent Counselling",
   "Global Education",
+];
+
+export const careerCounsellingBand = [
+  "Career Counselling",
+  "Psychometric Analysis",
+  "Career Fit Discovery",
+  "Stream Selection",
+  "Course Selection",
+  "Career Roadmaps",
+  "Parent Counselling",
+  "Future-Ready Skills",
+  "Mentoring",
+];
+
+export const studyAbroadBand = [
+  "Study Abroad",
+  "Country Selection",
+  "University Shortlisting",
+  "Course Matching",
+  "Profile Building",
+  "SOP and LOR Support",
+  "Scholarship Guidance",
+  "Travel Document Guidance",
+  "Pre-Departure Support",
+];
+
+export const studyCountryBand = [
+  "United Kingdom",
+  "Ireland",
+  "France",
+  "Germany",
+  "Italy",
+  "Spain",
+  "Australia",
+  "Canada",
+  "New Zealand",
+  "United States",
+  "Netherlands",
+  "Sweden",
+  "Finland",
+  "Denmark",
+  "Norway",
+  "Switzerland",
+  "Austria",
+  "Poland",
+  "Hungary",
+  "Czech Republic",
+  "Singapore",
+  "United Arab Emirates",
 ];
 
 export const counsellingBenefits = [
@@ -174,11 +226,34 @@ export const careerPlanningServices = [
 ] as const;
 
 export const founderHighlights = [
-  "30+ years professional experience",
+  "Chief Career Architect and Global Career Strategist",
   "Former Fortune 100 technology leader",
-  "Global career strategist",
-  "International education specialist",
-  "Certified career counsellor",
+  "Career mentoring and talent evaluation expertise",
+  "International education and student-success specialist",
+  "Certified Career Counsellor for International Studies (CCCIS)",
+  "Accredited member of ICCC (UK)",
+  "Certified Career Analyst (CCA)",
+];
+
+export const founderCertifications = [
+  {
+    title: "Certified Career Counsellor for International Studies",
+    shortName: "CCCIS",
+    detail: "International studies counselling credential",
+    badge: CccisBadge,
+  },
+  {
+    title: "Accredited Member of ICCC (UK)",
+    shortName: "ICCC UK",
+    detail: "Professional career counselling accreditation",
+    badge: IcccUkBadge,
+  },
+  {
+    title: "Certified Career Analyst",
+    shortName: "CCA",
+    detail: "Career analysis and assessment certification",
+    badge: CcaBadge,
+  },
 ];
 
 export const founderStats = [

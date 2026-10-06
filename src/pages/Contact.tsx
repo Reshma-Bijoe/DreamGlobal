@@ -2,6 +2,7 @@ import { Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { WHATSAPP_URL } from "../lib/careerCounsellingData";
+import LocationMap, { DREAMGLOBAL_ADDRESS } from "../components/LocationMap";
 
 const contactCards = [
   {
@@ -79,8 +80,7 @@ const Contact = () => {
                     Office
                   </h2>
                   <p className="career-copy mt-2 leading-7">
-                    DreamGlobal supports students and families across India
-                    through phone, WhatsApp, and online counselling.
+                    {DREAMGLOBAL_ADDRESS}
                   </p>
                 </div>
               </div>
@@ -102,6 +102,12 @@ const Contact = () => {
                 </div>
               </div>
             </div>
+          </div>
+        </section>
+
+        <section className="px-4 pb-20">
+          <div className="container mx-auto max-w-6xl">
+            <LocationMap className="min-h-[340px]" />
           </div>
         </section>
       </main>

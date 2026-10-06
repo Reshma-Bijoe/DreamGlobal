@@ -16,10 +16,10 @@ const studyAbroadTestimonials = [
   },
   {
     name: "Parent of an international applicant",
-    detail: "Admission and visa planning",
+    detail: "Admission and travel document planning",
     rating: "4.9",
     quote:
-      "We always knew what the next step was. The guidance from shortlisting through visa preparation gave our family real confidence.",
+      "We always knew what the next step was. The guidance from shortlisting through document preparation gave our family real confidence.",
   },
   {
     name: "Higher studies student",

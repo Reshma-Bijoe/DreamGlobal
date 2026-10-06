@@ -9,7 +9,7 @@ const WhatWeDoSection = () => {
   const replayKey = useSectionReplay("#about");
 
   return (
-    <section id="about" className="section-padding" ref={ref}>
+    <section id="about" className="section-padding bg-transparent" ref={ref}>
       <div className="container mx-auto max-w-4xl">
         <motion.div
           key={`about-heading-${replayKey}`}
@@ -18,13 +18,13 @@ const WhatWeDoSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center"
         >
-          <p className="text-primary tracking-[0.2em] uppercase text-sm font-medium mb-3">
+          <p className="career-eyebrow mb-3">
             Our Mission
           </p>
-          <h2 className="font-heading text-3xl md:text-5xl font-bold mb-4">
+          <h2 className="career-heading mb-4 font-heading text-3xl font-bold md:text-5xl">
             What We <span className="gold-gradient-text">Do</span>
           </h2>
-          <p className="text-primary/80 font-heading text-lg md:text-xl italic mb-8">
+          <p className="mb-8 font-heading text-lg italic text-[color:var(--career-primary-deep)] md:text-xl">
             "Enabling Global Talent" is our mantra
           </p>
         </motion.div>
@@ -34,7 +34,7 @@ const WhatWeDoSection = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="space-y-6 text-muted-foreground text-base md:text-lg leading-relaxed text-center"
+          className="career-card space-y-6 rounded-2xl p-7 text-center text-base leading-relaxed text-[color:var(--career-muted)] md:text-lg"
         >
           <p>
             At DreamGlobal, we are dedicated to your holistic well-being and professional

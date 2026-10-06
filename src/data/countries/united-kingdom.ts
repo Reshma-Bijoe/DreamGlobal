@@ -33,7 +33,7 @@ export const unitedKingdomDestination: CountryDestination = {
     {
       question: "Does the UK offer post-study work options?",
       answer:
-        "Eligible international students may access graduate route opportunities after completing a qualifying course, subject to current visa rules.",
+        "Eligible international students may access graduate route opportunities after completing a qualifying course, subject to current travel document rules.",
     },
   ],
 };

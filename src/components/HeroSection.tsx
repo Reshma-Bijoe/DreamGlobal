@@ -1,167 +1,171 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import heroBg from "@/assets/hero-bg.jpg";
-import { useRef, useState, useEffect } from 'react';
+import { ArrowRight, CalendarCheck, Globe2, MapPinned } from "lucide-react";
+import businessSchool from "@/assets/study-abroad/business-school.jpg";
+import classroom from "@/assets/study-abroad/classroom.jpg";
+import designStudio from "@/assets/study-abroad/design-studio.jpg";
+import graduationPathway from "@/assets/study-abroad/graduation-pathway.jpg";
+import mbbsSimulation from "@/assets/study-abroad/mbbs-simulation.jpg";
+import stemLab from "@/assets/study-abroad/stem-lab.jpg";
 
+const heroSlides = [
+  {
+    src: classroom,
+    alt: "International students learning together in a university classroom",
+    title: "Global Classrooms",
+    text: "Learn with diverse peers in programs that match your strengths and goals.",
+  },
+  {
+    src: stemLab,
+    alt: "International students collaborating in a university STEM lab",
+    title: "STEM and Research",
+    text: "Explore future-ready programs with practical lab and research exposure.",
+  },
+  {
+    src: mbbsSimulation,
+    alt: "Medical students practicing in a university simulation lab",
+    title: "MBBS Pathways",
+    text: "Compare medical routes carefully with eligibility, recognition, and budget in mind.",
+  },
+  {
+    src: businessSchool,
+    alt: "Students presenting in an international business school classroom",
+    title: "Business and Management",
+    text: "Build a profile for global business, analytics, finance, and management programs.",
+  },
+  {
+    src: designStudio,
+    alt: "Architecture and design students reviewing studio work abroad",
+    title: "Design and Architecture",
+    text: "Shape portfolios and creative pathways for studio-led international programs.",
+  },
+  {
+    src: graduationPathway,
+    alt: "International graduates celebrating on a university campus",
+    title: "Confident Outcomes",
+    text: "Plan from admission to arrival with a roadmap that feels personal and practical.",
+  },
+];
+
+const studyAbroadPoints = [
+  "Choose the right country, university, and course with clarity",
+  "Build a stronger profile for admissions and scholarships",
+  "Get end-to-end support from applications to pre-departure",
+];
 
 const HeroSection = () => {
-  const text = "International Education Experts".split("");
-  const quoteRef = useRef<HTMLDivElement>(null);
-  const [quoteOnLight, setQuoteOnLight] = useState(false);
+  const [heroImageIndex, setHeroImageIndex] = useState(0);
 
   useEffect(() => {
-    const getBrightness = (color: string) => {
-      const match = color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);
-      if (!match) return null;
+    const timer = window.setInterval(() => {
+      setHeroImageIndex((current) => (current + 1) % heroSlides.length);
+    }, 3400);
 
-      const [, r, g, b, a] = match;
-      if (a !== undefined && Number(a) < 0.35) return null;
-
-      return (Number(r) * 299 + Number(g) * 587 + Number(b) * 114) / 1000;
-    };
-
-    const updateQuoteContrast = () => {
-      const quote = quoteRef.current;
-      if (!quote) return;
-
-      if (window.scrollY < window.innerHeight * 0.75) {
-        setQuoteOnLight(false);
-        return;
-      }
-
-      const rect = quote.getBoundingClientRect();
-      const x = rect.left + rect.width / 2;
-      const y = rect.top + rect.height / 2;
-      const previousPointerEvents = quote.style.pointerEvents;
-
-      quote.style.pointerEvents = "none";
-      const elements = document.elementsFromPoint(x, y);
-      quote.style.pointerEvents = previousPointerEvents;
-
-      for (const element of elements) {
-        if (quote.contains(element)) continue;
-
-        let current: Element | null = element;
-        while (current && current !== document.documentElement) {
-          const brightness = getBrightness(
-            window.getComputedStyle(current).backgroundColor
-          );
-
-          if (brightness !== null) {
-            setQuoteOnLight(brightness > 180);
-            return;
-          }
-
-          current = current.parentElement;
-        }
-      }
-    };
-
-    updateQuoteContrast();
-    window.addEventListener("scroll", updateQuoteContrast, { passive: true });
-    window.addEventListener("resize", updateQuoteContrast);
-
-    return () => {
-      window.removeEventListener("scroll", updateQuoteContrast);
-      window.removeEventListener("resize", updateQuoteContrast);
-    };
+    return () => window.clearInterval(timer);
   }, []);
+
+  const activeSlide = heroSlides[heroImageIndex];
 
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative overflow-hidden pb-8 pl-3 pr-10 pt-10 sm:px-4 md:pb-9 md:pt-12"
     >
-      {/* Background */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${heroBg})` }}
-      />
-
-      {/* Light overlay (keeps image visible) */}
-      <div className="absolute inset-0 bg-secondary/50" />
-
-      {/* Content */}
-      <div className="relative z-10 container mx-auto text-center px-4">
+      <div className="container mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.08fr_0.92fr]">
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.6 }}
+          className="w-[calc(100%+1.5rem)] max-w-[calc(100vw-3.75rem)] sm:w-auto sm:max-w-none"
         >
-          {/* ✨ Responsive Glow Text */}
-          <p className="font-semibold tracking-[0.03em] uppercase text-1xl sm:text-2xl md:text-3xl lg:text-3xl mb-4">
-            {text.map((char, index) => (
-              <span
-                key={index}
-                className="inline-block animate-glow-letter"
-                style={{
-                  background:
-                    "linear-gradient(90deg, hsl(var(--gold-dark)), hsl(var(--gold)), hsl(var(--gold-light)))",
-                  backgroundSize: "200% auto",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  animationDelay: `${index * 0.1}s`,
-                }}
-              >
-                {char === " " ? "\u00A0" : char}
-              </span>
-            ))}
-          </p>
-
-          {/* Heading */}
-          <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-5xl :text-6xl font-bold leading-tight mb-6 text-white">
-            Your Global Future{" "}
-            <span className="gold-gradient-text">Begins Here</span>
+          <p className="career-eyebrow">International Education Experts</p>
+          <h1 className="career-heading mt-5 font-heading text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl">
+            Your Global Future Begins Here.
           </h1>
-
-          {/* Subtext */}
-          <p className="text-white/80 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light">
-            Empowering students to achieve international education and career success
+          <p className="mt-5 text-lg font-semibold text-[color:var(--career-primary-deep)] sm:text-xl">
+            Study abroad guidance for students who want the right fit, not a
+            random shortlist.
+          </p>
+          <p className="career-copy mt-5 max-w-2xl text-sm leading-7 sm:text-base sm:leading-8">
+            DreamGlobal helps you compare destinations, courses, universities,
+            admissions timelines, scholarships, travel documents, and
+            pre-departure steps so every decision feels practical and personal.
           </p>
 
-          {/* Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="mt-6 grid max-w-2xl gap-3">
+            {studyAbroadPoints.map((point) => (
+              <div key={point} className="flex items-start gap-3">
+                <span className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-[color:var(--career-primary)] shadow-[0_0_14px_rgba(200,138,24,0.45)]" />
+                <span className="text-sm font-semibold leading-6 text-[color:var(--career-primary-ink)]">
+                  {point}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-nowrap">
             <a
               href="https://dreamglobal.edumilestones.com/login/global-admissions/"
               rel="noopener noreferrer"
-              className="gold-gradient-bg text-primary-foreground px-8 py-3.5 rounded-md font-semibold text-base hover:opacity-90 transition-opacity hover:scale-105 transform duration-200"
+              className="career-primary-button inline-flex items-center justify-center gap-2 rounded-md px-6 py-3 text-sm font-bold shadow-[0_14px_30px_-16px_rgba(200,138,24,0.95)] transition hover:-translate-y-0.5 sm:whitespace-nowrap"
             >
               Start Your Journey
+              <ArrowRight size={17} />
             </a>
-
-            <a
-              href="#contact"
-              className="border border-white/40 text-white px-8 py-3.5 rounded-md font-semibold text-base hover:bg-white/10 transition-all duration-200 hover:scale-105 transform"
+            <Link
+              to="/book-consultation"
+              className="career-primary-button inline-flex items-center justify-center gap-2 rounded-md px-6 py-3 text-sm font-bold shadow-[0_14px_30px_-16px_rgba(200,138,24,0.95)] transition hover:-translate-y-0.5 sm:whitespace-nowrap"
             >
-              Contact Us
-            </a>
+              <CalendarCheck size={17} />
+              Book Free Consultation
+            </Link>
           </div>
         </motion.div>
-      </div>
 
-      {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#061226] to-transparent" />
-       {/* Quote box */}
-      <div
-        ref={quoteRef}
-        className={`absolute bottom-6 left-4 right-4 z-30 rounded-lg border px-5 py-4 text-[10px] font-medium leading-snug shadow-sm transition-colors duration-300 sm:left-8 sm:right-auto sm:w-[44rem] sm:px-7 sm:py-5 sm:text-sm md:w-[35rem] ${
-          quoteOnLight
-            ? "border-gray-900/25 text-gray-950"
-            : "border-white/30 text-white"
-        }`}
-      >
-        <p className="m-0 text-center drop-shadow-lg">
-          <strong className="gold-gradient-text block text-base sm:text-lg lg:1 font-semibold leading-tight">
-            <u>
-              We Prioritize Individual Success Over Volume Business !!
-            </u>
-          </strong>
-          <em className="block mt-1 text-[10px] sm:text-sm leading-snug">
-            Every student&rsquo;s success matters deeply to us. We provide personalized
-            counselling, intricate mentoring, and dedicated end-to-end support with
-            individual attention at every step. Our focus is on successful
-            outcomes, not volume-driven business.
-          </em>
-        </p>
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.1 }}
+          className="study-hero-visual relative sm:mx-auto sm:w-full sm:max-w-none lg:translate-x-14 xl:translate-x-24"
+        >
+          <div className="career-glass-card relative aspect-[4/5] min-h-[26rem] overflow-hidden rounded-2xl sm:aspect-[5/4] lg:min-h-[29rem] xl:min-h-[30rem]">
+            <motion.img
+              key={activeSlide.src}
+              src={activeSlide.src}
+              alt={activeSlide.alt}
+              className="h-full w-full object-cover"
+              initial={{ opacity: 0.2, scale: 1.03 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+            />
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#061D3D] via-[#061D3D]/76 to-transparent p-4 pt-20 text-white sm:p-6">
+              <div className="w-full rounded-xl border border-white/15 bg-[#061D3D]/78 p-4 shadow-2xl shadow-[#061D3D]/35 backdrop-blur-md sm:p-5">
+                <p className="text-[0.68rem] font-extrabold uppercase tracking-[0.18em] text-[color:var(--career-primary)]">
+                  Global pathway
+                </p>
+                <h2 className="mt-2 font-heading text-xl font-bold leading-tight text-white sm:text-2xl md:text-3xl">
+                  {activeSlide.title}
+                </h2>
+                <p className="mt-2 text-sm font-semibold leading-6 text-white/90 md:text-base">
+                  {activeSlide.text}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="career-card absolute -left-3 top-3 whitespace-nowrap rounded-full px-3 py-2 text-[0.72rem] font-bold text-[color:var(--career-primary-ink)] sm:top-8 sm:px-4 sm:py-3 sm:text-sm">
+            <Globe2
+              className="mr-2 inline-block text-[color:var(--career-primary)]"
+              size={15}
+            />
+            25+ Countries of Opportunities
+          </div>
+          <div className="career-gold-pill relative z-10 -mt-4 ml-4 w-fit rounded-full px-4 py-3 text-sm font-bold sm:absolute sm:bottom-4 sm:right-4 sm:ml-0 sm:mt-0">
+            <MapPinned className="mr-2 inline-block" size={17} />
+            Profile-Led Admissions
+          </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -17,6 +17,34 @@ import {
 } from "lucide-react";
 import heroBgLand from "@/assets/hero-bg-land.png";
 
+const CAREER_COUNSELLING_URL =
+  "https://careertest.edumilestones.com/student-dashboard/suitability-registration/login/NDU1Mg==/as11-as12-as13-as14-as204-pt15-grd18";
+const STUDY_ABROAD_URL =
+  "https://careertest.edumilestones.com/student-profiler/?channel_id=NDU1Mg==";
+const INDIA_ONLINE_ADMISSION_URL =
+  "https://careertest.edumilestones.com/online-courses/universities/NDU1Mg==";
+const INDIA_CAMPUS_ADMISSION_URL =
+  "https://careertest.edumilestones.com/india-colleges/NDU1Mg==";
+
+const heroActions = [
+  {
+    label: "Career Counselling",
+    href: CAREER_COUNSELLING_URL,
+  },
+  {
+    label: "Study Abroad",
+    href: STUDY_ABROAD_URL,
+  },
+  {
+    label: "Indian Online Admission",
+    href: INDIA_ONLINE_ADMISSION_URL,
+  },
+  {
+    label: "India Campus Admission",
+    href: INDIA_CAMPUS_ADMISSION_URL,
+  },
+];
+
 const journeySteps = [
   {
     title: "Discover",
@@ -203,7 +231,7 @@ const DreamGlobalHero = () => {
 
             <motion.div
               variants={stagger}
-              className="mt-7 flex flex-col justify-center gap-3 sm:flex-row sm:gap-4 md:justify-start"
+              className="mt-7 grid justify-center gap-3 sm:grid-cols-2 sm:gap-4 md:justify-start"
             >
               <motion.div variants={fadeUp} whileHover={{ y: -3 }} className="sm:hidden">
                 <Link
@@ -214,24 +242,17 @@ const DreamGlobalHero = () => {
                   <CalendarCheck size={17} />
                 </Link>
               </motion.div>
-              <motion.div variants={fadeUp} whileHover={{ y: -3 }}>
-                <Link
-                  to="https://careertest.edumilestones.com/student-dashboard/suitability-registration/login/NDU1Mg==/as11-as12-as13-as14-as204-pt15-grd18"
-                  className="dream-gold-button inline-flex h-11 w-full items-center justify-center gap-2 rounded-md px-4 text-[0.82rem] font-bold shadow-[0_16px_30px_-17px_rgba(200,138,24,0.8)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_36px_-16px_rgba(200,138,24,0.9)] sm:w-[190px]"
-                >
-                  Take Career Test
-                  <ArrowRight size={17} />
-                </Link>
-              </motion.div>
-              <motion.div variants={fadeUp} whileHover={{ y: -3 }}>
-                <Link
-                  to="https://dreamglobal.edumilestones.com/login/global-admissions/"
-                  className="dream-gold-button inline-flex h-11 w-full items-center justify-center gap-2 rounded-md px-4 text-[0.82rem] font-bold shadow-[0_16px_30px_-17px_rgba(200,138,24,0.8)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_36px_-16px_rgba(200,138,24,0.9)] sm:w-[230px]"
-                >
-                  Higher Education Profiling
-                  <ArrowRight size={17} />
-                </Link>
-              </motion.div>
+              {heroActions.map((action) => (
+                <motion.div key={action.label} variants={fadeUp} whileHover={{ y: -3 }}>
+                  <Link
+                    to={action.href}
+                    className="dream-gold-button inline-flex h-11 w-full items-center justify-center gap-2 rounded-md px-4 text-center text-[0.82rem] font-bold leading-tight shadow-[0_16px_30px_-17px_rgba(200,138,24,0.8)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_36px_-16px_rgba(200,138,24,0.9)] sm:w-[230px]"
+                  >
+                    {action.label}
+                    <ArrowRight size={17} />
+                  </Link>
+                </motion.div>
+              ))}
             </motion.div>
 
             <MantraCard className="mt-6 hidden md:block" />

@@ -47,7 +47,7 @@ const highlights = [
   "Profile shortlisting",
   "University applications",
   "Offer letter follow-up",
-  "Visa guidance",
+  "Travel document guidance",
 ];
 
 const SuccessLetters = () => {

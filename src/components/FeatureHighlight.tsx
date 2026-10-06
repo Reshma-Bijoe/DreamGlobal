@@ -16,7 +16,7 @@ const FeatureHighlight = () => {
   const replayKey = useSectionReplay("#features");
 
   return (
-    <section id="features" className="section-padding relative overflow-hidden" ref={ref}>
+    <section id="features" className="section-padding relative overflow-hidden bg-transparent" ref={ref}>
       {/* Gold accent background stripe */}
       <div className="absolute inset-0 opacity-[0.03]" style={{
         backgroundImage: `repeating-linear-gradient(45deg, hsl(45 70% 55%) 0px, hsl(45 70% 55%) 1px, transparent 1px, transparent 40px)`
@@ -30,10 +30,10 @@ const FeatureHighlight = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <p className="text-primary tracking-[0.2em] uppercase text-sm font-medium mb-3">
+          <p className="career-eyebrow mb-3">
             The DreamGlobal Advantage
           </p>
-          <h2 className="font-heading text-3xl md:text-5xl font-bold">
+          <h2 className="career-heading font-heading text-3xl font-bold md:text-5xl">
             Why Choose <span className="gold-gradient-text">Us</span>
           </h2>
         </motion.div>
@@ -42,21 +42,21 @@ const FeatureHighlight = () => {
           {features.map((f, i) => (
             <motion.div
               key={`${f.title}-${replayKey}`}
-              initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
+              initial={{ opacity: 0, y: 24 }}
               animate={
                 inView
-                  ? { opacity: 1, x: 0 }
-                  : { opacity: 0, x: i % 2 === 0 ? -30 : 30 }
+                  ? { opacity: 1, y: 0 }
+                  : { opacity: 0, y: 24 }
               }
-              transition={{ duration: 0.6, delay: i * 0.15 }}
-              className="flex gap-5 p-6 rounded-lg border border-primary/20 bg-card/40 hover:border-primary/50 transition-all duration-300"
+              transition={{ duration: 0.5, delay: i * 0.08 }}
+              className="career-card flex gap-5 rounded-2xl p-6 transition-all duration-300 hover:border-[color:var(--career-primary)]/50"
             >
-              <div className="w-14 h-14 rounded-full gold-gradient-bg flex items-center justify-center flex-shrink-0">
+              <div className="career-gold-pill flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full">
                 <f.icon size={24} className="text-primary-foreground" />
               </div>
               <div>
-                <h3 className="font-heading text-xl font-semibold mb-1 text-foreground">{f.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{f.desc}</p>
+                <h3 className="career-heading mb-1 font-heading text-xl font-semibold">{f.title}</h3>
+                <p className="career-copy text-sm leading-relaxed">{f.desc}</p>
               </div>
             </motion.div>
           ))}

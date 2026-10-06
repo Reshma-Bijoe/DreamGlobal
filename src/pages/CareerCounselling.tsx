@@ -27,22 +27,21 @@ import {
 import { motion } from "framer-motion";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import founder from "../assets/founder.jpeg";
 import { supabase } from "../../supabaseClient";
 import {
   CAREER_TEST_URL,
-  FOUNDER_NAME,
   WHATSAPP_URL,
   assessmentPaths,
   careerPlanningServices,
   careerTestimonials,
+  careerCounsellingBand,
   faqs,
-  founderHighlights,
   intentOptions,
-  serviceBand,
   studentImages,
 } from "../lib/careerCounsellingData";
 import { CareerCounselling as CareerCounsellingSection } from "../components/CareerCounsellingSection";
+import FounderSpotlight from "../components/FounderSpotlight";
+import ServiceMarquee from "../components/ServiceMarquee";
 import {
   Accordion,
   AccordionContent,
@@ -327,19 +326,7 @@ const CareerCounselling = () => {
           </div>
         </section>
 
-        <section className="overflow-hidden border-y border-[color:var(--career-border)] bg-white/80 py-4 backdrop-blur">
-          <div className="flex w-max animate-careerMarquee items-center gap-7 whitespace-nowrap">
-            {[...serviceBand, ...serviceBand].map((item, index) => (
-              <span
-                key={`${item}-${index}`}
-                className="inline-flex items-center gap-7 text-sm font-bold uppercase tracking-[0.18em] text-[color:var(--career-primary-deep)]"
-              >
-                {item}
-                <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--career-primary)]" />
-              </span>
-            ))}
-          </div>
-        </section>
+        <ServiceMarquee items={careerCounsellingBand} />
 
         <CareerCounsellingSection />
 
@@ -450,54 +437,12 @@ const CareerCounselling = () => {
           </div>
         </section>
 
-        <section className="px-4 py-16">
-          <div className="career-gold-card container mx-auto grid max-w-7xl gap-10 rounded-2xl border bg-white p-6 shadow-[var(--career-shadow-soft)] md:grid-cols-[0.85fr_1.15fr] md:p-8">
-            <div className="career-founder-panel relative min-h-80 overflow-hidden rounded-2xl">
-              <img
-                src={founder}
-                alt={`${FOUNDER_NAME} profile placeholder`}
-                className="h-full w-full object-contain p-16"
-              />
-              <div className="career-gold-pill absolute left-5 top-5 rounded-full px-4 py-2 text-sm font-bold">
-                30+ Years Experience
-              </div>
-              <p className="career-card absolute bottom-5 left-5 right-5 rounded-full px-4 py-3 text-xs font-bold text-[color:var(--career-primary-ink)]">
-                Guiding students in India and across global education pathways
-              </p>
-            </div>
-            <div className="flex flex-col justify-center">
-              <div className="flex justify-start">
-                <SectionDivider label="The Person Behind DreamGlobal" />
-              </div>
-              <h2 className="career-heading mt-4 font-heading text-3xl font-bold sm:text-5xl">
-                More Than Guidance. A Journey Built Around Students.
-              </h2>
-              <p className="career-copy mt-5 text-base leading-8">
-                {FOUNDER_NAME} brings 30+ years of global technology leadership,
-                career mentoring, talent evaluation, and international
-                education expertise to help students make confident,
-                future-ready decisions.
-              </p>
-              <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                {founderHighlights.map((item) => (
-                  <div key={item} className="flex items-center gap-3">
-                    <Check size={17} className="text-[color:var(--career-primary)]" />
-                    <span className="text-sm font-semibold text-[color:var(--career-primary-ink)]">
-                      {item}
-                    </span>
-                  </div>
-                ))}
-              </div>
-              <Link
-                to="/founder"
-                className="career-primary-button mt-7 inline-flex w-fit items-center gap-2 rounded-md px-5 py-3 text-sm font-bold transition"
-              >
-                Explore Founder
-                <ArrowRight size={17} />
-              </Link>
-            </div>
-          </div>
-        </section>
+        <FounderSpotlight
+          label="The Person Behind DreamGlobal"
+          title="More Than Guidance. A Journey Built Around Students."
+          copy="Mr. Bijoe Thomas brings 30+ years of global technology leadership, career mentoring, talent evaluation, certified career analysis, and international education expertise to help students make confident, future-ready decisions."
+          note="Guiding career decisions with certified counselling and career-analysis expertise"
+        />
 
         <section className="px-4 py-16">
           <div className="container mx-auto max-w-7xl">

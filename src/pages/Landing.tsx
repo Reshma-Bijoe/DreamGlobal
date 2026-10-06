@@ -27,6 +27,7 @@ import {
   careerTestimonials,
   FOUNDER_NAME,
   WHATSAPP_URL,
+  founderHighlights,
   intentOptions,
 } from "@/lib/careerCounsellingData";
 
@@ -121,7 +122,7 @@ const pathOptions = [
       "Profile building, portfolio development, SOP, LOR, and essay support",
       "IELTS preparation with application strategy and timeline planning",
       "Scholarship, financial aid, and education-loan guidance",
-      "Visa, accommodation, pre-departure, travel booking, and ticketing support",
+      "Travel documents, accommodation, pre-departure, travel booking, and ticketing support",
       "Application follow-up support from shortlisting to final readiness",
     ],
     actions: [
@@ -207,13 +208,6 @@ const landingFaqs = [
     answer:
       "Starting early gives students more time to understand their options, strengthen their profile, prepare documents, compare pathways, and make decisions without last-minute pressure.",
   },
-];
-
-const founderHighlights = [
-  "Chief Career Architect and Global Career Strategist",
-  "Former Fortune 100 technology leader",
-  "Career mentoring and talent evaluation expertise",
-  "International education and student-success specialist",
 ];
 
 const Landing = () => {

@@ -3,8 +3,8 @@ import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 
-import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
-import { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { X } from "lucide-react";
 
@@ -21,62 +21,57 @@ export default function AdmissionCarousel() {
     useState<CountryDestination | null>(null);
   const [selectedUniversity, setSelectedUniversity] =
     useState<University | null>(null);
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   const [popupIndex, setPopupIndex] = useState(0);
 
   const swiperRef = useRef<any>(null);
   const countries: CountryDestination[] = countryDestinations || [];
   const universities: University[] = australiaUniversities || [];
 
-  useEffect(() => {
-    countries.forEach((country) => {
-      const image = new Image();
-      image.src = country.image;
-    });
-  }, [countries]);
+  const currentUniversity = universities[popupIndex];
 
   useEffect(() => {
-    universities.forEach((university) => {
-      const image = new Image();
-      image.src = university.image;
-    });
-  }, [universities]);
+    if (universities.length === 0) return;
+
+    const showTimer = window.setTimeout(() => {
+      setVisible(true);
+    }, 1200);
+
+    return () => window.clearTimeout(showTimer);
+  }, [universities.length]);
 
   useEffect(() => {
     if (!visible || universities.length === 0) return;
 
-    const interval = setInterval(() => {
-      setPopupIndex((prev) => (prev + 1) % universities.length);
-    }, 5000);
+    const interval = window.setInterval(() => {
+      setPopupIndex((current) => (current + 1) % universities.length);
+    }, 5200);
 
-    return () => clearInterval(interval);
+    return () => window.clearInterval(interval);
   }, [visible, universities.length]);
 
-  const currentUniversity = universities[popupIndex];
-
   return (
-    <LayoutGroup>
-      <div className="relative overflow-hidden bg-[#061226] px-3 pb-16 pt-16 md:px-6 md:pt-20">
+      <div className="relative overflow-hidden bg-transparent px-3 pb-16 pt-16 md:px-6 md:pt-20">
         <div className="max-w-[1600px] mx-auto">
           <div className="mb-6 text-center">
-            <p className="text-yellow-400 text-xs sm:text-sm font-semibold uppercase tracking-widest mb-2">
+            <p className="career-eyebrow mb-2">
               Study Destinations
             </p>
-            <h2 className="text-white text-2xl sm:text-3xl md:text-5xl font-bold">
+            <h2 className="career-heading font-heading text-2xl font-bold sm:text-3xl md:text-5xl">
               Choose Your Country
             </h2>
           </div>
 
           <button
             onClick={() => swiperRef.current?.slidePrev()}
-            className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-black/50 text-white w-10 h-10 rounded-full items-center justify-center"
+            className="career-primary-button absolute left-4 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full text-sm font-bold md:flex"
           >
             {"<"}
           </button>
 
           <button
             onClick={() => swiperRef.current?.slideNext()}
-            className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-black/50 text-white w-10 h-10 rounded-full items-center justify-center"
+            className="career-primary-button absolute right-4 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full text-sm font-bold md:flex"
           >
             {">"}
           </button>
@@ -87,8 +82,12 @@ export default function AdmissionCarousel() {
               onSwiper={(swiper) => (swiperRef.current = swiper)}
               centeredSlides
               loop
-              autoplay={{ delay: 2500, disableOnInteraction: false }}
-              speed={700}
+              autoplay={{
+                delay: 2800,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+              }}
+              speed={650}
               watchSlidesProgress
               spaceBetween={16}
               slidesPerView={1.1}
@@ -105,21 +104,17 @@ export default function AdmissionCarousel() {
               {countries.map((country) => (
                 <SwiperSlide key={country.id}>
                   {({ isActive }) => (
-                    <motion.div
-                      layoutId={`card-${country.id}`}
-                      animate={{
-                        scale: isActive ? 1 : 0.85,
-                        opacity: isActive ? 1 : 0.6,
-                      }}
-                      className="relative h-[250px] md:h-[380px] cursor-pointer"
+                    <div
+                      className={`relative h-[250px] cursor-pointer transition duration-500 md:h-[380px] ${
+                        isActive ? "scale-100 opacity-100" : "scale-[0.88] opacity-70"
+                      }`}
                       onClick={() => setSelectedCountry(country)}
                     >
-                      <motion.img
-                        layoutId={`img-${country.id}`}
+                      <img
                         src={country.image}
-                        className="w-full h-full object-cover rounded-xl bg-slate-800"
+                        className="h-full w-full rounded-xl bg-slate-800 object-cover shadow-[0_20px_50px_-30px_rgba(10,35,66,0.52)]"
                         alt={country.name}
-                        loading="eager"
+                        loading={isActive ? "eager" : "lazy"}
                         decoding="async"
                         draggable={false}
                       />
@@ -136,7 +131,7 @@ export default function AdmissionCarousel() {
                           </div>
                         </>
                       )}
-                    </motion.div>
+                    </div>
                   )}
                 </SwiperSlide>
               ))}
@@ -153,7 +148,6 @@ export default function AdmissionCarousel() {
               onClick={() => setSelectedCountry(null)}
             >
               <motion.div
-                layoutId={`card-${selectedCountry.id}`}
                 className="relative bg-white w-[calc(100%-2rem)] max-w-lg rounded-xl overflow-hidden"
                 onClick={(e) => e.stopPropagation()}
               >
@@ -164,8 +158,7 @@ export default function AdmissionCarousel() {
                   <X size={16} />
                 </button>
 
-                <motion.img
-                  layoutId={`img-${selectedCountry.id}`}
+                <img
                   src={selectedCountry.image}
                   className="w-full h-48 object-cover"
                   alt={selectedCountry.name}
@@ -190,7 +183,7 @@ export default function AdmissionCarousel() {
 
                   <Link
                     to={selectedCountry.route}
-                    className="inline-flex rounded-md bg-yellow-400 px-4 py-2 font-semibold text-slate-950 transition hover:bg-yellow-300"
+                    className="career-primary-button inline-flex rounded-md px-4 py-2 font-semibold transition"
                   >
                     Explore More Now
                   </Link>
@@ -282,7 +275,6 @@ export default function AdmissionCarousel() {
         <AnimatePresence>
   {visible && currentUniversity && (
     <motion.div
-      layoutId={`ad-card-${currentUniversity.id}`}
       initial={{ opacity: 0, y: 18, scale: 0.97 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: 14, scale: 0.98 }}
@@ -292,20 +284,19 @@ export default function AdmissionCarousel() {
         damping: 24,
         mass: 0.9,
       }}
-      className="fixed bottom-6 right-6 z-40 w-72 cursor-pointer overflow-hidden rounded-xl shadow-2xl"
+      className="fixed bottom-6 right-14 z-40 hidden w-72 cursor-pointer overflow-hidden rounded-xl shadow-2xl sm:block lg:right-6"
       onClick={() => setSelectedUniversity(currentUniversity)}
     >
               <div className="relative h-40 overflow-hidden bg-slate-900">
                 <AnimatePresence mode="sync">
                   <motion.img
                     key={currentUniversity.id}
-                    layoutId={`ad-img-${currentUniversity.id}`}
                     src={currentUniversity.image}
                     className="absolute inset-0 w-full h-full object-cover"
-                    initial={{ opacity: 0, scale: 1.04, filter: "blur(6px)" }}
-                    animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                    exit={{ opacity: 0, scale: 1.02, filter: "blur(4px)" }}
-                    transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+                    initial={{ opacity: 0, scale: 1.02 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 1.01 }}
+                    transition={{ duration: 0.45, ease: "easeOut" }}
                   />
                 </AnimatePresence>
 
@@ -346,6 +337,5 @@ export default function AdmissionCarousel() {
         </AnimatePresence>
 
       </div>
-    </LayoutGroup>
   );
 }

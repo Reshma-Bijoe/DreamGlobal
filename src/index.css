@@ -618,6 +618,33 @@
     animation-play-state: paused;
   }
 
+  .career-theme .custom-pagination .swiper-pagination-bullet {
+    background: color-mix(in oklab, var(--career-primary-ink) 58%, white);
+    opacity: 0.34;
+  }
+
+  .career-theme .custom-pagination .swiper-pagination-bullet-active {
+    background: var(--career-primary);
+    opacity: 1;
+  }
+
+  .study-hero-visual {
+    justify-self: start;
+    width: min(15.25rem, calc(100vw - 5.5rem));
+    max-width: 15.25rem;
+    margin-left: -1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .study-hero-visual {
+      justify-self: auto;
+      width: 100%;
+      max-width: none;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
   @keyframes careerGradientFlow {
     0%,
     100% {

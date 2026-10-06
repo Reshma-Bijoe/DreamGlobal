@@ -12,12 +12,13 @@ import {
 
 const Founder = () => {
   return (
-    <div className="career-theme min-h-screen overflow-x-hidden">
+    <div className="career-theme min-h-screen overflow-x-hidden bg-[linear-gradient(180deg,#eaf8fb_0%,#d8f4fb_36%,#e7f8f4_68%,#ffffff_100%)]">
       <Navbar />
 
-      <main className="career-hero-surface relative isolate overflow-x-hidden pt-36 md:pt-32">
-        <section className="px-4 py-16">
-          <div className="container mx-auto grid max-w-[96rem] items-center gap-12 lg:grid-cols-[1fr_0.9fr]">
+      <main className="relative isolate overflow-x-hidden pt-32 md:pt-28">
+        <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[54rem] bg-[radial-gradient(circle_at_14%_10%,rgba(214,163,41,0.24),transparent_30%),radial-gradient(circle_at_82%_8%,rgba(142,214,237,0.58),transparent_36%),linear-gradient(180deg,rgba(226,248,252,0.92)_0%,rgba(208,242,250,0.82)_42%,rgba(238,250,246,0.45)_78%,rgba(255,255,255,0)_100%)]" />
+        <section className="px-4 pb-3 pt-10 md:pb-4">
+          <div className="container mx-auto grid max-w-[96rem] items-center gap-8 lg:grid-cols-[1fr_0.8fr]">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
@@ -32,7 +33,9 @@ const Founder = () => {
               <p className="mt-4 max-w-3xl text-lg font-semibold leading-7 text-[color:var(--career-primary-deep)]">
                 Chief Career Architect | Global Career Strategist | Former
                 Fortune 100 Technology Leader | International Education
-                Specialist
+                Specialist | Certified Career Counsellor for International
+                Studies (CCCIS) | Accredited Member of ICCC (UK) | Certified
+                Career Analyst (CCA)
               </p>
               <p className="career-copy mt-5 max-w-2xl text-base leading-8 sm:text-lg">
                 {FOUNDER_NAME} helps students and parents make informed career
@@ -61,12 +64,12 @@ const Founder = () => {
               initial={{ opacity: 0, y: 28 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1 }}
-              className="career-founder-panel relative min-w-0 overflow-hidden rounded-2xl shadow-[var(--career-shadow-soft)]"
+              className="career-founder-panel relative mx-auto min-w-0 max-w-[34rem] overflow-hidden rounded-2xl shadow-[var(--career-shadow-soft)] lg:mx-0 lg:justify-self-end"
             >
               <img
                 src={DreamGlobalLogo}
                 alt={`${FOUNDER_NAME} profile placeholder`}
-                className="aspect-[4/5] w-full max-w-full object-contain p-8 sm:p-12 lg:p-16"
+                className="h-[24rem] w-full max-w-full object-contain p-5 sm:h-[27rem] sm:p-7 lg:h-[30rem] lg:p-8"
               />
               <div className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full bg-[color:var(--career-primary-ink)] px-4 py-2 text-sm font-bold text-white">
                 <Sparkles size={15} />
@@ -84,7 +87,7 @@ const Founder = () => {
           </div>
         </section>
 
-        <section className="px-4 py-16">
+        <section className="px-4 pb-9 pt-2">
           <div className="container mx-auto grid max-w-[96rem] gap-6 md:grid-cols-2">
             <InfoBlock
               title="Global Experience, Student-Focused Guidance"
@@ -106,6 +109,9 @@ const Founder = () => {
                 "Certified Career Counsellor (CCA)",
                 "ICCC-UK Licensed Career Development Professional",
                 "Certified International Education Counsellor & Specialist",
+                "Certified Career Counsellor for International Studies (CCCIS)",
+                "Accredited member of ICCC (UK)",
+                "Certified Career Analyst (CCA)",
                 "Project Management Professional (PMP)",
                 "Google AI Leadership Certified",
               ]}

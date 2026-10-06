@@ -83,8 +83,8 @@ const affordableDestinations = [
 const premiumPathways = [
   ["USA", "Pre-med bachelor's, MCAT, AMCAS, interviews, MD/DO, residency", "11-15 years", "INR 4-7 crore+"],
   ["Canada", "Bachelor's degree, very high GPA, MCAT, extracurricular profile", "Highly competitive", "INR 5-6 crore+"],
-  ["Australia", "Direct, provisional, or graduate-entry pathway with UCAT/ISAT", "5-7 years", "INR 3-5 crore+"],
-  ["United Kingdom", "85-95% PCB, IELTS 7.0, UCAT, UCAS, interview, visa", "Usually 5-6 years", "INR 4.5-5.8 crore+"],
+  ["Australia", "Direct, provisional, or graduate-entry pathway with medical aptitude tests", "5-7 years", "INR 3-5 crore+"],
+  ["United Kingdom", "85-95% PCB, IELTS 7.0, UCAT, UCAS, interview, travel documents", "Usually 5-6 years", "INR 4.5-5.8 crore+"],
   ["New Zealand", "Health sciences pathway, UCAT ANZ, MBChB application", "Competitive pathway", "INR 3.4-4 crore+"],
 ];
 
@@ -95,7 +95,7 @@ const documents = [
   "Birth certificate",
   "Medical fitness certificate",
   "Police clearance certificate",
-  "Financial and visa documents",
+  "Financial and travel documents",
 ];
 
 const nmcGuidelines = [
@@ -111,7 +111,7 @@ const timeline = [
   ["Month 2-3", "Applications and document submission"],
   ["Month 3-4", "Offer letters received"],
   ["Month 4", "Fee payment"],
-  ["Month 4-5", "Visa processing"],
+  ["Month 4-5", "Travel document processing"],
   ["Month 5-6", "Travel arrangements"],
   ["Month 6", "Classes begin"],
 ];

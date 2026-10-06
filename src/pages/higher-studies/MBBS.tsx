@@ -59,7 +59,7 @@ const highlights = [
   "Affordable MBBS Programs Starting from ₹20Lakhs* for the Complete Course (Tuition + Living Expenses)",
   "Globally Recognized Medical Universities",
   "Modern Infrastructure & International Exposure",
-  "End-to-End Support: Counselling, Admission, Documentation, Visa, Travel & Accommodation",
+  "End-to-End Support: Counselling, Admission, Documentation, Travel Documents, Travel & Accommodation",
   "Management & NRI Quota Admissions in Indian Medical Colleges",
   "NEET, NMC recognition, language, safety, and clinical exposure checked before shortlisting",
   "Country and university comparison without confusing students with unnecessary details",
@@ -103,7 +103,7 @@ const journeyPoints = [
   {
     title: "Move only when the route is clear",
     detail:
-      "Once the country and university make sense, our team supports applications, documents, visa steps, and pre-departure preparation.",
+      "Once the country and university make sense, our team supports applications, documents, travel document steps, and pre-departure preparation.",
   },
 ];
 
@@ -209,17 +209,17 @@ const mbbsFaqs = [
   {
     question: "What documents are usually required for MBBS admission?",
     answer:
-      "Common documents include 10th and 12th mark sheets, NEET scorecard, passport, birth certificate, passport-size photos, medical fitness certificate, police clearance where required, and financial or visa documents. The final list depends on the country and university.",
+      "Common documents include 10th and 12th mark sheets, NEET scorecard, passport, birth certificate, passport-size photos, medical fitness certificate, police clearance where required, and financial or travel documents. The final list depends on the country and university.",
   },
   {
     question: "What is the MBBS admission processing like?",
     answer:
-      "The usual flow is profile review, country and university shortlisting, document checking, application submission, offer letter, fee and admission formalities, visa processing, travel planning, and pre-departure guidance and post-landing guidance.",
+      "The usual flow is profile review, country and university shortlisting, document checking, application submission, offer letter, fee and admission formalities, travel document processing, travel planning, and pre-departure guidance and post-landing guidance.",
   },
   {
     question: "Do you support students after admission?",
     answer:
-      "Yes. DreamGlobal supports students beyond admission with documentation, visa steps, travel preparation, onboarding guidance, and continued assistance through the course journey whenever students or parents need help.",
+      "Yes. DreamGlobal supports students beyond admission with documentation, travel document steps, travel preparation, onboarding guidance, and continued assistance through the course journey whenever students or parents need help.",
   },
   {
     question: "Are premium MBBS options available?",

@@ -31,7 +31,7 @@ const ServicesSection = () => {
   const replayKey = useSectionReplay("#services");
 
   return (
-    <section id="services" className="section-padding" ref={ref}>
+    <section id="services" className="section-padding bg-transparent" ref={ref}>
       <div className="container mx-auto">
         <motion.div
           key={`services-heading-${replayKey}`}
@@ -40,10 +40,10 @@ const ServicesSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <p className="text-primary tracking-[0.2em] uppercase text-sm font-medium mb-3">
+          <p className="career-eyebrow mb-3">
             What We Offer
           </p>
-          <h2 className="font-heading text-3xl md:text-5xl font-bold">
+          <h2 className="career-heading font-heading text-3xl font-bold md:text-5xl">
             Our <span className="gold-gradient-text">Services</span>
           </h2>
         </motion.div>
@@ -55,15 +55,15 @@ const ServicesSection = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
-              className="glass-card p-6 group hover:border-primary/40 transition-all duration-300 hover:-translate-y-1"
+              className="career-card group rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[color:var(--career-primary)]/40"
             >
-              <div className="w-12 h-12 rounded-lg gold-gradient-bg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+              <div className="career-gold-pill mb-4 flex h-12 w-12 items-center justify-center rounded-lg transition-transform duration-300 group-hover:scale-105">
                 <service.icon size={22} className="text-primary-foreground" />
               </div>
-              <h3 className="font-heading text-lg font-semibold mb-2 text-foreground">
+              <h3 className="career-heading mb-2 font-heading text-lg font-semibold">
                 {service.title}
               </h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">
+              <p className="career-copy text-sm leading-relaxed">
                 {service.desc}
               </p>
             </motion.div>
