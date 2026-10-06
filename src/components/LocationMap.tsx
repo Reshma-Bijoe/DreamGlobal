@@ -19,7 +19,7 @@ const LocationMap = ({
     <iframe
       title={title}
       src={DREAMGLOBAL_MAP_SRC}
-      className="h-full min-h-[320px] w-full"
+      className="h-[320px] w-full md:h-[380px]"
       style={{ border: 0 }}
       allowFullScreen
       loading="lazy"

@@ -27,7 +27,7 @@ const contactCards = [
 
 const Contact = () => {
   return (
-    <div className="career-theme min-h-screen bg-white">
+    <div className="career-theme min-h-screen overflow-x-hidden bg-white">
       <Navbar />
 
       <main className="career-hero-surface pt-36 md:pt-40">
@@ -52,15 +52,17 @@ const Contact = () => {
                   <a
                     key={card.label}
                     href={card.href}
-                    className="career-card rounded-2xl p-6 transition duration-300 hover:-translate-y-1 hover:shadow-[var(--career-shadow-float)]"
+                    className="career-card flex flex-col items-start gap-4 rounded-2xl p-6 transition duration-300 hover:-translate-y-1 hover:shadow-[var(--career-shadow-float)] sm:flex-row"
                   >
-                    <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[color:var(--career-primary)] text-white">
+                    <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[color:var(--career-primary)] text-white">
                       <Icon size={21} />
                     </span>
-                    <p className="career-eyebrow mt-5">{card.label}</p>
-                    <p className="mt-2 break-words text-lg font-bold text-[color:var(--career-primary-ink)]">
-                      {card.value}
-                    </p>
+                    <div className="min-w-0">
+                      <p className="career-eyebrow">{card.label}</p>
+                      <p className="mt-2 break-words text-lg font-bold leading-6 text-[color:var(--career-primary-ink)]">
+                        {card.value}
+                      </p>
+                    </div>
                   </a>
                 );
               })}
@@ -70,22 +72,6 @@ const Contact = () => {
 
         <section className="px-4 pb-20">
           <div className="container mx-auto grid max-w-6xl gap-5 md:grid-cols-2">
-            <div className="career-card rounded-2xl p-7">
-              <div className="flex items-start gap-4">
-                <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[color:var(--career-primary-soft)] text-[color:var(--career-primary)]">
-                  <MapPin size={20} />
-                </span>
-                <div>
-                  <h2 className="career-heading font-heading text-2xl font-bold">
-                    Office
-                  </h2>
-                  <p className="career-copy mt-2 leading-7">
-                    {DREAMGLOBAL_ADDRESS}
-                  </p>
-                </div>
-              </div>
-            </div>
-
             <div className="career-card rounded-2xl p-7">
               <div className="flex items-start gap-4">
                 <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[color:var(--career-primary-soft)] text-[color:var(--career-primary)]">
@@ -102,12 +88,28 @@ const Contact = () => {
                 </div>
               </div>
             </div>
+
+            <div className="career-card rounded-2xl p-7">
+              <div className="flex items-start gap-4">
+                <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[color:var(--career-primary-soft)] text-[color:var(--career-primary)]">
+                  <MapPin size={20} />
+                </span>
+                <div>
+                  <h2 className="career-heading font-heading text-2xl font-bold">
+                    Office
+                  </h2>
+                  <p className="career-copy mt-2 leading-7">
+                    {DREAMGLOBAL_ADDRESS}
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
         <section className="px-4 pb-20">
           <div className="container mx-auto max-w-6xl">
-            <LocationMap className="min-h-[340px]" />
+            <LocationMap />
           </div>
         </section>
       </main>
