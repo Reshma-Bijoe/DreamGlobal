@@ -16,7 +16,7 @@ const Index = () => {
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_12%_10%,rgba(214,163,41,0.26),transparent_28%),radial-gradient(circle_at_84%_14%,rgba(142,214,237,0.54),transparent_32%),radial-gradient(circle_at_28%_42%,rgba(214,163,41,0.16),transparent_30%),radial-gradient(circle_at_78%_56%,rgba(142,214,237,0.34),transparent_34%),radial-gradient(circle_at_18%_82%,rgba(214,163,41,0.14),transparent_30%),linear-gradient(180deg,#eaf8fb_0%,#f7fcff_42%,#eef9fb_72%,#f8fbff_100%)]" />
       <Navbar />
       <div className="pt-[128px] md:pt-[118px]">
-        <ServiceMarquee items={studyCountryBand} />
+        <ServiceMarquee items={studyCountryBand} duration="52s" />
       </div>
       <HeroSection />
       <ServiceMarquee items={studyAbroadBand} />

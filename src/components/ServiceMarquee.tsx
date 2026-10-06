@@ -1,9 +1,14 @@
 type ServiceMarqueeProps = {
   items: string[];
   tone?: "light" | "dark";
+  duration?: string;
 };
 
-const ServiceMarquee = ({ items, tone = "light" }: ServiceMarqueeProps) => (
+const ServiceMarquee = ({
+  items,
+  tone = "light",
+  duration = "30s",
+}: ServiceMarqueeProps) => (
   <section
     className={`overflow-hidden border-y py-4 ${
       tone === "dark"
@@ -11,7 +16,10 @@ const ServiceMarquee = ({ items, tone = "light" }: ServiceMarqueeProps) => (
         : "border-[color:var(--career-border)] bg-white/20 text-[color:var(--career-primary-deep)] backdrop-blur-sm"
     }`}
   >
-    <div className="flex w-max animate-careerMarquee items-center gap-7 whitespace-nowrap">
+    <div
+      className="flex w-max animate-careerMarquee items-center gap-7 whitespace-nowrap"
+      style={{ animationDuration: duration }}
+    >
       {[...items, ...items].map((item, index) => (
         <span
           key={`${item}-${index}`}
