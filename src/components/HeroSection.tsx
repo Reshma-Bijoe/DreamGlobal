@@ -72,7 +72,7 @@ const HeroSection = () => {
       id="hero"
       className="relative overflow-hidden pb-8 pl-3 pr-10 pt-10 sm:px-4 md:pb-9 md:pt-12"
     >
-      <div className="container mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.08fr_0.92fr]">
+      <div className="container study-hero-layout mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.08fr_0.92fr]">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
