@@ -1,3 +1,4 @@
+import SectionDivider from "@/components/SectionDivider";
 import { ChangeEvent, FormEvent, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -10,13 +11,14 @@ import {
   GraduationCap,
   MapPinned,
   MessageCircle,
-  Phone,
   Send,
   Target,
   UserCheck,
 } from "lucide-react";
 import founder from "@/assets/founder.jpeg";
 import DreamGlobalHero from "@/components/DreamGlobalHero";
+import ContactSection from "@/components/ContactSection";
+import LocalGuidance from "@/components/LocalGuidance";
 import Footer from "@/components/Footer";
 import FaqAccordion from "@/components/FaqAccordion";
 import TestimonialCarousel from "@/components/TestimonialCarousel";
@@ -67,17 +69,7 @@ const getNormalizedPhone = (phone: string) => {
     : digits;
 };
 
-const SectionDivider = ({ label }: { label: string }) => (
-  <div className="mx-auto flex w-full max-w-[24rem] items-center justify-center gap-2 sm:max-w-[34rem] sm:gap-3">
-    <span className="h-px min-w-6 flex-1 bg-[color:var(--career-primary)]" />
-    <span className="h-2 w-2 rounded-full bg-[color:var(--career-primary)]" />
-    <p className="career-eyebrow w-[8.5rem] shrink-0 text-center leading-[1.35] sm:w-auto sm:whitespace-nowrap">
-      {label}
-    </p>
-    <span className="h-2 w-2 rounded-full bg-[color:var(--career-primary)]" />
-    <span className="h-px min-w-6 flex-1 bg-[color:var(--career-primary)]" />
-  </div>
-);
+
 
 const pathOptions = [
   {
@@ -191,22 +183,22 @@ const landingFaqs = [
   {
     question: "Who should consider career counselling?",
     answer:
-      "Students choosing subjects, exploring career options, preparing for higher education, or feeling unsure about their next step can all benefit from structured guidance.",
+      "Whether you're a school student choosing subjects, a college student exploring careers or higher education, or a working professional seeking growth or a fresh direction, our personalised guidance helps you discover your strengths, unlock new possibilities, and take your next step with confidence.",
   },
   {
     question: "Can DreamGlobal help me choose the right course?",
     answer:
-      "Yes. We compare your strengths, interests, academic profile, budget, aspirations, and future opportunities before helping you shortlist suitable courses and pathways.",
+      "Yes. We consider your strengths, interests, academic profile, budget, and aspirations to help you shortlist suitable courses and pathways. We also help you explore scholarship opportunities, financial aid options, eligibility requirements, and future career prospects so you can make a confident, informed choice.",
   },
   {
     question: "Do you help with study abroad applications?",
     answer:
-      "Yes. Support can cover destination and university shortlisting, profile building, applications, scholarships, document preparation, and pre-departure planning.",
+      "Yes. From choosing the right destination and university to building a strong profile and submitting applications, we support you throughout your study abroad journey. We help you explore and work towards securing amazing, best-in-class scholarship opportunities, guide you through education loan options and document preparation, and assist with travel, ticketing, and pre-departure planning so you can begin your global education journey with confidence.",
   },
   {
     question: "When should students start planning?",
     answer:
-      "Starting early gives students more time to understand their options, strengthen their profile, prepare documents, compare pathways, and make decisions without last-minute pressure.",
+      "Starting early gives students more time to explore their options, strengthen their profile, prepare documents, and choose the right pathway without last-minute pressure. It also helps us identify the most suitable and rewarding scholarship opportunities, plan around deadlines, and build stronger applications—giving students a better chance of securing valuable financial support.",
   },
 ];
 
@@ -674,48 +666,8 @@ const Landing = () => {
         </div>
       </section>
 
-      <section id="contact" className="px-4 py-10 md:py-12">
-        <div className="container mx-auto max-w-6xl rounded-2xl border border-[color:var(--career-border)] bg-white p-6 shadow-[var(--career-shadow-soft)] md:p-8">
-          <div className="grid gap-6 md:grid-cols-[1fr_auto] md:items-center">
-            <div>
-              <div className="flex justify-center">
-                <SectionDivider label="Start Your Journey" />
-              </div>
-              <h2 className="career-heading mt-3 text-center font-heading text-3xl font-bold">
-                Speak with DreamGlobal today.
-              </h2>
-              <p className="career-copy mx-auto mt-3 max-w-2xl text-center text-sm leading-6">
-                Get help choosing the right career path, course, country,
-                university, and admission plan. Start with one conversation and
-                leave with a clearer direction.
-              </p>
-            </div>
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <a
-                href="tel:+918848674757"
-                className="career-primary-button inline-flex items-center justify-center gap-2 rounded-md px-6 py-3 text-sm font-bold transition"
-              >
-                <Phone size={18} />
-                Call Now
-              </a>
-              <a
-                href={WHATSAPP_URL}
-                className="career-primary-button inline-flex items-center justify-center gap-2 rounded-md px-6 py-3 text-sm font-bold transition"
-              >
-                <MessageCircle size={18} />
-                WhatsApp
-              </a>
-              <Link
-                to="/book-consultation"
-                className="career-primary-button inline-flex items-center justify-center gap-2 rounded-md px-6 py-3 text-sm font-bold transition"
-              >
-                <CalendarCheck size={18} />
-                Book Free Consultation
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      <LocalGuidance />
+      <ContactSection showBottomDivider />
 
       <Footer />
 

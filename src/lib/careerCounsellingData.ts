@@ -230,23 +230,23 @@ export const founderHighlights = [
   "Former Fortune 100 technology leader",
   "Career mentoring and talent evaluation expertise",
   "International education and student-success specialist",
+  "Licensed Career Development Professional",
   "Certified Career Counsellor for International Studies (CCCIS)",
-  "Accredited member of ICCC (UK)",
   "Certified Career Analyst (CCA)",
 ];
 
 export const founderCertifications = [
   {
+    title: "Licensed Career Development Professional",
+    shortName: "ICCC UK",
+    detail: "Professional career development licence",
+    badge: IcccUkBadge,
+  },
+  {
     title: "Certified Career Counsellor for International Studies",
     shortName: "CCCIS",
     detail: "International studies counselling credential",
     badge: CccisBadge,
-  },
-  {
-    title: "Accredited Member of ICCC (UK)",
-    shortName: "ICCC UK",
-    detail: "Professional career counselling accreditation",
-    badge: IcccUkBadge,
   },
   {
     title: "Certified Career Analyst",
@@ -259,7 +259,7 @@ export const founderCertifications = [
 export const founderStats = [
   { value: "30+", label: "Years Experience" },
   { value: "25", label: "Years With TCS" },
-  { value: "7,000+", label: "Candidates Evaluated" },
+  { value: "7,000+", label: "Candidates Mentored" },
 ];
 
 export const careerTestimonials = [
@@ -330,13 +330,21 @@ export const careerTestimonials = [
 
 export const expertiseAreas = [
   "Career Counselling and Planning",
-  "Global Higher Education Guidance",
+  "Psychometric Analysis and Career Assessments",
   "Stream and Course Selection",
+  "Global Higher Education Guidance",
+  "India Campus Admissions Guidance",
+  "Online Degree Admissions Support",
   "International Education Counselling",
+  "Profile Building and Application Strategy",
+  "Scholarship and Education Loan Guidance",
+  "SOP, LOR and Application Document Support",
   "Industry-Ready Career Roadmaps",
-  "Emerging Technology Awareness",
+  "Career Training and Skill Development",
   "Student and Parent Mentoring",
+  "Pre-Departure Planning and Travel Support",
   "Talent Evaluation Insights",
+  "Emerging Technology Awareness",
   "Academic and Industry Collaboration",
 ];
 

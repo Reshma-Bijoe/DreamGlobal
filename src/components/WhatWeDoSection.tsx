@@ -1,3 +1,4 @@
+import SectionDivider from "@/components/SectionDivider";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
@@ -18,9 +19,7 @@ const WhatWeDoSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center"
         >
-          <p className="career-eyebrow mb-3">
-            Our Mission
-          </p>
+          <SectionDivider label="Our Mission" className="mb-3" />
           <h2 className="career-heading mb-4 font-heading text-3xl font-bold md:text-5xl">
             What We <span className="gold-gradient-text">Do</span>
           </h2>

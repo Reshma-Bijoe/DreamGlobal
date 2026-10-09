@@ -159,7 +159,7 @@ const HeroSection = () => {
               className="mr-2 inline-block text-[color:var(--career-primary)]"
               size={15}
             />
-            25+ Countries of Opportunities
+            22+ Countries of Opportunities
           </div>
           <div className="career-gold-pill relative z-10 -mt-4 ml-4 w-fit rounded-full px-4 py-3 text-sm font-bold sm:absolute sm:bottom-4 sm:right-4 sm:ml-0 sm:mt-0 lg:-bottom-3">
             <MapPinned className="mr-2 inline-block" size={17} />

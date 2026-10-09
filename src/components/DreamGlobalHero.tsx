@@ -8,6 +8,7 @@ import {
   Compass,
   GraduationCap,
   Handshake,
+  Laptop,
   Plane,
   Route,
   ShieldCheck,
@@ -30,18 +31,22 @@ const heroActions = [
   {
     label: "Career Counselling",
     href: CAREER_COUNSELLING_URL,
+    icon: Compass,
   },
   {
     label: "Study Abroad",
     href: STUDY_ABROAD_URL,
+    icon: Plane,
   },
   {
     label: "Indian Online Admission",
     href: INDIA_ONLINE_ADMISSION_URL,
+    icon: Laptop,
   },
   {
     label: "India Campus Admission",
     href: INDIA_CAMPUS_ADMISSION_URL,
+    icon: Building2,
   },
 ];
 
@@ -100,7 +105,7 @@ const stats = [
   { value: "7000+", label: "Candidates Mentored", icon: UsersRound },
   { value: "150+", label: "Career Options Explored", icon: GraduationCap },
   { value: "200+", label: "Universities & Partners", icon: Building2 },
-  { value: "25+", label: "Countries of Opportunities", icon: Telescope },
+  { value: "22+", label: "Countries of Opportunities", icon: Telescope },
 ];
 
 const fadeUp = {
@@ -231,7 +236,7 @@ const DreamGlobalHero = () => {
 
             <motion.div
               variants={stagger}
-              className="mt-7 grid justify-center gap-3 sm:grid-cols-2 sm:gap-4 md:justify-start"
+              className="mt-7 grid justify-center gap-3 sm:grid-cols-[repeat(2,270px)] sm:gap-4 md:justify-start"
             >
               <motion.div variants={fadeUp} whileHover={{ y: -3 }} className="sm:hidden">
                 <Link
@@ -242,17 +247,22 @@ const DreamGlobalHero = () => {
                   <CalendarCheck size={17} />
                 </Link>
               </motion.div>
-              {heroActions.map((action) => (
+              {heroActions.map((action) => {
+                const Icon = action.icon;
+
+                return (
                 <motion.div key={action.label} variants={fadeUp} whileHover={{ y: -3 }}>
                   <Link
                     to={action.href}
-                    className="dream-gold-button inline-flex h-11 w-full items-center justify-center gap-2 rounded-md px-4 text-center text-[0.82rem] font-bold leading-tight shadow-[0_16px_30px_-17px_rgba(200,138,24,0.8)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_36px_-16px_rgba(200,138,24,0.9)] sm:w-[230px]"
+                    className="dream-gold-button inline-flex h-11 w-full items-center justify-center gap-2 whitespace-nowrap rounded-md px-3 text-center text-[0.82rem] font-bold leading-tight shadow-[0_16px_30px_-17px_rgba(200,138,24,0.8)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_36px_-16px_rgba(200,138,24,0.9)] sm:w-[270px]"
                   >
-                    {action.label}
-                    <ArrowRight size={17} />
+                    <Icon size={19} strokeWidth={1.8} className="shrink-0" aria-hidden="true" />
+                    <span>{action.label}</span>
+                    <ArrowRight size={17} className="shrink-0" aria-hidden="true" />
                   </Link>
                 </motion.div>
-              ))}
+                );
+              })}
             </motion.div>
 
             <MantraCard className="mt-6 hidden md:block" />

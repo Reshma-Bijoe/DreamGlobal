@@ -1,3 +1,4 @@
+import SectionDivider from "@/components/SectionDivider";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
@@ -54,9 +55,7 @@ export default function AdmissionCarousel() {
       <div className="relative overflow-hidden bg-transparent px-3 pb-16 pt-16 md:px-6 md:pt-20">
         <div className="max-w-[1600px] mx-auto">
           <div className="mb-6 text-center">
-            <p className="career-eyebrow mb-2">
-              Study Destinations
-            </p>
+            <SectionDivider label="Study Destinations" className="mb-2" />
             <h2 className="career-heading font-heading text-2xl font-bold sm:text-3xl md:text-5xl">
               Choose Your Country
             </h2>

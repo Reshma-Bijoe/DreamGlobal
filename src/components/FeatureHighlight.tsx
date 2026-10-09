@@ -1,3 +1,4 @@
+import SectionDivider from "@/components/SectionDivider";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Shield, Users, Award, Clock } from "lucide-react";
@@ -30,9 +31,7 @@ const FeatureHighlight = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <p className="career-eyebrow mb-3">
-            The DreamGlobal Advantage
-          </p>
+          <SectionDivider label="The DreamGlobal Advantage" className="mb-3" />
           <h2 className="career-heading font-heading text-3xl font-bold md:text-5xl">
             Why Choose <span className="gold-gradient-text">Us</span>
           </h2>

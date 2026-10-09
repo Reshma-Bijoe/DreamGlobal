@@ -1,10 +1,11 @@
+import SectionDivider from "@/components/SectionDivider";
 import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import { Mail, MapPin, Phone } from "lucide-react";
 import useSectionReplay from "@/hooks/use-section-replay";
 import LocationMap, { DREAMGLOBAL_ADDRESS } from "@/components/LocationMap";
 
-const ContactSection = () => {
+const ContactSection = ({ showBottomDivider = false }: { showBottomDivider?: boolean }) => {
   const ref = useRef(null);
   const quoteRef = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { margin: "-80px" });
@@ -79,9 +80,7 @@ const ContactSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-14"
         >
-          <p className="career-eyebrow mb-3">
-            Get In Touch
-          </p>
+          <SectionDivider label="Get In Touch" className="mb-3" />
           <h2 className="career-heading font-heading text-3xl font-bold md:text-5xl">
             Contact <span className="gold-gradient-text">Us</span>
           </h2>
@@ -98,7 +97,7 @@ const ContactSection = () => {
           >
             {/* Email */}
             <a
-              href="mailto:info@dreamglobal.com"
+              href="mailto:dreamglobalin@gmail.com"
               className="career-card group flex items-start gap-4 rounded-2xl p-6 transition-all duration-300 hover:border-[color:var(--career-primary)]/40"
             >
               <div className="career-gold-pill flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full transition-transform group-hover:scale-105">
@@ -112,7 +111,7 @@ const ContactSection = () => {
 
             {/* Phone */}
             <a
-              href="tel:+919876543210"
+              href="tel:+918848674757"
               className="career-card group flex items-start gap-4 rounded-2xl p-6 transition-all duration-300 hover:border-[color:var(--career-primary)]/40"
             >
               <div className="career-gold-pill flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full transition-transform group-hover:scale-105">
@@ -144,6 +143,13 @@ const ContactSection = () => {
             <LocationMap className="h-full" />
           </motion.div>
         </div>
+        {showBottomDivider && (
+          <div aria-hidden="true" className="mx-auto mt-12 flex w-full max-w-[34rem] items-center gap-4">
+            <span className="h-px flex-1 bg-[color:var(--career-primary)]" />
+            <span className="h-2 w-2 shrink-0 rounded-full bg-[color:var(--career-primary)]" />
+            <span className="h-px flex-1 bg-[color:var(--career-primary)]" />
+          </div>
+        )}
       </div>
 
      

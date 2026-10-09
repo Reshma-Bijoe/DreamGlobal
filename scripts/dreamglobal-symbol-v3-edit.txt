@@ -1,0 +1,6 @@
+Mode: built-in image_gen edit
+Source: public/Logo without background.png
+Output: public/dreamglobal-symbol-v3.png
+
+Prompt:
+Edit the provided DreamGlobal logo. Remove ALL lettering below the globe, including the DreamGlobal name and the small slogan. Preserve the existing metallic blue silver and gold globe, surrounding swooshes, rings and upward arrow with exactly the same shapes, proportions, colours and highlights. Do not redesign the symbol. Output only this existing globe-and-arrow emblem, centered and tightly framed with a small safe margin in a square PNG, on a genuinely transparent background. No text, no letters, no slogan, no background glow or shadow outside the emblem. This is a symbol-only website logo and favicon asset. Save the generated image and return its local file path.

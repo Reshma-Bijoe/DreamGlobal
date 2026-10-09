@@ -3,7 +3,6 @@ import { ArrowRight, CheckCircle2 } from "lucide-react";
 import founder from "@/assets/founder.jpeg";
 import {
   FOUNDER_NAME,
-  founderCertifications,
   founderHighlights,
 } from "@/lib/careerCounsellingData";
 
@@ -36,12 +35,12 @@ const FounderSpotlight = ({
         <img
           src={founder}
           alt={`${FOUNDER_NAME} founder portrait`}
-          className="h-full w-full object-contain p-10 sm:p-14"
+          className="h-full w-full object-contain px-5 py-20 sm:px-7 sm:py-24"
         />
         <div className="career-gold-pill absolute left-5 top-5 rounded-full px-4 py-2 text-sm font-bold">
           30+ Years Experience
         </div>
-        <p className="career-card absolute bottom-5 left-5 right-5 rounded-xl px-4 py-3 text-xs font-bold text-[color:var(--career-primary-ink)]">
+        <p className="career-card absolute bottom-10 left-5 right-5 rounded-xl px-4 py-3 text-xs font-bold text-[color:var(--career-primary-ink)]">
           {note}
         </p>
       </div>
@@ -62,24 +61,6 @@ const FounderSpotlight = ({
               <span className="text-sm font-semibold text-[color:var(--career-primary-ink)]">
                 {item}
               </span>
-            </div>
-          ))}
-        </div>
-        <div className="mt-6 grid gap-3 sm:grid-cols-3">
-          {founderCertifications.map((cert) => (
-            <div
-              key={cert.shortName}
-              className="rounded-xl border border-[color:var(--career-border)] bg-white/62 p-3 backdrop-blur"
-            >
-              <img
-                src={cert.badge}
-                alt={`${cert.title} badge`}
-                className="h-16 w-full rounded-md object-contain"
-              />
-              <p className="mt-2 text-sm font-extrabold text-[color:var(--career-primary-ink)]">
-                {cert.shortName}
-              </p>
-              <p className="career-copy mt-1 text-xs leading-5">{cert.title}</p>
             </div>
           ))}
         </div>

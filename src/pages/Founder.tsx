@@ -4,10 +4,12 @@ import { motion } from "framer-motion";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import DreamGlobalLogo from "../assets/founder.jpeg";
+import SectionDivider from "@/components/SectionDivider";
 import {
   FOUNDER_NAME,
   expertiseAreas,
   founderStats,
+  founderCertifications,
 } from "../lib/careerCounsellingData";
 
 const Founder = () => {
@@ -33,8 +35,8 @@ const Founder = () => {
               <p className="mt-4 max-w-3xl text-lg font-semibold leading-7 text-[color:var(--career-primary-deep)]">
                 Chief Career Architect | Global Career Strategist | Former
                 Fortune 100 Technology Leader | International Education
-                Specialist | Certified Career Counsellor for International
-                Studies (CCCIS) | Accredited Member of ICCC (UK) | Certified
+                Specialist | Licensed Career Development Professional |
+                Certified Career Counsellor for International Studies (CCCIS) | Certified
                 Career Analyst (CCA)
               </p>
               <p className="career-copy mt-5 max-w-2xl text-base leading-8 sm:text-lg">
@@ -100,17 +102,37 @@ const Founder = () => {
           </div>
         </section>
 
-        <section className="px-4 py-16">
-          <div className="container mx-auto grid max-w-[96rem] gap-6 lg:grid-cols-3">
+        <section className="px-4 pt-6 pb-16" aria-labelledby="founder-certificates-heading">
+          <div className="container mx-auto max-w-6xl">
+            <SectionDivider label="Qualifications & Experience" />
+            <h2 id="founder-certificates-heading" className="career-heading mt-4 text-center font-heading text-3xl font-bold sm:text-4xl">Credentials behind the guidance.</h2>
+        <div className="mt-8 grid gap-4 lg:grid-cols-3">
+          {founderCertifications.map((cert) => (
+            <div
+              key={cert.shortName}
+              className="career-card flex items-center gap-4 rounded-2xl p-5"
+            >
+              <img
+                src={cert.badge}
+                alt={`${cert.title} badge`}
+                className="h-20 w-20 shrink-0 rounded-lg bg-white object-contain p-1"
+              />
+              <div>
+              <p className="text-sm font-extrabold text-[color:var(--career-primary-ink)]">
+                {cert.shortName}
+              </p>
+              <p className="career-copy mt-1 text-xs leading-5">{cert.title}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+          <div className="mt-6 grid gap-6 lg:grid-cols-3">
             <CredentialBlock
               icon={Award}
               title="Professional Certifications"
               items={[
-                "Certified Career Counsellor (CCA)",
-                "ICCC-UK Licensed Career Development Professional",
-                "Certified International Education Counsellor & Specialist",
+                "Licensed Career Development Professional (ICCC UK)",
                 "Certified Career Counsellor for International Studies (CCCIS)",
-                "Accredited member of ICCC (UK)",
                 "Certified Career Analyst (CCA)",
                 "Project Management Professional (PMP)",
                 "Google AI Leadership Certified",
@@ -134,6 +156,12 @@ const Founder = () => {
                 "Global software delivery and business relationship leadership",
               ]}
             />
+          </div>
+          <div aria-hidden="true" className="mx-auto mt-12 flex w-full max-w-[34rem] items-center gap-4">
+            <span className="h-px flex-1 bg-[color:var(--career-primary)]" />
+            <span className="h-2 w-2 shrink-0 rounded-full bg-[color:var(--career-primary)]" />
+            <span className="h-px flex-1 bg-[color:var(--career-primary)]" />
+          </div>
           </div>
         </section>
 

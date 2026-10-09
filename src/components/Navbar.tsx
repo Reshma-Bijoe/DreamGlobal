@@ -8,7 +8,7 @@ import {
   Phone,
   X,
 } from "lucide-react";
-import DreamGlobalLogo from "@/assets/DreamGlobalLogo.jpeg";
+import { DREAMGLOBAL_LOGO_URL } from "@/lib/branding";
 import { countryDestinations } from "@/data/countryDestinations";
 import { WHATSAPP_URL } from "@/lib/careerCounsellingData";
 
@@ -85,9 +85,9 @@ const Navbar = () => {
       <div className="flex h-[72px] w-full items-center gap-3 px-6 md:h-[78px] lg:px-8">
         <Link to="/" className="flex items-center gap-2.5">
           <img
-            src={DreamGlobalLogo}
+            src={DREAMGLOBAL_LOGO_URL}
             alt="DreamGlobal Logo"
-            className="h-11 w-11 rounded-full object-cover md:h-12 md:w-12"
+            className="h-[52px] w-[52px] shrink-0 object-contain md:h-14 md:w-14"
           />
           <span className="flex flex-col leading-none">
             <span className="dream-gradient-text text-[1.45rem] font-bold md:text-[1.9rem]">
@@ -162,7 +162,7 @@ const Navbar = () => {
                   type="button"
                   className="flex w-full items-center justify-between border-b border-slate-100 px-4 py-2 text-left text-sm font-bold text-slate-900 transition hover:bg-[#D4A24C]/12"
                 >
-                  Countries
+                  Study Abroad Countries
                   <ChevronDown size={15} className="-rotate-90 text-[#C88A18]" />
                 </button>
                 <div className="invisible absolute left-full top-0 z-50 w-56 overflow-hidden rounded-lg border border-slate-200 bg-white py-2 opacity-0 shadow-xl transition group-hover/countries:visible group-hover/countries:opacity-100">
@@ -170,7 +170,7 @@ const Navbar = () => {
                     to="/countries"
                     className={`${dropdownItemClass} border-b border-slate-100`}
                   >
-                    All Countries
+                    All Study Abroad Countries
                   </Link>
                   {countryDestinations.map((country) => (
                     <Link
@@ -316,10 +316,10 @@ const Navbar = () => {
                     MBBS
                   </Link>
                   <p className="px-2 pt-2 text-xs font-extrabold uppercase tracking-[0.12em] text-[#C88A18]">
-                    Countries
+                    Study Abroad Countries
                   </p>
                   <Link to="/countries" onClick={closeMobileMenu} className={mobileItemClass}>
-                    All Countries
+                    All Study Abroad Countries
                   </Link>
                   {countryDestinations.map((country) => (
                     <Link

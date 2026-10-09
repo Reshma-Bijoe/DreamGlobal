@@ -1,3 +1,5 @@
+import { blogGuides } from "./blogContent";
+
 export const genericFaqs = [
   {
     question: "How does DreamGlobal help students choose a country?",
@@ -41,7 +43,7 @@ export const genericFaqs = [
   },
 ];
 
-export const blogPosts = [
+const blogSummaries = [
   {
     slug: "choose-the-right-study-destination",
     title: "How to choose the right study destination",
@@ -134,6 +136,27 @@ export const blogPosts = [
     ],
   },
 ];
+
+export const blogPosts = blogSummaries.map((post) => {
+  const guide = blogGuides[post.slug];
+  const sections = guide?.sections ?? [];
+  const words = [
+    post.title,
+    ...post.content,
+    ...sections.flatMap((section) => [
+      section.heading,
+      ...section.paragraphs,
+      ...(section.checklist ?? []),
+    ]),
+  ].join(" ").trim().split(/\s+/).length;
+
+  return {
+    ...post,
+    sections,
+    resources: guide?.resources ?? [],
+    readTime: `${Math.ceil(words / 200)} min read`,
+  };
+});
 
 export const getBlogPost = (slug: string | undefined) =>
   blogPosts.find((post) => post.slug === slug);

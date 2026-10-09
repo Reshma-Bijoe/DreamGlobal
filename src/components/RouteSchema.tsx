@@ -3,6 +3,9 @@ import { useLocation } from "react-router-dom";
 import { getCountryDestination } from "@/data/countryDestinations";
 import { genericFaqs, getBlogPost } from "@/data/faqs";
 import { faqs as careerFaqs } from "@/lib/careerCounsellingData";
+import { getSeoMetadata } from "@/lib/seo";
+import { blogVisuals } from "@/data/blogVisuals";
+import { DREAMGLOBAL_LOGO_URL } from "@/lib/branding";
 
 const SITE_URL = "https://dreamglobal.in";
 const BUSINESS_ID = `${SITE_URL}/#business`;
@@ -136,12 +139,13 @@ const RouteSchema = () => {
   if (cleanPath === "/") return null;
 
   const pageUrl = `${SITE_URL}${cleanPath}`;
+  const metadata = getSeoMetadata(cleanPath);
   const page: Record<string, unknown> = {
     "@type": "WebPage",
     "@id": `${pageUrl}#webpage`,
     url: pageUrl,
-    name: details.name,
-    description: details.description,
+    name: metadata.title,
+    description: metadata.description,
     isPartOf: { "@id": WEBSITE_ID },
     about: { "@id": BUSINESS_ID },
     inLanguage: "en-IN",
@@ -153,6 +157,32 @@ const RouteSchema = () => {
   }
 
   const graph: Record<string, unknown>[] = [page];
+  const parentPath = blog ? "/blogs" : country ? "/countries" : cleanPath === "/mbbs/guide" ? "/mbbs" : undefined;
+  const breadcrumbItems = [
+    { name: "DreamGlobal", item: `${SITE_URL}/` },
+    ...(parentPath ? [{ name: getSeoMetadata(parentPath).title.split(" | ")[0], item: `${SITE_URL}${parentPath}` }] : []),
+    { name: blog?.title ?? details.name.split(" | ")[0], item: pageUrl },
+  ];
+  graph.push({
+    "@type": "BreadcrumbList",
+    "@id": `${pageUrl}#breadcrumbs`,
+    itemListElement: breadcrumbItems.map((item, index) => ({ "@type": "ListItem", position: index + 1, ...item })),
+  });
+  page.breadcrumb = { "@id": `${pageUrl}#breadcrumbs` };
+
+  if (cleanPath === "/higher-studies" || cleanPath === "/career-counselling") {
+    graph.push({
+      "@type": "Service",
+      "@id": `${pageUrl}#service`,
+      name: cleanPath === "/higher-studies" ? "Study Abroad Consultancy in Aluva" : "Career Counselling and Psychometric Assessment in Aluva",
+      serviceType: cleanPath === "/higher-studies" ? "Study Abroad and Higher Education Guidance" : "Career Counselling and Psychometric Assessment",
+      description: metadata.description,
+      url: pageUrl,
+      provider: { "@id": BUSINESS_ID },
+      areaServed: [{ "@type": "City", name: "Aluva" }, { "@type": "AdministrativeArea", name: "Ernakulam" }, { "@type": "State", name: "Kerala" }],
+    });
+    page.mainEntity = { "@id": `${pageUrl}#service` };
+  }
 
   if (blog) {
     graph.push({
@@ -162,7 +192,9 @@ const RouteSchema = () => {
       headline: blog.title,
       description: blog.content[0],
       articleSection: blog.category,
-      articleBody: blog.content.join("\n\n"),
+      articleBody: [...blog.content, ...blog.sections.flatMap((section) => [section.heading, ...section.paragraphs, ...(section.checklist ?? [])])].join("\n\n"),
+      image: new URL(blogVisuals[blog.slug]?.image ?? DREAMGLOBAL_LOGO_URL, SITE_URL).href,
+      mainEntityOfPage: { "@id": `${pageUrl}#webpage` },
       isPartOf: { "@id": `${pageUrl}#webpage` },
       author: { "@id": BUSINESS_ID },
       publisher: { "@id": `${SITE_URL}/#organization` },

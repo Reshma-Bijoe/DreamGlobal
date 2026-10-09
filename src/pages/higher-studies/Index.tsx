@@ -5,6 +5,7 @@ import WhatWeDoSection from "@/components/WhatWeDoSection";
 import ServicesSection from "@/components/ServicesSection";
 import FeatureHighlight from "@/components/FeatureHighlight";
 import ContactSection from "@/components/ContactSection";
+import LocalGuidance from "@/components/LocalGuidance";
 import Footer from "@/components/Footer";
 import FounderSpotlight from "@/components/FounderSpotlight";
 import ServiceMarquee from "@/components/ServiceMarquee";
@@ -30,7 +31,8 @@ const Index = () => {
         copy="Mr. Bijoe Thomas combines international education counselling, career analysis, profile strategy, and decades of global leadership experience to help students choose study-abroad pathways that fit their strengths, budget, and long-term goals."
         note="Certified support for study abroad, profile strategy, and international admissions"
       />
-      <ContactSection />
+      <LocalGuidance focus="study" />
+      <ContactSection showBottomDivider />
       <Footer />
     </div>
   );

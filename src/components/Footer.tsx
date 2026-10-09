@@ -2,6 +2,7 @@ import { Globe, Mail, MapPin, Phone, MessageCircle } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { WHATSAPP_URL } from "@/lib/careerCounsellingData";
 import { DREAMGLOBAL_ADDRESS } from "@/components/LocationMap";
+import { DREAMGLOBAL_LOGO_URL } from "@/lib/branding";
 
 const quickLinks = [
   { label: "Home", href: "#hero" },
@@ -41,10 +42,13 @@ const Footer = () => {
         <div>
           <Link
             to="/higher-studies"
-            className="font-heading text-2xl font-bold tracking-wide"
+            className="inline-flex items-center gap-3 font-heading text-2xl font-bold tracking-wide"
           >
+            <img src={DREAMGLOBAL_LOGO_URL} alt="DreamGlobal logo" width={56} height={56} className="h-14 w-14 object-contain" loading="lazy" />
+            <span>
             <span className="gold-gradient-text">Dream</span>
             <span className="text-white">Global</span>
+            </span>
           </Link>
           <p className="text-white/70 text-sm mt-4 leading-relaxed">
             Empowering students worldwide to achieve their international education and career dreams.

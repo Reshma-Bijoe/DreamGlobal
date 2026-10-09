@@ -1,3 +1,4 @@
+import SectionDivider from "@/components/SectionDivider";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import useSectionReplay from "@/hooks/use-section-replay";
@@ -40,9 +41,7 @@ const ServicesSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <p className="career-eyebrow mb-3">
-            What We Offer
-          </p>
+          <SectionDivider label="What We Offer" className="mb-3" />
           <h2 className="career-heading font-heading text-3xl font-bold md:text-5xl">
             Our <span className="gold-gradient-text">Services</span>
           </h2>

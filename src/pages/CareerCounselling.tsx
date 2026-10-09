@@ -41,6 +41,7 @@ import {
 } from "../lib/careerCounsellingData";
 import { CareerCounselling as CareerCounsellingSection } from "../components/CareerCounsellingSection";
 import FounderSpotlight from "../components/FounderSpotlight";
+import LocalGuidance from "@/components/LocalGuidance";
 import ServiceMarquee from "../components/ServiceMarquee";
 import {
   Accordion,
@@ -651,6 +652,7 @@ const CareerCounselling = () => {
         </div>
       )}
 
+      <LocalGuidance focus="career" />
       <Footer />
     </div>
   );
