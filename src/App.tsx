@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Analytics } from "@vercel/analytics/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   BrowserRouter,
@@ -86,6 +87,7 @@ const App = () => (
         <SameTabLinkHandler />
         <RouteSchema />
         <RouteMetadata />
+        <Analytics />
         <FloatingContactTabs />
         <Routes>
           <Route path="/" element={<Landing />} />
