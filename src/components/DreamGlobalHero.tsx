@@ -39,14 +39,14 @@ const heroActions = [
     icon: Plane,
   },
   {
-    label: "Indian Online Admission",
-    href: INDIA_ONLINE_ADMISSION_URL,
-    icon: Laptop,
-  },
-  {
     label: "India Campus Admission",
     href: INDIA_CAMPUS_ADMISSION_URL,
     icon: Building2,
+  },
+  {
+    label: "Indian Online Admission",
+    href: INDIA_ONLINE_ADMISSION_URL,
+    icon: Laptop,
   },
 ];
 
