@@ -198,7 +198,7 @@ const landingFaqs = [
   {
     question: "When should students start planning?",
     answer:
-      "Starting early gives students more time to explore their options, strengthen their profile, prepare documents, and choose the right pathway without last-minute pressure. It also helps us identify the most suitable and rewarding scholarship opportunities, plan around deadlines, and build stronger applications—giving students a better chance of securing valuable financial support.",
+      "The early bird gets more than the worm—it gets a head start on a brighter future. Starting early gives students more time to explore their options, strengthen their profile, prepare documents, and choose the right pathway without last-minute pressure. It also gives us more time to uncover generous scholarships that could make a dream education surprisingly affordable, including early application awards before deadlines pass or funds are allocated. Start sooner, explore more, and give yourself a stronger chance of securing exceptional financial support.",
   },
 ];
 
