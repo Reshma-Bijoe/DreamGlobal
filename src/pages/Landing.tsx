@@ -568,8 +568,7 @@ const Landing = () => {
               30+ Years Experience
             </div>
             <p className="career-card absolute bottom-5 left-5 right-5 rounded-xl px-4 py-3 text-xs font-bold text-[color:var(--career-primary-ink)]">
-              Guiding students across career decisions, Indian universities,
-              and global education pathways
+              Guiding students across Career decisions and Global education pathways
             </p>
           </div>
 
