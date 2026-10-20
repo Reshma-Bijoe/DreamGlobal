@@ -227,7 +227,6 @@ export const careerPlanningServices = [
 
 export const founderHighlights = [
   "Chief Career Architect and Global Career Strategist",
-  "B.Tech & M.Tech",
   "Former Fortune 100 technology leader",
   "Career mentoring and talent evaluation expertise",
   "International education and student-success specialist",

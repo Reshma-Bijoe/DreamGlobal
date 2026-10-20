@@ -439,7 +439,7 @@ const CareerCounselling = () => {
         <FounderSpotlight
           label="The Person Behind DreamGlobal"
           title="More Than Guidance. A Journey Built Around Students."
-          copy="Mr. Bijoe Thomas brings 30+ years of global technology leadership, career mentoring, talent evaluation, certified career analysis, and international education expertise to help students make confident, future-ready decisions."
+          copy="Mr. Bijoe Thomas (M.Tech, B.Tech) brings 30+ years of global technology leadership, career mentoring, talent evaluation, certified career analysis, and international education expertise to help students make confident, future-ready decisions."
           note="Guiding career decisions with certified counselling and career-analysis expertise"
         />
 

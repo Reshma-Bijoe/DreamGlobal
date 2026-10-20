@@ -34,14 +34,14 @@ const Founder = () => {
                 Meet {FOUNDER_NAME}
               </h1>
               <p className="mt-4 max-w-3xl text-lg font-semibold leading-7 text-[color:var(--career-primary-deep)]">
-                Chief Career Architect | B.Tech & M.Tech | Global Career Strategist | Former
+                Chief Career Architect | Global Career Strategist | Former
                 Fortune 100 Technology Leader | International Education
                 Specialist | Licensed Career Development Professional |
                 Certified Career Counsellor for International Studies (CCCIS) | Certified
                 Career Analyst (CCA)
               </p>
               <p className="career-copy mt-5 max-w-2xl text-base leading-8 sm:text-lg">
-                {FOUNDER_NAME} helps students and parents make informed career
+                {FOUNDER_NAME} (M.Tech, B.Tech) helps students and parents make informed career
                 and higher education decisions aligned with individual
                 strengths, aspirations, future opportunities, and long-term
                 success.

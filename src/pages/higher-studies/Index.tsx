@@ -28,7 +28,7 @@ const Index = () => {
       <FounderSpotlight
         label="Study Abroad Mentor"
         title="Global admissions guidance backed by certified career insight."
-        copy="Mr. Bijoe Thomas combines international education counselling, career analysis, profile strategy, and decades of global leadership experience to help students choose study-abroad pathways that fit their strengths, budget, and long-term goals."
+        copy="Mr. Bijoe Thomas (M.Tech, B.Tech) combines international education counselling, career analysis, profile strategy, and decades of global leadership experience to help students choose study-abroad pathways that fit their strengths, budget, and long-term goals."
         note="Certified support for study abroad, profile strategy, and international admissions"
       />
       <LocalGuidance focus="study" />

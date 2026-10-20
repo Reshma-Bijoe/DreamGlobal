@@ -26,7 +26,7 @@ const SectionDivider = ({ label }: { label: string }) => (
 const FounderSpotlight = ({
   label = "Meet The Founder",
   title = "Guidance built on experience, clarity, and student potential.",
-  copy = `${FOUNDER_NAME} brings global leadership experience, career strategy, psychometric insight, and international education expertise into every counselling conversation.`,
+  copy = `${FOUNDER_NAME} (M.Tech, B.Tech) brings global leadership experience, career strategy, psychometric insight, and international education expertise into every counselling conversation.`,
   note = "Certified guidance for career decisions, Indian admissions, and global education pathways",
 }: FounderSpotlightProps) => (
   <section className="px-4 py-16">

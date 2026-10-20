@@ -581,7 +581,7 @@ const Landing = () => {
               Guidance built on experience, clarity, and student potential.
             </h2>
             <p className="career-copy mt-5 text-base leading-8">
-              {FOUNDER_NAME} brings global leadership experience, career
+              {FOUNDER_NAME} (M.Tech, B.Tech) brings global leadership experience, career
               strategy, psychometric insight, and international education
               expertise into every counselling conversation. The guidance is
               designed to help families think clearly, compare options
