@@ -1,3 +1,4 @@
+import { CONSULTATION_URL } from "@/lib/consultation";
 import SectionDivider from "@/components/SectionDivider";
 import { ChangeEvent, FormEvent, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
@@ -89,7 +90,7 @@ const pathOptions = [
     actions: [
       {
         label: "Book Free Consultation",
-        to: "/book-consultation",
+        to: CONSULTATION_URL,
       },
       {
         label: "Take Career Test",
@@ -120,7 +121,7 @@ const pathOptions = [
     actions: [
       {
         label: "Book Free Consultation",
-        to: "/book-consultation",
+        to: CONSULTATION_URL,
       },
       {
         label: "Start Profiling",

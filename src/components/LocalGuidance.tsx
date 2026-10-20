@@ -1,3 +1,4 @@
+import { CONSULTATION_URL } from "@/lib/consultation";
 import { ArrowRight, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
 import { DREAMGLOBAL_ADDRESS } from "@/components/LocationMap";
@@ -27,7 +28,7 @@ const LocalGuidance = ({ focus = "both" }: { focus?: "both" | "study" | "career"
           <div className="career-card rounded-2xl p-6">
             <h3 className="career-heading font-heading text-2xl font-semibold">Career guidance for students and professionals</h3>
             <p className="career-copy mt-3 text-sm leading-7">School students can explore subject and stream selection, college students can compare courses and career pathways, and working professionals can plan development or a new direction. Psychometric analysis, aptitude and interest assessments, mentoring, and skill development help turn your questions into practical next steps.</p>
-            <Link to={focus === "career" ? "/book-consultation" : "/career-counselling"} className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[color:var(--career-primary-deep)]">{focus === "career" ? "Book a career guidance conversation" : "Explore career counselling and assessments"}<ArrowRight size={16} aria-hidden="true" /></Link>
+            <Link to={focus === "career" ? CONSULTATION_URL : "/career-counselling"} className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[color:var(--career-primary-deep)]">{focus === "career" ? "Book a career guidance conversation" : "Explore career counselling and assessments"}<ArrowRight size={16} aria-hidden="true" /></Link>
           </div>
         )}
       </div>

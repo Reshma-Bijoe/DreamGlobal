@@ -1,3 +1,4 @@
+import { CONSULTATION_URL } from "@/lib/consultation";
 import { Link } from "react-router-dom";
 import { ArrowRight, Award, BriefcaseBusiness, Check, GraduationCap, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
@@ -33,7 +34,7 @@ const Founder = () => {
                 Meet {FOUNDER_NAME}
               </h1>
               <p className="mt-4 max-w-3xl text-lg font-semibold leading-7 text-[color:var(--career-primary-deep)]">
-                Chief Career Architect | Global Career Strategist | Former
+                Chief Career Architect | B.Tech & M.Tech | Global Career Strategist | Former
                 Fortune 100 Technology Leader | International Education
                 Specialist | Licensed Career Development Professional |
                 Certified Career Counsellor for International Studies (CCCIS) | Certified
@@ -217,7 +218,7 @@ const Founder = () => {
               Ready to Find Your Direction?
             </h2>
             <Link
-              to="/book-consultation"
+              to={CONSULTATION_URL}
               className="career-primary-button mt-7 inline-flex items-center gap-2 rounded-md px-6 py-3 text-sm font-bold transition"
             >
               Book Free Counselling

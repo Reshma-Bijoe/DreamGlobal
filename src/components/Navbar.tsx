@@ -1,3 +1,4 @@
+import { CONSULTATION_URL } from "@/lib/consultation";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -17,7 +18,7 @@ type MobileNavSection = "career" | "higher" | "company" | "more" | null;
 const companyLinks = [
   { label: "About Us", to: "/#about" },
   { label: "Founder", to: "/founder" },
-  { label: "Contact Us", to: "/book-consultation" },
+  { label: "Contact Us", to: CONSULTATION_URL },
 ];
 
 const moreLinks = [
@@ -236,7 +237,7 @@ const Navbar = () => {
             <MessageCircle size={22} />
           </a>
           <Link
-            to="/book-consultation"
+            to={CONSULTATION_URL}
             className="dream-gold-button hidden h-9 items-center justify-center rounded-md px-4 text-[0.82rem] font-bold shadow-[0_14px_28px_-18px_rgba(200,138,24,0.9)] transition sm:inline-flex"
           >
             Book a Consultation
@@ -381,7 +382,7 @@ const Navbar = () => {
               )}
             </div>
             <Link
-              to="/book-consultation"
+              to={CONSULTATION_URL}
               onClick={closeMobileMenu}
               className="order-6 dream-gold-button mt-2 rounded-md px-3 py-3 text-left transition"
             >

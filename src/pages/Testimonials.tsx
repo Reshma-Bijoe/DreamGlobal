@@ -1,3 +1,4 @@
+import { CONSULTATION_URL } from "@/lib/consultation";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -112,7 +113,7 @@ const Testimonials = () => (
             your career or study-abroad journey.
           </p>
           <Link
-            to="/book-consultation"
+            to={CONSULTATION_URL}
             className="dream-gold-button mt-6 inline-flex items-center justify-center gap-2 rounded-md px-5 py-3 text-sm font-bold"
           >
             Book a Consultation

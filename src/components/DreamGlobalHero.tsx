@@ -1,3 +1,4 @@
+import { CONSULTATION_URL } from "@/lib/consultation";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
@@ -240,7 +241,7 @@ const DreamGlobalHero = () => {
             >
               <motion.div variants={fadeUp} whileHover={{ y: -3 }} className="sm:hidden">
                 <Link
-                  to="/book-consultation"
+                  to={CONSULTATION_URL}
                   className="dream-gold-button inline-flex h-11 w-full items-center justify-center gap-2 rounded-md px-4 text-[0.82rem] font-bold shadow-[0_16px_30px_-17px_rgba(200,138,24,0.8)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_36px_-16px_rgba(200,138,24,0.9)]"
                 >
                   Book Free Consultation

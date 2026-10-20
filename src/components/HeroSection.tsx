@@ -1,3 +1,4 @@
+import { CONSULTATION_URL } from "@/lib/consultation";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -114,7 +115,7 @@ const HeroSection = () => {
               <ArrowRight size={17} />
             </a>
             <Link
-              to="/book-consultation"
+              to={CONSULTATION_URL}
               className="career-primary-button inline-flex items-center justify-center gap-2 rounded-md px-6 py-3 text-sm font-bold shadow-[0_14px_30px_-16px_rgba(200,138,24,0.95)] transition hover:-translate-y-0.5 sm:whitespace-nowrap"
             >
               <CalendarCheck size={17} />

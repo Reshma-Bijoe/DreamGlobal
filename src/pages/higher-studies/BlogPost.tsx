@@ -1,3 +1,4 @@
+import { CONSULTATION_URL } from "@/lib/consultation";
 import { ArrowLeft, ArrowRight, CheckCircle2, Clock3, Lightbulb } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 
@@ -137,7 +138,7 @@ const BlogPost = () => {
                 </ul>
               </aside>
             )}
-            <Link to="/book-consultation" className="career-primary-button inline-flex items-center gap-2 rounded-lg px-5 py-3 text-sm font-bold">Talk through your next step<ArrowRight size={17} aria-hidden="true" /></Link>
+            <Link to={CONSULTATION_URL} className="career-primary-button inline-flex items-center gap-2 rounded-lg px-5 py-3 text-sm font-bold">Talk through your next step<ArrowRight size={17} aria-hidden="true" /></Link>
           </div>
           </div>
         </article>

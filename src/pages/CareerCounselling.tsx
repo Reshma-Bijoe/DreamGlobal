@@ -1,3 +1,4 @@
+import { CONSULTATION_URL } from "@/lib/consultation";
 import {
   ChangeEvent,
   FormEvent,
@@ -6,7 +7,7 @@ import {
   useMemo,
   useState,
 } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   ArrowRight,
   Brain,
@@ -105,7 +106,6 @@ const SectionDivider = ({ label }: { label: string }) => (
 );
 
 const CareerCounselling = () => {
-  const navigate = useNavigate();
   const [form, setForm] = useState<CounsellingForm>(initialForm);
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -113,10 +113,8 @@ const CareerCounselling = () => {
   const [heroImageIndex, setHeroImageIndex] = useState(0);
 
   const openBookConsultation = useCallback(() => {
-    navigate("/book-consultation", {
-      replace: window.location.hash === "#counselling-form",
-    });
-  }, [navigate]);
+    window.location.assign(CONSULTATION_URL);
+  }, []);
 
   useEffect(() => {
     const redirectHashedForm = () => {
@@ -291,7 +289,7 @@ const CareerCounselling = () => {
                   <ArrowRight size={17} />
                 </a>
                 <Link
-                  to="/book-consultation"
+                  to={CONSULTATION_URL}
                   className="career-primary-button inline-flex items-center justify-center gap-2 rounded-md px-6 py-3 text-sm font-bold transition"
                 >
                   <CalendarCheck size={17} />
@@ -428,7 +426,7 @@ const CareerCounselling = () => {
 
             <div className="mt-10 flex justify-center">
               <Link
-                to="/book-consultation"
+                to={CONSULTATION_URL}
                 className="career-primary-button inline-flex items-center justify-center gap-2 rounded-md px-6 py-3 text-sm font-bold transition"
               >
                 <CalendarCheck size={17} />
@@ -544,7 +542,7 @@ const CareerCounselling = () => {
                 <ArrowRight size={17} />
               </a>
               <Link
-                to="/book-consultation"
+                to={CONSULTATION_URL}
                 className="career-primary-button inline-flex items-center justify-center gap-2 rounded-md px-6 py-3 text-sm font-bold transition"
               >
                 Book Free Consultation
